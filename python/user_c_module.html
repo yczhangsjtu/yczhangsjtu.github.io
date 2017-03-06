@@ -1,0 +1,446 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm/index.html"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse/index.html"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration/index.html"><h4>Penetration</h4></a></td>
+<td><a href="/Book/index.html"><h4>Books</h4></a></td>
+<td><a href="/URLS/index.html"><h4>Links</h4></a></td>
+<td><a href="/Linux/index.html"><h4>Linux</h4></a></td>
+<td><a href="/Web/index.html"><h4>Web</h4></a></td>
+<td><a href="/Programming/index.html"><h4>Programming</h4></a></td>
+<td><a href="/Code/index.html"><h4>Code</h4></a></td>
+<td><a href="/Games/index.html"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Programming">Programming</a>
+&gt;&gt;
+<a href="/Programming/Python">Python</a>
+&gt;&gt;
+<a href="/Programming/Python/UserCModule.html">Lambda Function in Python</a>
+</div>
+<hr>
+
+<h2>User Defined C Module</h2>
+
+Here is an example of the build of a user defined <font face="Courier">shpfile</font> module written in C.
+
+<h3>The C program</h3>
+
+<pre class="hl"><span class="hl ppc">#include &lt;Python.h&gt;</span>
+
+<span class="hl ppc">#include &lt;stdio.h&gt;</span>
+<span class="hl ppc">#include &lt;stdlib.h&gt;</span>
+<span class="hl ppc">#include &lt;assert.h&gt;</span>
+<span class="hl ppc">#include &lt;string.h&gt;</span>
+
+<span class="hl ppc">#define MAX_FILE_NAME 256</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">unsigned char</span> BYTE<span class="hl opt">;</span>
+<span class="hl kwc">typedef</span> <span class="hl kwb">short int</span> WORD<span class="hl opt">;</span>
+<span class="hl kwc">typedef</span> <span class="hl kwb">int</span> LONGINT<span class="hl opt">;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> Color <span class="hl opt">{</span>
+    BYTE c<span class="hl opt">[</span><span class="hl num">4</span><span class="hl opt">];</span>
+<span class="hl opt">}</span> Color<span class="hl opt">;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> FileHeader <span class="hl opt">{</span>
+    WORD check<span class="hl opt">;</span>
+    WORD width<span class="hl opt">;</span>
+    WORD height<span class="hl opt">;</span>
+    WORD num<span class="hl opt">;</span>
+<span class="hl opt">}</span> FileHeader<span class="hl opt">;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> ImageHeader <span class="hl opt">{</span>
+    WORD x<span class="hl opt">,</span>y<span class="hl opt">,</span>w<span class="hl opt">,</span>h<span class="hl opt">;</span>
+    BYTE compression<span class="hl opt">;</span>
+    BYTE align<span class="hl opt">[</span><span class="hl num">3</span><span class="hl opt">];</span>
+    Color transparent<span class="hl opt">;</span>
+    LONGINT zero<span class="hl opt">,</span>offset<span class="hl opt">;</span>
+<span class="hl opt">}</span> ImageHeader<span class="hl opt">;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> ImageData <span class="hl opt">{</span>
+    ImageHeader header<span class="hl opt">;</span>
+    BYTE <span class="hl opt">*</span> data<span class="hl opt">;</span>
+<span class="hl opt">}</span> ImageData<span class="hl opt">;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> Image <span class="hl opt">{</span>
+    LONGINT w<span class="hl opt">,</span>h<span class="hl opt">;</span>
+    BYTE <span class="hl opt">*</span>data<span class="hl opt">;</span>
+<span class="hl opt">}</span> Image<span class="hl opt">;</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">allocImageData</span><span class="hl opt">(</span>ImageData <span class="hl opt">*</span>imageData<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    LONGINT size <span class="hl opt">=</span> imageData<span class="hl opt">-&gt;</span>header<span class="hl opt">.</span>w <span class="hl opt">*</span> imageData<span class="hl opt">-&gt;</span>header<span class="hl opt">.</span>h<span class="hl opt">;</span>
+    imageData<span class="hl opt">-&gt;</span>data <span class="hl opt">= (</span>BYTE<span class="hl opt">*)</span><span class="hl kwd">malloc</span><span class="hl opt">(</span>size <span class="hl opt">*</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>LONGINT<span class="hl opt">));</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">freeImageData</span><span class="hl opt">(</span>ImageData <span class="hl opt">*</span>imageData<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">free</span><span class="hl opt">(</span>imageData<span class="hl opt">-&gt;</span>data<span class="hl opt">);</span>
+    imageData<span class="hl opt">-&gt;</span>data <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">decompress1</span><span class="hl opt">(</span>BYTE <span class="hl opt">*</span>dst<span class="hl opt">,</span> BYTE <span class="hl opt">*</span>src<span class="hl opt">,</span> WORD w<span class="hl opt">,</span> WORD h<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">memcpy</span><span class="hl opt">(</span>dst<span class="hl opt">,</span>src<span class="hl opt">,</span>w<span class="hl opt">*</span>h<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+<span class="hl kwb">void</span> <span class="hl kwd">decompress2</span><span class="hl opt">(</span>BYTE <span class="hl opt">*</span>dst<span class="hl opt">,</span> BYTE <span class="hl opt">*</span>src<span class="hl opt">,</span> WORD w<span class="hl opt">,</span> WORD h<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+
+<span class="hl opt">}</span>
+<span class="hl kwb">void</span> <span class="hl kwd">decompress3</span><span class="hl opt">(</span>BYTE <span class="hl opt">*</span>dst<span class="hl opt">,</span> BYTE <span class="hl opt">*</span>src<span class="hl opt">,</span> WORD w<span class="hl opt">,</span> WORD h<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    BYTE <span class="hl opt">*</span>psrc <span class="hl opt">=</span> src<span class="hl opt">, *</span>pdst <span class="hl opt">=</span> dst<span class="hl opt">;</span>
+    BYTE v<span class="hl opt">;</span>
+    WORD pos<span class="hl opt">,</span> count<span class="hl opt">,</span> x<span class="hl opt">,</span> y<span class="hl opt">,</span> i<span class="hl opt">;</span>
+    <span class="hl kwa">for</span><span class="hl opt">(</span>y <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> y <span class="hl opt">&lt;</span> h<span class="hl opt">;</span> y<span class="hl opt">++)</span>
+    <span class="hl opt">{</span>
+        pos <span class="hl opt">= *((</span>WORD<span class="hl opt">*)</span>psrc<span class="hl opt">);</span>
+        count <span class="hl opt">=</span> pos<span class="hl opt">-</span><span class="hl num">2</span><span class="hl opt">;</span>
+        psrc <span class="hl opt">+=</span> <span class="hl num">2</span><span class="hl opt">;</span>
+        x <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+        <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> count<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+        <span class="hl opt">{</span>
+            v <span class="hl opt">= *</span>psrc<span class="hl opt">++;</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>v<span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                <span class="hl opt">*</span>pdst<span class="hl opt">++ =</span> v<span class="hl opt">;</span>
+                x<span class="hl opt">++;</span>
+            <span class="hl opt">}</span>
+            <span class="hl kwa">else</span>
+            <span class="hl opt">{</span>
+                v <span class="hl opt">= *</span>psrc<span class="hl opt">++;</span>
+                i<span class="hl opt">++;</span>
+                <span class="hl kwa">while</span><span class="hl opt">(</span>v <span class="hl opt">&gt;</span> <span class="hl num">0</span> <span class="hl opt">&amp;&amp;</span> x <span class="hl opt">&lt;</span> w<span class="hl opt">)</span>
+                <span class="hl opt">{</span>
+                    <span class="hl opt">*</span>pdst<span class="hl opt">++ =</span> <span class="hl num">0</span><span class="hl opt">;</span>
+                    x<span class="hl opt">++;</span>
+                    v<span class="hl opt">--;</span>
+                <span class="hl opt">}</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+        <span class="hl kwa">assert</span><span class="hl opt">(</span>x <span class="hl opt">==</span> w<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+
+BYTE defaultPalatte<span class="hl opt">[][</span><span class="hl num">3</span><span class="hl opt">] =</span>
+<span class="hl opt">{</span>
+    <span class="hl opt">{</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x37</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x30</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x0f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x3d</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">}, {</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">}, {</span><span class="hl num">0x38</span><span class="hl opt">,</span><span class="hl num">0x38</span><span class="hl opt">,</span><span class="hl num">0x38</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x36</span><span class="hl opt">,</span><span class="hl num">0x36</span><span class="hl opt">,</span><span class="hl num">0x36</span><span class="hl opt">}, {</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">}, {</span><span class="hl num">0x32</span><span class="hl opt">,</span><span class="hl num">0x32</span><span class="hl opt">,</span><span class="hl num">0x32</span><span class="hl opt">}, {</span><span class="hl num">0x30</span><span class="hl opt">,</span><span class="hl num">0x30</span><span class="hl opt">,</span><span class="hl num">0x30</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">}, {</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">}, {</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">}, {</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x26</span><span class="hl opt">}, {</span><span class="hl num">0x24</span><span class="hl opt">,</span><span class="hl num">0x24</span><span class="hl opt">,</span><span class="hl num">0x24</span><span class="hl opt">}, {</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">}, {</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">}, {</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">}, {</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">}, {</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">}, {</span><span class="hl num">0x0f</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">}, {</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">}, {</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">}, {</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x05</span><span class="hl opt">,</span><span class="hl num">0x05</span><span class="hl opt">,</span><span class="hl num">0x05</span><span class="hl opt">}, {</span><span class="hl num">0x03</span><span class="hl opt">,</span><span class="hl num">0x03</span><span class="hl opt">,</span><span class="hl num">0x03</span><span class="hl opt">}, {</span><span class="hl num">0x01</span><span class="hl opt">,</span><span class="hl num">0x01</span><span class="hl opt">,</span><span class="hl num">0x01</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">}, {</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">}, {</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">}, {</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">}, {</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">}, {</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x04</span><span class="hl opt">}, {</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x01</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x37</span><span class="hl opt">,</span><span class="hl num">0x37</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">}, {</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x3a</span><span class="hl opt">}, {</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x37</span><span class="hl opt">}, {</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">}, {</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">}, {</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">}, {</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">}, {</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">}, {</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">}, {</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">}, {</span><span class="hl num">0x38</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">}, {</span><span class="hl num">0x35</span><span class="hl opt">,</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">}, {</span><span class="hl num">0x32</span><span class="hl opt">,</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">}, {</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">}, {</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">}, {</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">}, {</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x04</span><span class="hl opt">}, {</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x05</span><span class="hl opt">,</span><span class="hl num">0x01</span><span class="hl opt">}, {</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x01</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">}, {</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">}, {</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">}, {</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x1b</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">}, {</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x0c</span><span class="hl opt">}, {</span><span class="hl num">0x0e</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x0c</span><span class="hl opt">,</span><span class="hl num">0x0c</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">}, {</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x05</span><span class="hl opt">}, {</span><span class="hl num">0x06</span><span class="hl opt">,</span><span class="hl num">0x06</span><span class="hl opt">,</span><span class="hl num">0x03</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x35</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">}, {</span><span class="hl num">0x33</span><span class="hl opt">,</span><span class="hl num">0x2d</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x27</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">}, {</span><span class="hl num">0x27</span><span class="hl opt">,</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">}, {</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">}, {</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">}, {</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">}, {</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">}, {</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x24</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">}, {</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x1b</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">}, {</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x0c</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1b</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x17</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">}, {</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">}, {</span><span class="hl num">0x0f</span><span class="hl opt">,</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">}, {</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">}, {</span><span class="hl num">0x0b</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">,</span><span class="hl num">0x07</span><span class="hl opt">}, {</span><span class="hl num">0x06</span><span class="hl opt">,</span><span class="hl num">0x06</span><span class="hl opt">,</span><span class="hl num">0x06</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x1d</span><span class="hl opt">}, {</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">}, {</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x27</span><span class="hl opt">,</span><span class="hl num">0x13</span><span class="hl opt">}, {</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x24</span><span class="hl opt">,</span><span class="hl num">0x0f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x11</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x0b</span><span class="hl opt">}, {</span><span class="hl num">0x0d</span><span class="hl opt">,</span><span class="hl num">0x1d</span><span class="hl opt">,</span><span class="hl num">0x08</span><span class="hl opt">}, {</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x05</span><span class="hl opt">}, {</span><span class="hl num">0x08</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x03</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">,</span><span class="hl num">0x1b</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3a</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x38</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x36</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x30</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">}, {</span><span class="hl num">0x3d</span><span class="hl opt">,</span><span class="hl num">0x2d</span><span class="hl opt">,</span><span class="hl num">0x14</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">}, {</span><span class="hl num">0x39</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x0c</span><span class="hl opt">}, {</span><span class="hl num">0x35</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x04</span><span class="hl opt">}, {</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2d</span><span class="hl opt">,</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x0e</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x0a</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x06</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">}, {</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x33</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x2d</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x27</span><span class="hl opt">}, {</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x10</span><span class="hl opt">,</span><span class="hl num">0x21</span><span class="hl opt">}, {</span><span class="hl num">0x0c</span><span class="hl opt">,</span><span class="hl num">0x0c</span><span class="hl opt">,</span><span class="hl num">0x1b</span><span class="hl opt">}, {</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x09</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x37</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">,</span><span class="hl num">0x3e</span><span class="hl opt">}, {</span><span class="hl num">0x33</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">}, {</span><span class="hl num">0x30</span><span class="hl opt">,</span><span class="hl num">0x37</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2e</span><span class="hl opt">,</span><span class="hl num">0x35</span><span class="hl opt">,</span><span class="hl num">0x3c</span><span class="hl opt">}, {</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x33</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">}, {</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">}, {</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x3a</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x27</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">}, {</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">}, {</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">}, {</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x30</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x27</span><span class="hl opt">}, {</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">}, {</span><span class="hl num">0x13</span><span class="hl opt">,</span><span class="hl num">0x16</span><span class="hl opt">,</span><span class="hl num">0x1e</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x39</span><span class="hl opt">,</span><span class="hl num">0x3c</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x35</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">,</span><span class="hl num">0x3d</span><span class="hl opt">}, {</span><span class="hl num">0x32</span><span class="hl opt">,</span><span class="hl num">0x36</span><span class="hl opt">,</span><span class="hl num">0x3b</span><span class="hl opt">}, {</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x34</span><span class="hl opt">,</span><span class="hl num">0x39</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x37</span><span class="hl opt">}, {</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x35</span><span class="hl opt">}, {</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x2d</span><span class="hl opt">,</span><span class="hl num">0x33</span><span class="hl opt">}, {</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x29</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">}, {</span><span class="hl num">0x1e</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">}, {</span><span class="hl num">0x1c</span><span class="hl opt">,</span><span class="hl num">0x27</span><span class="hl opt">,</span><span class="hl num">0x2e</span><span class="hl opt">}, {</span><span class="hl num">0x1a</span><span class="hl opt">,</span><span class="hl num">0x25</span><span class="hl opt">,</span><span class="hl num">0x2d</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x24</span><span class="hl opt">,</span><span class="hl num">0x2c</span><span class="hl opt">}, {</span><span class="hl num">0x15</span><span class="hl opt">,</span><span class="hl num">0x23</span><span class="hl opt">,</span><span class="hl num">0x2b</span><span class="hl opt">}, {</span><span class="hl num">0x14</span><span class="hl opt">,</span><span class="hl num">0x22</span><span class="hl opt">,</span><span class="hl num">0x2a</span><span class="hl opt">}, {</span><span class="hl num">0x12</span><span class="hl opt">,</span><span class="hl num">0x21</span><span class="hl opt">,</span><span class="hl num">0x29</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x31</span><span class="hl opt">,</span><span class="hl num">0x32</span><span class="hl opt">}, {</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x28</span><span class="hl opt">,</span><span class="hl num">0x29</span><span class="hl opt">}, {</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x20</span><span class="hl opt">,</span><span class="hl num">0x21</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x18</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x32</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x1f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x2f</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">}, {</span><span class="hl num">0x33</span><span class="hl opt">,</span><span class="hl num">0x33</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x26</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x19</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x00</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}, {</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">,</span><span class="hl num">0x3f</span><span class="hl opt">}</span>
+<span class="hl opt">};</span>
+
+Image <span class="hl opt">*</span><span class="hl kwd">load</span><span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">*</span>input<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">*</span>palatte<span class="hl opt">,</span> <span class="hl kwb">int</span> <span class="hl opt">*</span>n<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwa">assert</span><span class="hl opt">(</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>BYTE<span class="hl opt">)==</span><span class="hl num">1</span> <span class="hl opt">&amp;&amp;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>WORD<span class="hl opt">)==</span><span class="hl num">2</span> <span class="hl opt">&amp;&amp;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>LONGINT<span class="hl opt">)==</span><span class="hl num">4</span><span class="hl opt">);</span>
+
+    Image <span class="hl opt">*</span>output <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+    LONGINT i <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">,</span> imageSize <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> d<span class="hl opt">,</span> s<span class="hl opt">,</span> k<span class="hl opt">,</span> j<span class="hl opt">,</span> x<span class="hl opt">,</span> y<span class="hl opt">,</span> w<span class="hl opt">,</span> h<span class="hl opt">;</span>
+    <span class="hl kwb">FILE</span> <span class="hl opt">*</span>file <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+    FileHeader fileHeader<span class="hl opt">;</span>
+    ImageHeader <span class="hl opt">*</span>pImageHeader <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+    ImageData <span class="hl opt">*</span>imageDatas <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+    BYTE <span class="hl opt">*</span>imageData <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+
+    file <span class="hl opt">=</span> <span class="hl kwd">fopen</span><span class="hl opt">(</span>palatte<span class="hl opt">,</span> <span class="hl str">&quot;rb&quot;</span><span class="hl opt">);</span>
+    <span class="hl kwa">if</span><span class="hl opt">(!</span>file<span class="hl opt">)</span> <span class="hl kwd">perror</span><span class="hl opt">(</span>input<span class="hl opt">);</span>
+    <span class="hl kwd">fread</span><span class="hl opt">((</span>BYTE<span class="hl opt">*)</span>defaultPalatte<span class="hl opt">,</span><span class="hl num">3</span><span class="hl opt">*</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>BYTE<span class="hl opt">),</span><span class="hl num">256</span><span class="hl opt">,</span>file<span class="hl opt">);</span>
+    <span class="hl kwd">fclose</span><span class="hl opt">(</span>file<span class="hl opt">);</span>
+
+    file <span class="hl opt">=</span> <span class="hl kwd">fopen</span><span class="hl opt">(</span>input<span class="hl opt">,</span> <span class="hl str">&quot;rb&quot;</span><span class="hl opt">);</span>
+    <span class="hl kwa">if</span><span class="hl opt">(!</span>file<span class="hl opt">)</span> <span class="hl kwd">perror</span><span class="hl opt">(</span>input<span class="hl opt">);</span>
+
+    <span class="hl kwd">fread</span><span class="hl opt">(&amp;</span>fileHeader<span class="hl opt">,</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>fileHeader<span class="hl opt">),</span> <span class="hl num">1</span><span class="hl opt">,</span> file<span class="hl opt">);</span>
+
+    <span class="hl kwa">if</span><span class="hl opt">(</span>fileHeader<span class="hl opt">.</span>check<span class="hl opt">)</span>
+        <span class="hl kwd">perror</span><span class="hl opt">(</span><span class="hl str">&quot;Check nonzero.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+
+    <span class="hl kwa">if</span><span class="hl opt">(!(</span>fileHeader<span class="hl opt">.</span>width <span class="hl opt">&amp;&amp;</span> fileHeader<span class="hl opt">.</span>height<span class="hl opt">))</span>
+        <span class="hl kwd">perror</span><span class="hl opt">(</span><span class="hl str">&quot;Zero size.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+
+    <span class="hl kwa">if</span><span class="hl opt">(!</span>fileHeader<span class="hl opt">.</span>num<span class="hl opt">)</span>
+        <span class="hl kwd">perror</span><span class="hl opt">(</span><span class="hl str">&quot;Zero number of images.</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+
+    imageDatas <span class="hl opt">= (</span>ImageData<span class="hl opt">*)</span><span class="hl kwd">malloc</span><span class="hl opt">(</span>fileHeader<span class="hl opt">.</span>num <span class="hl opt">*</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>ImageData<span class="hl opt">));</span>
+
+    <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> fileHeader<span class="hl opt">.</span>num<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+        <span class="hl kwd">fread</span><span class="hl opt">(&amp;</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">,</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>ImageHeader<span class="hl opt">),</span> <span class="hl num">1</span><span class="hl opt">,</span> file<span class="hl opt">);</span>
+
+    <span class="hl opt">*</span>n <span class="hl opt">=</span> fileHeader<span class="hl opt">.</span>num<span class="hl opt">;</span>
+    output <span class="hl opt">= (</span>Image<span class="hl opt">*)</span><span class="hl kwd">malloc</span><span class="hl opt">((*</span>n<span class="hl opt">) *</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>Image<span class="hl opt">));</span>
+
+    <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> fileHeader<span class="hl opt">.</span>num<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+    <span class="hl opt">{</span>
+        output<span class="hl opt">[</span>i<span class="hl opt">].</span>w <span class="hl opt">=</span> fileHeader<span class="hl opt">.</span>width<span class="hl opt">;</span>
+        output<span class="hl opt">[</span>i<span class="hl opt">].</span>h <span class="hl opt">=</span> fileHeader<span class="hl opt">.</span>height<span class="hl opt">;</span>
+
+        pImageHeader <span class="hl opt">= &amp;</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">;</span>
+
+        <span class="hl kwa">if</span><span class="hl opt">(</span>pImageHeader<span class="hl opt">-&gt;</span>compression <span class="hl opt">==</span> <span class="hl num">1</span><span class="hl opt">)</span>
+            imageSize <span class="hl opt">=</span> pImageHeader<span class="hl opt">-&gt;</span>w <span class="hl opt">*</span> pImageHeader<span class="hl opt">-&gt;</span>h<span class="hl opt">;</span>
+        <span class="hl kwa">else</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>i <span class="hl opt">==</span> fileHeader<span class="hl opt">.</span>num <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                <span class="hl kwd">fseek</span><span class="hl opt">(</span>file<span class="hl opt">,</span><span class="hl num">0L</span><span class="hl opt">,</span>SEEK_END<span class="hl opt">);</span>
+                imageSize <span class="hl opt">=</span> <span class="hl kwd">ftell</span><span class="hl opt">(</span>file<span class="hl opt">) -</span> pImageHeader<span class="hl opt">-&gt;</span>offset<span class="hl opt">;</span>
+            <span class="hl opt">}</span>
+            <span class="hl kwa">else</span>
+                imageSize <span class="hl opt">=</span> imageDatas<span class="hl opt">[</span>i<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">].</span>header<span class="hl opt">.</span>offset <span class="hl opt">-</span> pImageHeader<span class="hl opt">-&gt;</span>offset<span class="hl opt">;</span>
+        <span class="hl opt">}</span>
+
+        <span class="hl kwd">fseek</span><span class="hl opt">(</span>file<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>offset<span class="hl opt">,</span>SEEK_SET<span class="hl opt">);</span>
+        <span class="hl kwd">allocImageData</span><span class="hl opt">(&amp;</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">]);</span>
+        imageData <span class="hl opt">= (</span>BYTE<span class="hl opt">*)</span><span class="hl kwd">malloc</span><span class="hl opt">(</span>imageSize <span class="hl opt">*</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>BYTE<span class="hl opt">));</span>
+        <span class="hl kwd">fread</span><span class="hl opt">(</span>imageData<span class="hl opt">,</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>BYTE<span class="hl opt">),</span>imageSize<span class="hl opt">,</span>file<span class="hl opt">);</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>pImageHeader<span class="hl opt">-&gt;</span>compression <span class="hl opt">==</span> <span class="hl num">1</span><span class="hl opt">)</span>
+            <span class="hl kwd">decompress1</span><span class="hl opt">(</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">,</span>imageData<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>w<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>h<span class="hl opt">);</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>pImageHeader<span class="hl opt">-&gt;</span>compression <span class="hl opt">==</span> <span class="hl num">2</span><span class="hl opt">)</span>
+            <span class="hl kwd">decompress2</span><span class="hl opt">(</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">,</span>imageData<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>w<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>h<span class="hl opt">);</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>pImageHeader<span class="hl opt">-&gt;</span>compression <span class="hl opt">==</span> <span class="hl num">3</span><span class="hl opt">)</span>
+            <span class="hl kwd">decompress3</span><span class="hl opt">(</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">,</span>imageData<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>w<span class="hl opt">,</span>pImageHeader<span class="hl opt">-&gt;</span>h<span class="hl opt">);</span>
+
+        output<span class="hl opt">[</span>i<span class="hl opt">].</span>data <span class="hl opt">= (</span>BYTE<span class="hl opt">*)</span><span class="hl kwd">malloc</span><span class="hl opt">(</span>output<span class="hl opt">[</span>i<span class="hl opt">].</span>w <span class="hl opt">*</span> output<span class="hl opt">[</span>i<span class="hl opt">].</span>h <span class="hl opt">*</span> <span class="hl num">4</span><span class="hl opt">);</span>
+        x <span class="hl opt">=</span> imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">.</span>x<span class="hl opt">;</span>
+        y <span class="hl opt">=</span> imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">.</span>y<span class="hl opt">;</span>
+        w <span class="hl opt">=</span> imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">.</span>w<span class="hl opt">;</span>
+        h <span class="hl opt">=</span> imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>header<span class="hl opt">.</span>h<span class="hl opt">;</span>
+        <span class="hl kwa">for</span><span class="hl opt">(</span>k <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> k <span class="hl opt">&lt;</span> h<span class="hl opt">;</span> k<span class="hl opt">++)</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">for</span><span class="hl opt">(</span>j <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> j <span class="hl opt">&lt;</span> w<span class="hl opt">;</span> j<span class="hl opt">++)</span>
+            <span class="hl opt">{</span>
+                s <span class="hl opt">=</span> k <span class="hl opt">*</span> w <span class="hl opt">+</span> j<span class="hl opt">;</span>
+                d <span class="hl opt">= ((</span>k <span class="hl opt">+</span> y<span class="hl opt">) *</span> output<span class="hl opt">[</span>i<span class="hl opt">].</span>w <span class="hl opt">+</span> x <span class="hl opt">+</span> j<span class="hl opt">) *</span> <span class="hl num">4</span><span class="hl opt">;</span>
+                output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>d<span class="hl opt">]   =</span> defaultPalatte<span class="hl opt">[</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>s<span class="hl opt">]][</span><span class="hl num">0</span><span class="hl opt">]*</span><span class="hl num">4</span><span class="hl opt">+</span><span class="hl num">3</span><span class="hl opt">;</span>
+                output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>d<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">] =</span> defaultPalatte<span class="hl opt">[</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>s<span class="hl opt">]][</span><span class="hl num">1</span><span class="hl opt">]*</span><span class="hl num">4</span><span class="hl opt">+</span><span class="hl num">3</span><span class="hl opt">;</span>
+                output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>d<span class="hl opt">+</span><span class="hl num">2</span><span class="hl opt">] =</span> defaultPalatte<span class="hl opt">[</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>s<span class="hl opt">]][</span><span class="hl num">2</span><span class="hl opt">]*</span><span class="hl num">4</span><span class="hl opt">+</span><span class="hl num">3</span><span class="hl opt">;</span>
+                <span class="hl kwa">if</span><span class="hl opt">(</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>s<span class="hl opt">])</span> output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">[</span>d<span class="hl opt">+</span><span class="hl num">3</span><span class="hl opt">] =</span> <span class="hl num">255</span><span class="hl opt">;</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+        <span class="hl kwd">free</span><span class="hl opt">(</span>imageData<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+
+    <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt; *</span>n<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+        <span class="hl kwd">freeImageData</span><span class="hl opt">(&amp;</span>imageDatas<span class="hl opt">[</span>i<span class="hl opt">]);</span>
+    <span class="hl kwd">free</span><span class="hl opt">(</span>imageDatas<span class="hl opt">);</span>
+    <span class="hl kwd">fclose</span><span class="hl opt">(</span>file<span class="hl opt">);</span>
+
+    <span class="hl kwa">return</span> output<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">static</span> PyObject <span class="hl opt">*</span>
+<span class="hl kwd">shpload</span><span class="hl opt">(</span>PyObject <span class="hl opt">*</span>self<span class="hl opt">,</span> PyObject <span class="hl opt">*</span>args<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwb">const char</span> <span class="hl opt">*</span>input<span class="hl opt">, *</span>pal<span class="hl opt">;</span>
+    <span class="hl kwb">int</span> n<span class="hl opt">,</span> i<span class="hl opt">;</span>
+    Image <span class="hl opt">*</span>output<span class="hl opt">;</span>
+    PyObject <span class="hl opt">*</span>pyList <span class="hl opt">=</span> NULL<span class="hl opt">, *</span>item <span class="hl opt">=</span> NULL<span class="hl opt">;</span>
+    <span class="hl kwa">if</span><span class="hl opt">(!</span><span class="hl kwd">PyArg_ParseTuple</span><span class="hl opt">(</span>args<span class="hl opt">,</span><span class="hl str">&quot;ss&quot;</span><span class="hl opt">,&amp;</span>input<span class="hl opt">,&amp;</span>pal<span class="hl opt">))</span>
+        <span class="hl kwa">return</span> NULL<span class="hl opt">;</span>
+    output <span class="hl opt">=</span> <span class="hl kwd">load</span><span class="hl opt">(</span>input<span class="hl opt">,</span>pal<span class="hl opt">,&amp;</span>n<span class="hl opt">);</span>
+    <span class="hl kwa">if</span><span class="hl opt">(</span>n <span class="hl opt">==</span> <span class="hl num">0</span><span class="hl opt">)</span> <span class="hl kwa">return</span> <span class="hl kwd">Py_BuildValue</span><span class="hl opt">(</span><span class="hl str">&quot;&quot;</span><span class="hl opt">);</span>
+    pyList <span class="hl opt">=</span> <span class="hl kwd">PyList_New</span><span class="hl opt">(</span>n<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">);</span>
+    item <span class="hl opt">=</span> <span class="hl kwd">PyTuple_New</span><span class="hl opt">(</span><span class="hl num">2</span><span class="hl opt">);</span>
+    <span class="hl kwd">PyTuple_SetItem</span><span class="hl opt">(</span>item<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl kwd">PyInt_FromLong</span><span class="hl opt">(</span>output<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">].</span>w<span class="hl opt">));</span>
+    <span class="hl kwd">PyTuple_SetItem</span><span class="hl opt">(</span>item<span class="hl opt">,</span><span class="hl num">1</span><span class="hl opt">,</span><span class="hl kwd">PyInt_FromLong</span><span class="hl opt">(</span>output<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">].</span>h<span class="hl opt">));</span>
+    <span class="hl kwd">PyList_SetItem</span><span class="hl opt">(</span>pyList<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>item<span class="hl opt">);</span>
+    <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> n<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+    <span class="hl opt">{</span>
+        item <span class="hl opt">=</span> <span class="hl kwd">PyByteArray_FromStringAndSize</span><span class="hl opt">((</span><span class="hl kwb">char</span><span class="hl opt">*)(</span>output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">),</span>
+                                             output<span class="hl opt">[</span>i<span class="hl opt">].</span>w <span class="hl opt">*</span> output<span class="hl opt">[</span>i<span class="hl opt">].</span>h <span class="hl opt">*</span> <span class="hl num">4</span><span class="hl opt">);</span>
+        <span class="hl kwd">PyList_SetItem</span><span class="hl opt">(</span>pyList<span class="hl opt">,</span>i<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">,</span>item<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+    <span class="hl kwa">for</span><span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> n<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+        <span class="hl kwd">free</span><span class="hl opt">(</span>output<span class="hl opt">[</span>i<span class="hl opt">].</span>data<span class="hl opt">);</span>
+    <span class="hl kwd">free</span><span class="hl opt">(</span>output<span class="hl opt">);</span>
+    <span class="hl kwa">return</span> pyList<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">static</span> PyMethodDef ShpMethods<span class="hl opt">[] = {</span>
+    <span class="hl opt">{</span><span class="hl str">&quot;load&quot;</span><span class="hl opt">,</span>shpload<span class="hl opt">,</span>METH_VARARGS<span class="hl opt">,</span><span class="hl str">&quot;Load a shp file.&quot;</span><span class="hl opt">},</span>
+    <span class="hl opt">{</span>NULL<span class="hl opt">,</span>NULL<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>NULL<span class="hl opt">}</span>
+<span class="hl opt">};</span>
+
+PyMODINIT_FUNC
+<span class="hl kwd">initshpfile</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+    PyObject <span class="hl opt">*</span>m<span class="hl opt">;</span>
+
+    m <span class="hl opt">=</span> <span class="hl kwd">Py_InitModule</span><span class="hl opt">(</span><span class="hl str">&quot;shpfile&quot;</span><span class="hl opt">,</span> ShpMethods<span class="hl opt">);</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>m <span class="hl opt">==</span> NULL<span class="hl opt">)</span>
+        <span class="hl kwa">return</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">Py_SetProgramName</span><span class="hl opt">(</span>argv<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]);</span>
+
+    <span class="hl com">/* Initialize the Python interpreter.  Required. */</span>
+    <span class="hl kwd">Py_Initialize</span><span class="hl opt">();</span>
+
+    <span class="hl com">/* Add a static module */</span>
+    <span class="hl kwd">initshpfile</span><span class="hl opt">();</span>
+
+    <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre>
+
+<h3>Create setup.py</h3>
+
+Create a python script file
+
+<pre class="hl"><span class="hl kwa">from</span> distutils<span class="hl opt">.</span>core <span class="hl kwa">import</span> setup<span class="hl opt">,</span> Extension
+
+module1 <span class="hl opt">=</span> <span class="hl kwd">Extension</span><span class="hl opt">(</span><span class="hl str">'shpfile'</span><span class="hl opt">,</span>
+                    sources <span class="hl opt">= [</span><span class="hl str">'shpfile.c'</span><span class="hl opt">])</span>
+
+<span class="hl kwd">setup</span> <span class="hl opt">(</span>name <span class="hl opt">=</span> <span class="hl str">'shpfile'</span><span class="hl opt">,</span>
+       version <span class="hl opt">=</span> <span class="hl str">'1.0'</span><span class="hl opt">,</span>
+       description <span class="hl opt">=</span> <span class="hl str">'This is a package used for reading .shp file.'</span><span class="hl opt">,</span>
+       ext_modules <span class="hl opt">= [</span>module1<span class="hl opt">])</span>
+
+
+</pre>
+
+<h3>Build and Install</h3>
+
+Run the script file. For convenience, I wrote a bash script file to build and install with a single command.
+
+<pre class="hl"><span class="hl slc">#!/bin/bash</span>
+
+python setup.py build
+<span class="hl kwa">if</span> <span class="hl opt">[</span> <span class="hl str">&quot;$?&quot;</span> <span class="hl opt">!=</span> <span class="hl str">&quot;0&quot;</span> <span class="hl opt">];</span> <span class="hl kwa">then</span>
+	<span class="hl kwb">exit</span> <span class="hl num">1</span>
+<span class="hl kwa">fi</span>
+python setup.py <span class="hl kwc">install</span>
+</pre>
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>

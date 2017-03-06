@@ -1,0 +1,197 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Programming">Programming</a>
+&gt;&gt;
+<a href="/Programming/Python">Python</a>
+&gt;&gt;
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a>
+</div>
+<hr>
+
+<h2>Tkinter - Built-in Graphic Library</h2>
+
+To use Tkinter, import the Tkinter library as follows.
+<pre>
+from Tkinter import *
+</pre>
+First we need to initialize it by
+<pre>
+root = Tk()
+</pre>
+Then ask the Tk object to start a loop, waiting for the user input.
+<pre>
+root.mainloop()
+</pre>
+The loop must be started after all other preparations are ready.
+
+<h3>Commonly Used Controls</h3>
+
+<h4>Entry</h4>
+
+A small box to get text input from the user.
+<pre>
+s = StringVar()
+e = Entry(root,textvariable=s) # Build an entry and set s as the string variable
+e.pack() # Put the entry on the board
+</pre>
+
+One way to automatically revoke some callback function when the text is changed is through the <font face="Courier">vcmd</font> option.
+<pre>
+def onchange(typeofchange,new_value):
+	if typeofchange == 1:
+		print "Text inserted, result is %s"%new_value
+	elif typeofchange == 0:
+		print "Text deleted, result is %s"%new_value
+
+callback = root.register(onchange)
+entry = Entry(root,validate="key",vcmd=(callback,'%d','%P'))
+</pre>
+Here the <font face="Courier">validate</font> option can also take value
+<font face="Courier">"focus"</font>,
+<font face="Courier">"focusin"</font>,
+<font face="Courier">"focusout"</font>,
+<font face="Courier">"all"</font>,
+<font face="Courier">"none"</font>.<br><br>
+The arguments passed to the callback function can be any combination of
+<font face="Courier">'%d'</font>,
+<font face="Courier">'%i'</font>,
+<font face="Courier">'%P'</font>,
+<font face="Courier">'%s'</font>,
+<font face="Courier">'%S'</font>,
+<font face="Courier">'%v'</font>,
+<font face="Courier">'%V'</font>,
+<font face="Courier">'%W'</font>,
+which denotes <b>type of events</b>, <b>index of inserted text</b>,
+<b>the updated text</b>, <b>the original text</b>, current value of <b>validate</b> option,
+<b>reason for this callback</b>, <b>name of the widget</b>, respectively.
+
+<h4>Button</h4>
+The button is usually initialized with text shown printed on it,
+as well as the command to execute when the button is pressed.
+<pre>
+b = Button(root,text="Start",command=func)
+</pre>
+where <font face="Courier">func</font> is a function name defined elsewhere.
+
+<h3>Layout Management</h3>
+
+The most basic method to manipulate the layout of the controls is to pass arguments to the <font face="Courier">pack</font> method.
+<pre>
+e = Entry(root)
+e.pack(side=LEFT)
+b = Button(root,text="Button")
+b.pack(side=RIGHT)
+</pre>
+Here the <font face="Courier">side</font> argument can only take values <font face="Courier">LEFT,RIGHT,TOP,BOTTOM</font>.
+<br><br>
+It would be convenient to divide entries into several groups, deploy the controls in each group, 
+and manipulate the position of the groups as a whole.
+For this purpose the <font face="Courier">Frame</font> control can be used.
+<pre>
+f1 = Frame(root)
+f2 = Frame(root)
+b1 = Button(f1)
+e1 = Entry(f1)
+b2 = Button(f2)
+e2 = Entry(f2)
+b1.pack(side=LEFT)
+e1.pack(side=RIGHT)
+b2.pack(side=LEFT)
+e2.pack(side=RIGHT)
+f1.pack(side=TOP)
+f2.pack(side=BOTTOM)
+</pre>
+<h4>Grid Layout</h4>
+You can use <font face="Courier">grid</font> instead of <font face="Courier">pack</font>.
+The meaning of the layout by grid method is straightforward.
+<pre>
+b1 = Button(root)
+b2 = Button(root)
+b3 = Button(root)
+b4 = Button(root)
+b1.grid(row=0,column=0)
+b2.grid(row=0,column=1)
+b3.grid(row=1,column=0)
+b4.grid(row=1,column=1)
+</pre>
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>

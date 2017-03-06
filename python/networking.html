@@ -1,0 +1,217 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Programming">Programming</a>
+&gt;&gt;
+<a href="/Programming/Python">Python</a>
+&gt;&gt;
+<a href="/Programming/Python/Networking.html">Networking</a>
+</div>
+<hr>
+
+<h2>Networking</h2>
+
+<h3>Socket</h3>
+The <b>Berkeley Software Distribution</b>(BSD) socket is the primary means for communication between computers.
+It is the interface between network applications and network stack.
+<br><br>
+In python, to use socket, simply import the socket library by <pre>from socket import *</pre>
+To create a socket, use the constructor with some arguments.
+<pre>
+sock = socket(AF_INET, SOCK_STREAM)
+</pre>
+Here <font face="Courier">AF_INET</font> specifies the address family IPv4.
+If <font face="Courier">AF_INET6</font> is used, then the address family would be IPv6.
+<br><br>
+The <font face="Courier">SOCK_STREAM</font> specifies that this is a TCP socket.
+As we know, communicating with TCP is like accessing a file stream.
+If you want to create a UDP socket, use <font face="Courier">SOCK_DGRAM</font> instead.
+
+<h3>Bind</h3>
+After creating the socket, the next step is to bind it with a specific port on some host.
+The way to do this in python is quite straightforward.
+<pre>sock.bind((host,port))</pre>
+Note that there is only one argument which is a tuple of two elements.
+If you by mistake pass the two arguments separately, an error would occur.
+<br><br>
+Here, <font face="Courier">host</font> is a string while <font face="Courier">port</font> is an integer.
+If the host is an empty string, the socket would be bound to the localhost.
+That is, code like <pre>sock.bind(('',5000))</pre> will bind the socket to port 5000 on localhost.
+
+<h3>Listen</h3>
+
+If your socket is bound to a localhost port, the next thing it has to do is listening.
+The only parameter needed by this method is the maximal number of connections this socket can maintain.
+Usually this is set to one.
+<pre>sock.listen(1)</pre>
+So the socket is put into listening mode.
+
+<h3>Accept</h3>
+The socket now is listening to the port, but not really ready to connect with a remote host.
+The <font face="Courier">accept</font> method will put the program into busy waiting mode.
+That is, the method will not return until someone connects to this socket.
+And if someone does connect to it, the socket used by him and the address of the remote host will be returned.
+The <font face="Courier">accept</font> method takes no arguments, but has two return values.
+<pre>conn, addr = sock.accept()</pre>
+Here <font face="Courier">conn</font> is a socket, and <font face="Courier">addr</font> is a tuple of IP and port number,
+or possibly other informations.
+<br><br>
+Now if you type these into the python command line and press enter, the program will just hang there.
+Open another terminal and type <pre>telnet localhost 5000</pre> which permits the <font face="Courier">telnet</font> client to connet to port 5000, which the socket is listening to, the accept method will return.
+<br><br>
+Or, you can create another client socket, also by python, to connet to your listening socket.
+
+<h3>Connect</h3>
+The creation of the another socket is just the same.
+A client socket does not need the bind process. It just connects.
+<br><br>
+Open another terminal and open python.
+<pre>
+from socket import *
+sock = socket(AF_INET, SOCK_STREAM)
+sock.connect(('127.0.0.1', 5000))
+</pre>
+Then you will find in the original terminal that the <font face="Courier">accept</font> function returns.
+So the connection is successfully created.
+<br><br>
+Note that the <font face="Courier">conn</font> socket is created automatically by the system used for nothing other than communicating with the current remote client.
+
+<h3>Send &amp; Receive</h3>
+
+Now both the <font face="Courier">conn</font> socket and the <font face="Courier">sock</font> socket in the client side
+can use the <font face="Courier">send</font> and <font face="Courier">recv</font> methods to communicate with each other.
+Note that the <font face="Courier">sock</font> socket of the server side is of no use in this process.
+Don't use that socket by mistake.
+<pre>
+sock.send("Message")
+conn.recv(1000)
+</pre>
+<br><br>
+The <font face="Courier">send</font> method takes a string as argument, which is exactly the message sent to the other side.
+While the <font face="Courier">recv</font> method takes an integer as argument,
+which is the number of bytes the receiver hopes to receive, and returns a string.
+The string may not be the same length as the argument specifies.
+It can be shorter if the sender did not send that much information.
+But it will not be greater than the specified number.
+<br><br>
+Now you may wonder, how is the communication synchronized?
+Well, it is not synchronized.
+The truth is, each side of the communication holds a buffer,
+and the <font face="Courier">send</font> method of the other side simply put the information into the buffer.
+But if the receiver never calls the <font face="Courier">recv</font> method, the information will just stay in the buffer.
+<br><br>
+Now, clear? The process is just like communicating with mails.
+Each side can write to the other at any time, and the letters will be put into the mailbox of the receiver.
+But it is the receiver's business to check the mailbox, which is exactly what the <font face="Courier">recv</font> method does.
+If the sender sends two strings in between of which the receiver did not call the receive method,
+then the next time the receiver calls the method, he will get a single string which is the concatenation of the two strings.
+This means the bytes from the sender just pile in the buffer of the receiver.
+<br><br>
+Here are some problems.
+<ul>
+<li> What if the buffer is empty when <font face="Courier">recv</font> method is called?
+<br><br>
+Well, the program will just hang there until the sender sends some message, even a single character would cause the <font face="Courier">recv</font> method to return.
+Though it is not likely to happen in real life that when the receiver checked the mailbox and found nothing in it,
+he had to stay beside the box and wait, cannot even writing to tell the other side to hurry.
+This is why usually a real world communication application actually maintains two threads each containing a socket,
+one doing nothing but receiving message, another just sending messages.
+<br><br>
+Note that if there is one byte in the buffer, and the receiver calls <font face="Courier">recv</font> with argument 2,
+the program will not hang there waiting for the other bytes, but just return a string that is not as long as expected.
+But if the receiver calls the receive method twice with argument 1, he would have to hang there and wait for another byte.
+<li>
+Is there any limitation on the size of the buffer?
+<br><br>
+The answer is yes. You can try to send <font face="Courier">"Message"*1000000</font> to the other.
+Then you will find the program hanging there, waiting for the buffer to be emptied.
+Well, it does not have to be emptied, just needs to have enough room for the message.
+And once the long message is fully transmitted into the buffer, the method will return.
+</li>
+</li>
+</ul>
+
+<h3>Close</h3>
+Do not forget to close the sockets by invoking the <font face="Courier">close</font> methods.
+This will free the resources occupied by the sockets.
+For the listening socket, if you forget the close it, the port it is bound with cannot be used again.
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>
