@@ -20,35 +20,35 @@ title: Computer Technology and Skills
 
 ## Game
 
-* [game/tank.html](Tank)
-* [game/mine_weeper.html](Miner)
-* [game/memory_matrix.html](Memory Matrix)
+* [Tank](game/tank.html)
+* [Miner](game/mine_weeper.html)
+* [Memory Matrix](game/memory_matrix.html)
 
 ## Linux
 
-* [linux/apache2.html](Apache2)
-* [linux/tips.html](Linux Tips)
-* [linux/vim.html](Vim Tips)
+* [Apache2](linux/apache2.html)
+* [Linux Tips](linux/tips.html)
+* [Vim Tips](linux/vim.html)
 
 ## Python
 
-* [python/user_c_module.html](Python: User C Module)
-* [python/tkinter.html](Python: Introduction to Tkinter)
-* [python/networking.html](Introduction to Python Networking)
-* [python/lambda.html](Introduction to Lambda Functions in Python)
+* [Python: User C Module](python/user_c_module.html)
+* [Python: Introduction to Tkinter](python/tkinter.html)
+* [Introduction to Python Networking](python/networking.html)
+* [Introduction to Lambda Functions in Python](python/lambda.html)
 
 ## Ruby
 
-* [ruby/introduction.html](Introduction to Ruby)
-* [ruby/block.html](Introduction to Ruby Blocks)
+* [Introduction to Ruby](ruby/introduction.html)
+* [Introduction to Ruby Blocks](ruby/block.html)
 
 ## Links
 
-* [resources/links.html](Useful Links)
+* [Useful Links](resources/links.html)
 
 ## Web
 
-* [web/css.html](Introduction to CSS)
-* [web/html.html](HTML Cheatsheet)
-* [web/php.html](Introduction to PHP)
+* [Introduction to CSS](web/css.html)
+* [HTML Cheatsheet](web/html.html)
+* [Introduction to PHP](web/php.html)
 
