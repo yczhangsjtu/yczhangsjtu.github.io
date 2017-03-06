@@ -10,6 +10,13 @@ title: Computer Technology and Skills
 * [OpenGL 3D Template (Keep Ratio)](code/cpp/opengl_3d_ratio.html)
 * [OpenGL 2D Template (Stretch with Window)](code/cpp/opengl_2d_stretch.html)
 * [OpenGL 3D Template (Stretch with Window)](code/cpp/opengl_3d_stretch.html)
+* [Reflex Game](code/java/reflex.html)
+* [Piano](code/python/piano.html)
+* [PyOpenGL Template](code/python/pyopengl_template.html)
+* [Tkinter Template](code/python/tkinter_template.html)
+* [Color Ball](code/metapost/color_ball.html)
+* [Metapost Demo](code/metapost/demo.html)
+* [Peterson Graph](code/metapost/peterson.html)
 
 ## Game
 
