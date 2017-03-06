@@ -6,8 +6,8 @@ When you are surfing the internet you probably find some web pages ended
 with .html. Generally speaking, when the web page is already sent to
 your computer and displayed by your browser, a.html page is not at all
 different with a html page. The difference lies in how the server
-generated this page.\
-\
+generated this page.
+
 Suppose you are running a website where there is a webpage telling the
 users about the date. It is not a wise choice to use a static html page
 like this:
@@ -16,8 +16,8 @@ Admittedly, this webpage does what it is supposed to do, though it is a
 bit troubling for you to alter this page every day. What is worse, there
 could be some highly demanding users toleranting with no mistake at all,
 which means you had better update the date at exactly twelve o'clock.
-This is more than troublesome.\
-\
+This is more than troublesome.
+
 Dynamic webpages comes as a solver to all kinds of problems like this.
 PHP is one of such kind of webpages. Others include ASP which is
 developed by Microsoft. If your web server is running together with a
@@ -29,8 +29,8 @@ the PHP server, which looks for all the &lt;.html ?&gt; pairs that
 occurred in the page. For each such pair, the server runs the PHP codes
 inside and generates some text, which takes the place of the original
 &lt;.html ?&gt;. What is sent to the client looks like a normal webpage,
-only that it is generated on the spot rather than stored in the server.\
-\
+only that it is generated on the spot rather than stored in the server.
+
 If you are running the web server on a linux system, you are probably
 using apache. The combination of apache.html-mysql is a most popular one
 on the linux platform. Just execute the following command

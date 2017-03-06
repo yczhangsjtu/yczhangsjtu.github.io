@@ -2,6 +2,8 @@
 title: CSS - External Style Sheet
 ---
 
+# CSS - External Style Sheet
+
 Every node in HTML has an attribute style which configures the
 appearance that node. Each configuration command is in the form of
     attribute: value;
@@ -9,8 +11,8 @@ appearance that node. Each configuration command is in the form of
 Assembling all such configurations of one node into a string forms the
 style of the node. For example, we can write
 to start a table with wides spread over the screen and background color
-red.\
-\
+red.
+
 If you want all the tables in your website have the same style, you can
 write down the style string, copy and paste them at each occurance of
 tables. Doing so seems to be kind of waste. And if one day you want to
@@ -18,22 +20,22 @@ change the style of the tables, there would be tons of work to do. A
 good idea is to declare somewhere in a file that "All the tables have
 background color red". Then if someday you feel that red does not suit
 your appetite anymore, all you need to do is to replace the "red" in the
-declaration by some other color.\
-\
+declaration by some other color.
+
 This is just what CSS is used for. CSS is something you can write in the
 head of a webpage demanding that all text files should be of size 16px.
 Of course, it can manipulate the webpage in more detail. In fact, it
 could do it either for a particular node, or for a large group of
-elements.\
-\
+elements.
+
 CSS is very simple and consists of a list of independent rules. Each
 rule is just a declaration that a particular set of nodes should have
 some specific styles. Then it is easy to understand that a rule consists
 of two parts, the selector and the declaration. The selector specifies
 which of the nodes in the webpage is selected, and the declaration
 specifies the style they should have. The declaration is nothing but the
-style string mentioned above.\
-\
+style string mentioned above.
+
 A typical CSS rule is like
 ```css
     p {
@@ -59,7 +61,7 @@ fonts and blue color.
 
 You may want to use the same CSS configuration multiple times. But you
 do not want to copy the codes everywhere. That would make the pages ugly
-and it inconvenient to update.\
+and it inconvenient to update.
 All you need to do is to cut and paste the CSS codes into a file
 postfixed by .css, with whatever file name you want, say style.css.
 ### Color

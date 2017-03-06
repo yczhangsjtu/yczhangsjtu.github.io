@@ -103,20 +103,20 @@ The answer is ~~yes~~.
   A3   B3   C3
   ---- ---- ----
 
-#### Cells that cover\
+#### Cells that cover
 multi-rows/columns
 
 A1 B1
-C1\
+C1
 C2
-A2\
+A2
 A3
 B2
 B3 C3
 A1 B1
-C1\
+C1
 C2
-A2\
+A2
 A3
 B2
 B3 C3
