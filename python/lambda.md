@@ -2,6 +2,8 @@
 title: Lambda Function in Python
 ---
 
+# Lambda Function in Python
+
 Simply speaking, a lambda function is a function object.
 In fact, in python, all functions are objects.
 They can even be assigned to a variable.
@@ -38,7 +40,7 @@ print add(6,8)
 print (lambda x: x*x*x)(3)
 ```
 
-## Interesting Topic about Lambda Function ##
+## Interesting Topic about Lambda Function
 
 Tell me what is the output of the following code.
 

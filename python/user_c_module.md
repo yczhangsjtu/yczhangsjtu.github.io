@@ -2,9 +2,11 @@
 title: User Defined C Module
 ---
 
+# User Defined C Module for Python
 Here is an example of the build of a user defined shpfile module written
 in C.
-### The C program
+
+## The C program
 
 ```c
 #include <Python.h>
@@ -327,7 +329,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-### Create setup.py
+## Create setup.py
 
 Create a python script file
 
@@ -344,7 +346,7 @@ setup (name = 'shpfile',
 
 ```
 
-### Build and Install
+## Build and Install
 
 Run the script file. For convenience, I wrote a bash script file to
 build and install with a single command.

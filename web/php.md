@@ -2,6 +2,7 @@
 title: PHP - Hypertext Preprocessor
 ---
 
+# PHP - Hypertext Preprocessor
 When you are surfing the internet you probably find some web pages ended
 with .html. Generally speaking, when the web page is already sent to
 your computer and displayed by your browser, a.html page is not at all
@@ -40,13 +41,13 @@ on the linux platform. Just execute the following command
 
 and all is done automatically for you. Write the PHP code in your
 webpage and the effects on the browser is immediate.
-### Commonly used PHP functions
+## Commonly used PHP functions
 
-#### date
+### date
 
 date('Y-m-d'); returns a string in the form of "Year-month-date". Here
 the 'Y-m-d' is called format string.
-#### basename,dirname,pathinfo
+### basename,dirname,pathinfo
 
 Assume you have a string
 ```php

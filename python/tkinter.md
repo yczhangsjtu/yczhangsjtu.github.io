@@ -2,6 +2,8 @@
 title: Tkinter - Built-in Graphic Library
 ---
 
+# Tkinter - Built-in Graphic Library
+
 To use Tkinter, import the Tkinter library as follows.
 ```python
     from Tkinter import *

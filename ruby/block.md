@@ -2,6 +2,8 @@
 title: Ruby Blocks
 ---
 
+# Ruby Blocks
+
 ## Diving into blocks
 
 Blocks are often the first Ruby-ism that new Rubyists run into, and are

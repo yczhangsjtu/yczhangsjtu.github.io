@@ -2,6 +2,8 @@
 title: Introduction to Ruby
 ---
 
+# Introduction to Ruby
+
 Like any other intepreted languages, to run ruby program, simply store
 it in a .rb file, and execute
 ```ruby
@@ -11,7 +13,7 @@ it in a .rb file, and execute
 However, unlike python, you cannot get an interactive interface by
 executing ruby command without any command line argument. Instead, you
 should use irb.
-### Everything is Object
+## Everything is Object
 
 Everything in ruby is object. All the objects have methods, including
 the integers. This feature is rarely seen in other objected-oriented
@@ -22,7 +24,7 @@ argument is needed.
 In fact, if there are arguments, the parenthesis is still unnecessary.
 Replacing the parenthesis with a space between the method name and the
 argument list is okay.
-### More Characters Allowed in Method Name
+## More Characters Allowed in Method Name
 
 Try puts 1.methods to have a look at all the methods 1 can invoke. You
 will find a lot of special characters in the methods name which would
@@ -41,7 +43,7 @@ expressions are okay
     ["zero","one","two"].[](1)
 ```
 
-### String
+## String
 
 String in ruby is nothing different from that in most languages like
 python. They can be enclosed in either double or single quotes. And, as
@@ -52,7 +54,7 @@ you expect, the length method returns the length of the string.
 
 The essential difference between using single or double quotes is that
 double quotes allow for escape sequences while single quotes do not.
-#### String Interpolation
+### String Interpolation
 
 It is essential to be able to replace placeholders within a string with
 values they represent. In the programming paradigm, this is called
@@ -76,7 +78,7 @@ is exactly what is in the string.
 
 Of course, not only variables, but any expressions can be put in the
 \#{}.
-#### Search in a String
+### Search in a String
 
 To see if a string contains a certain substring, use the include? method
 of the string.
@@ -88,7 +90,7 @@ how you discribe the functionality, like start\_with?.
 
 Now guess what method of string tells you whether a string ends with
 'ruby'?
-#### Advanced String Operations
+### Advanced String Operations
 
 The use of split method is quite straightfoward.
 ```ruby
@@ -125,7 +127,7 @@ the sub method.
 To replace all the occurences, use gsub instead.
 
 The first argument of these methods could be a regular expression.
-#### Regular Expression
+### Regular Expression
 
 Regular expression in ruby is enclosed in double slash//. Note that
 there is no quote.
@@ -139,12 +141,12 @@ second argument is passed, the search will start from the position
 specified by the second argument.
 
 The return value of match method is the substring itself.
-### Logical Operators
+## Logical Operators
 
 The logical operators in ruby are just like those in C++.
-### Control Flows in Ruby
+## Control Flows in Ruby
 
-#### Conditional Branch
+### Conditional Branch
 
 The if statement is used as follows
 ```ruby
@@ -164,7 +166,7 @@ The ternary operator ?: in C++ is also supported by ruby.
 In ruby, the objects false and nil equates to false. Every other objects
 are all evaluted to true when used as boolean. Note that 0 is also true
 contrary to that in C++.
-#### Loops
+### Loops
 
 An infinite loop is created as follows.
 ```ruby
@@ -197,7 +199,7 @@ This is equivalent to
     end
 ```
 
-### Arrays
+## Arrays
 
 An empty array is created either by \[\] or Array.new.
 
@@ -231,7 +233,7 @@ returns \[2,4,6\].
 The method delete\_if does exactly the opposite. Note there is another
 difference in the two methods. a.select will not change the array
 itself, while a.delete actually update the array.
-### Hash
+## Hash
 
 Hashes in ruby act as dictionaries. A hash is created as follows
 ```ruby
@@ -268,7 +270,7 @@ A hash can also be created by the following ways
     age = Hash[[["Alice",10],["Bob",12],["Eve",14]]]
 ```
 
-### Methods
+## Methods
 
 Functions in ruby are called methods, no matter whether they belong to
 some object. A method is defined like in the following example
@@ -322,7 +324,7 @@ Methods can get named options. For example
     puts add(1.0134, -5.568, absolute: true, round: true, precision: 2)
 ```
 
-### Lambda Function
+## Lambda Function
 
 By convention, the body of the lambda function in ruby is enclosed in {}
 if it takes only one line, or in a pair of do and end otherwise.
@@ -341,7 +343,7 @@ Examples are given below.
     puts l.call 10
 ```
 
-### Classes
+## Classes
 
 An important feature of classes in Ruby is that they too adhere to the
 "everything is an object philosophy." This may be of interest to those
@@ -385,7 +387,7 @@ method object has the method call.
     puts method_object.call
 ```
 
-### Libraries in Ruby
+## Libraries in Ruby
 
 The keyword that corresponds to import in python is require. And the
 library name should be put in a string.
@@ -424,7 +426,7 @@ Classes in different namespaces are accessed via :: operator.
 
 Variable prefixed with :: and nothing else is scoped in the topmost
 level.
-### Streams and the IO Class
+## Streams and the IO Class
 
 A file descriptor in ruby is created by the sysopen method of IO class.
 For example
@@ -439,7 +441,7 @@ An I/O stream can be created from the file descriptor.
 
 Originally there are several I/O streams created by the interpreter,
 including the STDIN and STDOUT.
-### The File Class
+## The File Class
 
 The open method of the File object opens a file and return a file
 object.

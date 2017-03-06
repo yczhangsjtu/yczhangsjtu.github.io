@@ -2,7 +2,9 @@
 title: HTML - Hyper Text Markup Language
 ---
 
-### Inline Fonts
+# HTML - Hyper Text Markup Language
+
+## Inline Fonts
 
 <table class="list">
 <tbody>
@@ -52,7 +54,7 @@ title: HTML - Hyper Text Markup Language
 </tr>
 </tbody>
 </table>
-### Escaped Characters
+## Escaped Characters
 
 <table width="100%">
 <tr>
@@ -82,9 +84,9 @@ title: HTML - Hyper Text Markup Language
 </tr>
 </table>
 
-### Special Effects
+## Special Effects
 
-#### Horizontal Line Across the Page
+### Horizontal Line Across the Page
 
 &lt;hr/&gt;
 
@@ -154,7 +156,7 @@ title: HTML - Hyper Text Markup Language
 </tr>
 </table>
 
-### Tables
+## Tables
 
 <table class="list">
 <tr>
