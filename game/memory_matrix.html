@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Memory Matrix</title>
+</head>
+<body oncontextmenu="return false">
+
+<p>Try to memorize the matrix in 5 seconds, then click the
+squares to recover what you have seen. Submit and check whether
+you are correct.</p>
+<button type="button" id="startButton">Start</button>
+<button type="button" id="submitButton">Submit</button>
+</br>
+<canvas id="display" width=300 height=300>
+	Your browser doesn't support canvas!
+</canvas>
+
+<script>
+	var WAITING=0;
+	var SHOWING=1;
+	var FILLING=2;
+	
+	var squareSize=100;
+	
+	var state=WAITING;
+
+	var colors=["white","red","yellow","orange","blue","green"];
+	var colorMatrix=new Array(3);
+	for(var i=0; i<3; i++)
+		colorMatrix[i]=new Array(3);
+	var fillMatrix=new Array(3);
+	for(var i=0; i<3; i++)
+		fillMatrix[i]=new Array(3);
+	
+	
+	document.getElementById("startButton").addEventListener("click",start);
+	document.getElementById("submitButton").addEventListener("click",submit);
+	document.getElementById("display").addEventListener("mousedown",handleMouseDown);
+	
+	
+	function start()
+	{
+		if(state==WAITING)
+		{
+			state=SHOWING;
+			randomMatrix();
+			drawMatrix(colorMatrix);
+			window.setTimeout(filling,5000);
+		}
+	}
+	
+	function filling()
+	{
+		state=FILLING;
+		var ctx=document.getElementById("display").getContext('2d');
+		ctx.clearRect(0,0,squareSize*3,squareSize*3);
+		clearMatrix(fillMatrix);
+		drawMatrix(fillMatrix);
+	}
+	
+	function handleMouseDown(event)
+	{
+		if(state!=FILLING) return;
+		var canvas=document.getElementById("display");
+		var x=event.pageX-canvas.offsetLeft;
+		var y=event.pageY-canvas.offsetTop;
+		var i=Math.floor(x/squareSize);
+		var j=Math.floor(y/squareSize);
+		if(event.button==0)
+			fillMatrix[i][j]++;
+		else if(event.button==2)
+			fillMatrix[i][j]--;
+		if(fillMatrix[i][j]>=6) fillMatrix[i][j]=0;
+		if(fillMatrix[i][j]<0) fillMatrix[i][j]=5;
+		drawMatrix(fillMatrix);
+	}
+	
+	function submit()
+	{
+		if(state!=FILLING) return;
+		var same=true;
+		for(var i=0; i<3; i++)
+			for(var j=0; j<3; j++)
+				if(fillMatrix[i][j]!=colorMatrix[i][j])
+					same=false;
+		if(same)
+			alert("Correct!");
+		else
+			alert("What a pity!");
+		drawMatrix(colorMatrix);
+		state=WAITING;
+	}
+	
+	function randomMatrix()
+	{
+		for(var i=0; i<3; i++)
+			for(var j=0; j<3; j++)
+				colorMatrix[i][j]=randomInt(6);
+	}
+
+	function drawMatrix(matrix)
+	{
+		var ctx=document.getElementById("display").getContext('2d');
+		for(var i=0; i<3; i++)
+			for(var j=0; j<3; j++)
+			{
+				ctx.fillStyle=colors[matrix[i][j]];
+				ctx.fillRect(i*squareSize,j*squareSize,squareSize,squareSize);
+				ctx.strokeRect(i*squareSize,j*squareSize,squareSize,squareSize);
+			}
+	}
+	
+	function clearMatrix(matrix)
+	{
+		for(var i=0; i<3; i++)
+			for(var j=0; j<3; j++)
+				matrix[i][j]=0;
+	}
+	
+	function randomInt(maxima)
+	{
+		return Math.floor(Math.random()*maxima);
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<html>
+<head>
+<title>Mine Weeper</title>
+</head>
+<body oncontextmenu="return false">
+
+<button id="startButton" onclick="initialize()">Start</button>
+Row<input id="m" value="10"/>Column<input id="n" value="10"/>
+Mine Number<input id="num" value="10"/>
+<br/>
+<canvas id="display" width=300 height=300>
+Sorry, your browser doesn't suppor this game.
+Please update your browser.
+If you are using IE, use another browser instead.
+</canvas>
+
+
+<script>
+	var m=0;//Number of rows
+	var n=0;//Number of columns
+	var num=0;//Number of mines
+	var maxSize=30;//Maximum size of each square
+	var size=maxSize;//Size of each square
+	var mineData=new Array();//The two dimensional array to store the data of
+							//the mine field
+	var stateData=new Array();//The two dimensional array to store the state
+							//of the mine squares
+	var gameGoing=false;
+	var markNum=0;
+	var coverNum=0;
+	var expandArray=new Array();
+	
+	//States of a square
+	var UNVEILED=0;
+	var COVERED=-1;
+	var MARKED=-2;
+	var NULL=-3;
+	//Color of squares of different states
+	var COLOR_UNVEILED="yellow";
+	var COLOR_COVERED="blue";
+	var COLOR_MARKED="red";
+	var COLOR_NUM="black";
+	var COLOR_MINE="black";
+	
+	window.addEventListener('mousedown',handleClickEvent);
+	setInterval("expand()",1);
+	
+	function handleClickEvent(event)
+	{
+		var displayX=document.getElementById("display").offsetLeft;
+		var displayY=document.getElementById("display").offsetTop;
+		var x=Math.floor((event.pageX-displayX)/size);
+		var y=Math.floor((event.pageY+-displayY)/size);
+		if(event.button==0)
+			expandArray.push([x,y]);
+		else if(event.button==2)
+			mark(x,y);
+	}
+	
+	function expand()
+	{
+		if(expandArray.length==0) return;
+		unveil(expandArray[0][0],expandArray[0][1]);
+		expandArray.shift();
+	}
+	
+	function initialize()
+	{
+		m=parseInt(document.getElementById("m").value);
+		n=parseInt(document.getElementById("n").value);
+		num=parseInt(document.getElementById("num").value);
+		markNum=0;
+		coverNum=m*n;
+		if(m<0) {gameGoing=false;draw();return;}
+		if(n<0) {gameGoing=false;draw();return;}
+		if(num<=0 || num>m*n) {gameGoing=false;draw();return;}
+		//Change the size of the display
+		document.getElementById("display").width=n*size;
+		document.getElementById("display").height=(m+1)*size;
+		//Initialize the arrays
+		mineData=new Array(n);
+		stateData=new Array(n);
+		expandArray=new Array();
+		for(var x=0; x<n; x++)
+		{
+			mineData[x]=new Array(m);
+			stateData[x]=new Array(m);
+			for(var y=0; y<m; y++)
+			{
+				mineData[x][y]=0;
+				stateData[x][y]=COVERED;
+			}
+		}
+		gameGoing=true;
+		allocateMines();
+		draw();
+	}
+	
+	function allocateMines()
+	{
+		if(!gameGoing) return;
+		for(var i=0; i<num; i++)
+		{
+			do
+			{
+				x=Math.floor(Math.random()*n);
+				y=Math.floor(Math.random()*m);
+			}
+			while(mineData[x][y]==-1);
+			mineData[x][y]=-1;
+		}
+		for(var x=0; x<n; x++)
+			for(var y=0; y<m; y++)//Go through all the squares
+				if(mineData[x][y]==0)//If the square is not mine
+					for(var xx=x-1; xx<=x+1; xx++)//Go through all its neighbors
+						for(var yy=y-1; yy<=y+1; yy++)
+							if(getMineValue(xx,yy)==-1)//If mine, add one
+								mineData[x][y]++;
+	}
+	
+	function getMineState(x,y)
+	{
+		if(!gameGoing) return NULL;
+		if(x<0 || y<0 || x>=n || y>=m) return NULL;
+		return stateData[x][y];
+	}
+	
+	function getMineValue(x,y)
+	{
+		if(!gameGoing) return NULL;
+		if(x<0 || y<0 || x>=n || y>=m) return NULL;
+		return mineData[x][y];
+	}
+	
+	function unveil(x,y)
+	{
+		if(!gameGoing) return;
+		if(x<0 || y<0 || x>=n || y>=m) return;
+		if(stateData[x][y]==UNVEILED) return;
+		coverNum--;
+		stateData[x][y]=UNVEILED;
+		if(mineData[x][y]==-1)
+		{
+			gameover();
+			return;
+		}
+		if(mineData[x][y]==0)
+		{
+			for(var xx=x-1; xx<=x+1; xx++)
+				for(var yy=y-1; yy<=y+1; yy++)
+					if(	getMineState(xx,yy)==COVERED ||
+						getMineState(xx,yy)==MARKED)
+						expandArray.push([xx,yy]);
+		}
+		draw();
+		if(coverNum==num && gameGoing)
+			win();
+	}
+	
+	function mark(x,y)
+	{
+		if(!gameGoing) return;
+		if(x<0 || y<0 || x>=n || y>=m) return 0;
+		if(stateData[x][y]==COVERED)
+		{
+			stateData[x][y]=MARKED;
+			markNum++;
+		}
+		else if(stateData[x][y]==MARKED)
+		{
+			stateData[x][y]=COVERED;
+			markNum--;
+		}
+		draw();
+	}
+	
+	function draw()
+	{
+		var ctx=document.getElementById("display").getContext("2d");
+		if(!gameGoing)
+		{
+			ctx.clearRect(0,0,document.getElementById("display").width,
+				document.getElementById("display").height);
+			return;
+		}
+		for(var x=0; x<n; x++)
+			for(var y=0; y<m; y++)
+			{
+				switch(stateData[x][y])
+				{
+					case UNVEILED:
+						ctx.fillStyle=COLOR_UNVEILED;break;
+					case COVERED:
+						ctx.fillStyle=COLOR_COVERED;break;
+					case MARKED:
+						ctx.fillStyle=COLOR_MARKED;break;
+				}
+				ctx.fillRect(x*size,y*size,size,size);
+				ctx.strokeRect(x*size,y*size,size,size);
+				if(stateData[x][y]==UNVEILED)
+				{
+					ctx.fillStyle=COLOR_NUM;
+					ctx.font=size+" px";
+					var text=mineData[x][y];
+					ctx.fillText(text,(x+1/4)*size,(y+7/8)*size);
+				}
+			}
+			ctx.fillStyle="white";
+			ctx.fillRect(0,m*size,n*size,size);
+			var text="Mine left:"+(num-markNum);
+			ctx.fillStyle=COLOR_NUM;
+			ctx.font=size/2+" px";
+			ctx.fillText(text,0,(m+1)*size);
+	}
+	
+	function gameover()
+	{
+		drawBad();
+		alert("You lose!");
+		gameEnd();
+	}
+	
+	function win()
+	{
+		alert("You win!");
+		gameEnd();
+	}
+	
+	function gameEnd()
+	{
+		mineData=new Array();
+		stateData=new Array();
+		m=0;
+		n=0;
+		num=0;
+		coverNum=0;
+		markNum=0;
+		gameGoing=false;
+	}
+	
+	function drawBad()
+	{
+		var ctx=document.getElementById("display").getContext("2d");
+		ctx.fillStyle=COLOR_MINE;
+		if(!gameGoing) return;
+		for(var x=0; x<n; x++)
+			for(var y=0; y<m; y++)
+				if(mineData[x][y]==-1)
+					ctx.fillRect(x*size,y*size,size,size);
+	}
+	
+</script>
+</body>
