@@ -67,3 +67,5 @@ smart_quotes:   lsquo,rsquo,ldquo,rdquo
 input:          GFM
 hard_wrap:      false
 footnote_nr:    1
+
+theme: jekyll-theme-cayman
