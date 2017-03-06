@@ -6,7 +6,9 @@ title: CSS - External Style Sheet
 
 Every node in HTML has an attribute style which configures the
 appearance that node. Each configuration command is in the form of
+```css
     attribute: value;
+```
 
 Assembling all such configurations of one node into a string forms the
 style of the node. For example, we can write
@@ -48,14 +50,19 @@ which declare that all p nodes in the webpage have the corresponding
 fonts and blue color.
 ### Selectors
 
-+-----------------+-----------------+-----------------+-----------------+
-|     p { }       |     .classname  |     p.classname |     p a { }     |
-|                 | { }             |  { }            |                 |
-+-----------------+-----------------+-----------------+-----------------+
-| Select all p    | Select all      | Select all p    | Select all a    |
-| nodes.          | nodes of class  | nodes of class  | nodes inside of |
-|                 | classname.      | classname.      | any p nodes.    |
-+-----------------+-----------------+-----------------+-----------------+
+<table>
+<tr class="odd">
+<td> <pre> p { } </pre> </td>
+<td> <pre> .classname { } </pre> </td>
+<td> <pre> p.classname { } </pre> </td>
+<td> <pre> p a { } </pre> </td>
+</tr>
+<tr class="even"> <td> Select all <font face="Courier">p</font> nodes.  </td>
+<td> Select all nodes of class <font face="Courier">classname</font>.  </td>
+<td> Select all <font face="Courier">p</font> nodes of class <font face="Courier">classname</font>.  </td>
+<td> Select all <font face="Courier">a</font> nodes inside of any <font face="Courier">p</font> nodes.  </td>
+</tr>
+</table>
 
 ### Put the CSS into a Standalone File
 
@@ -67,20 +74,45 @@ postfixed by .css, with whatever file name you want, say style.css.
 ### Color
 
 Colors in CSS can be specified by the following ways:
-+-----------------------+-----------------------+-----------------------+
-| RGB                   | Hex Code              | Color Name            |
-+=======================+=======================+=======================+
-|     .text{            |     .text{            |     .text{            |
-|         color: rgb(10 |         color: #fd071 |         color: DarkCy |
-| 2,205,179);           | a;                    | an;                   |
-|     }                 |     }                 |     }                 |
-|                       |                       |                       |
-| Text with color       | Text with color       | Text with color       |
-| rgb(102,205,179).     | \#fd071a.             | DarkCyan.             |
-+-----------------------+-----------------------+-----------------------+
-| Text with color       | Text with color       | Text with color       |
-| rgb(102,205,179).     | \#fd071a.             | DarkCyan.             |
-+-----------------------+-----------------------+-----------------------+
+<table class="block">
+<tr class="odd"> <th>RGB</th> <th>Hex Code</th> <th>Color Name</th> </tr>
+<tr class="even"> <td>
+<pre>
+.text{
+	color: rgb(102,205,179);
+}
+</pre><xmp> <p class="text">
+Text with color rgb(102,205,179).</p></xmp>
+</td>
+<td> <pre>
+.text{
+	color: #fd071a;
+}
+</pre><xmp> <p class="text">
+Text with color #fd071a.</p></xmp>
+</td>
+<td>
+<pre>
+.text{
+	color: DarkCyan;
+}
+</pre><xmp> <p class="text">
+Text with color DarkCyan.</p></xmp>
+</td>
+</tr>
+<tr class="odd">
+<td>
+<p style="color:rgb(102,205,179);"> Text with color rgb(102,205,179).</p>
+</td>
+<td>
+<p style="color: #fd071a;">Text with color #fd071a.</p>
+</td>
+<td>
+<p style="color: DarkCyan;">Text with color DarkCyan.</p>
+</td>
+</tr>
+
+</table>
 
 #### CSS Named Colors
 <table cellpadding="4">
