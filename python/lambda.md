@@ -1,116 +1,117 @@
-<html>
-<head>
-<title>Computer Technology and Skills</title>
-
-<link href="/css/website.css" type="text/css" rel="stylesheet"/>
-<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-
-</head>
-
-<body>
-
-<div class="document">
-
-<h2>Lambda Function in Python</h2>
+---
+title: Lambda Function in Python
+---
 
 Simply speaking, a lambda function is a function object.
 In fact, in python, all functions are objects.
 They can even be assigned to a variable.
 For example, you can type
-<pre>f = sum</pre>
-to assign the built-in function <font face="Courier">sum</font> to variable <font face="Courier">f</font>.
-<br><br>
-You can define a function using <font face="Courier">def</font> and then assign this function to another variable.
+```
+f = sum
+```
+to assign the built-in function `sum` to variable `f`.
+
+
+You can define a function using `def` and then assign this function to another variable.
 In this sense, a lambda function is no different from an ordinary function.
-<br><br>
+
+
 However, if you need to use a function only once, you still have to come up with a name for it.
 Lambda function is special in that it is created on the fly.
 It is kind of expression that returns an object which is of function type.
 You do not need to come up with a name for it.
-<br><br>
+
+
 Think about the case when you need a function in a loop, whose behavior depends on the loop iterator.
-You would have to define <font face="Courier">f1(),f2(),...</font> for each iteration.
+You would have to define `f1(),f2(),...` for each iteration.
 The problem is, this is just impossible. And if you do define the functions like this,
 it makes no sense to use the loop at all.
-<br><br>
+
+
 The usage of Lambda function is very simple.
-<pre>
+
+```python
 square = lambda x: x*x
 print square(5)
 add = lambda a,b: a+b
 print add(6,8)
 print (lambda x: x*x*x)(3)
-</pre>
+```
 
-<h3>Interesting Topic about Lambda Function</h3>
+## Interesting Topic about Lambda Function ##
 
 Tell me what is the output of the following code.
-<pre>
+
+```python
 (lambda a:lambda v: a(a,v))(lambda g,n: 1 if n<3 else g(g,n-1)+g(g,n-2))(10)
-</pre>
+```
 
 First, you have to make clear the structure of this expression.
 It consists of three parts, each in a pair of parenthesis.
 The first two parts are lambda functions, and the third part is a number.
 The first lambda function takes the second lambda function as argument,
 and returns a lambda function, which takes the number as argument.
-<br><br>
+
+
 Let's first make out what does the second lambda function do.
 It takes two arguments, the first of which is a function, and the second is a number.
 Note that this is a way to use lambda function recursively:
 lambda function does not have a name, so how to call them recursively?
 Easy. We just add another argument as the function name, and pass it to itself.
-For example, for the factorial function <i>f(n)=nf(n-1)</i>,
+For example, for the factorial function *f(n)=nf(n-1)*,
 we create the following lambda function
-<pre>
+
+```python
 lambda f,n: n*f(f,n-1)
-</pre>
+```
+
 So, what if we assign it to a variable, and put the variable itself as its own argument?
-<pre>
+
+```python
 g = lambda f,n: n*f(f,n-1)
 print g(g,10)
-</pre>
-What is <i>g(g,10)</i>? Well, by the definition, it equals <i>10g(g,9)</i>. Clear now?
+```
+
+What is *g(g,10)*? Well, by the definition, it equals *10g(g,9)*. Clear now?
 Of course, the definition here is wrong, since there is no check for exit criteria,
 and it will cause trouble by inducing an infinite recursion.
 This is just for simplicity.
-To make it really works, you have to check the argument <i>n</i>.
-<pre>
+To make it really works, you have to check the argument *n*.
+```python
 g = lambda f,n: 1 if n==0 else n*f(f,n-1)
-</pre>
-Then if you want to calculate factorial, just use <font face="Courier">g(g,n)</font> everywhere.
-<br><br>
+```
+Then if you want to calculate factorial, just use `g(g,n)` everywhere.
+
 Wait...this does not seem perfect.
 What a weird function it looks like, when calling it requires passing itself!
 Well, this is what the first lambda function aims to solve.
-<br><br>
+
+
 Before looking at the first lambda function, think about the following problem.
 Can you see how the following two lambda functions can do the same work?
-<pre>
+```python
 lambda f: lamdba x: f(f,x)
 lambda g,x: g(g,x)
-</pre>
-Well, if you name the first function by <font face="Courier">A</font>,
-and the second by <font face="Courier">B</font>, it is easy to see that
-<font face="Courier">A(f)(x) = B(f,x)</font> always holds.
-In fact, they are all equal to <font face="Courier">f(f,x)</font>.
-The logic is, <font face="Courier">A</font> maps <font face="Courier">f</font> to a function,
-which then maps <font face="Courier">x</font> to <font face="Courier">f(f,x)</font>,
-while <font face="Courier">B</font> does this work more directly.
-<br><br>
+```
+Well, if you name the first function by `A`,
+and the second by `B`, it is easy to see that
+`A(f)(x) = B(f,x)` always holds.
+In fact, they are all equal to `f(f,x)`.
+The logic is, `A` maps `f` to a function,
+which then maps `x` to `f(f,x)`,
+while `B` does this work more directly.
+
+
 Now it should be clear what is the use of the first lambda function in the original problem?
-It just combines a function <font face="Courier">g</font> and a number <font face="Courier">n</font>,
-returning <font face="Courier">g(g,n)</font>.
+It just combines a function `g` and a number `n`,
+returning `g(g,n)`.
 This is exactly what we want to achieve.
-Now we apply <font face="Courier">A</font> to the function <font face="Courier">g</font>,
-then we get a function which maps <font face="Courier">n</font> to <font face="Courier">g(g,n)</font>,
-which is actually equal to <i>n!</i>.
-<br><br>
+Now we apply `A` to the function `g`,
+then we get a function which maps `n` to `g(g,n)`,
+which is actually equal to *n!*.
+
+
 Then it should be easy to figure out that the lambda function in the original problem is actually the definition of Fibonacci series.
 
 
 
-</div>
-</body>
-
-</html>
