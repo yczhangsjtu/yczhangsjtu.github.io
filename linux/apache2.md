@@ -1,15 +1,6 @@
-<html>
-<head>
-<title>Computer Technology and Skills</title>
-
-<link href="/css/website.css" type="text/css" rel="stylesheet"/>
-<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-
-</head>
-
-<body>
-
-<div class="document">
+---
+title: Introduction to Apache2
+---
 
 # Apache2
 
@@ -17,13 +8,13 @@ Apache2 is a most popular web server on the Linux platform.
 Once launched, it runs as a daemon underground.
 
 ## Installation
-Apache2 can be directly installed from command line by <xmp> sudo apt-get install apache2 </xmp>
+Apache2 can be directly installed from command line by ```sudo apt-get install apache2```
 Wait a while and apache2 is installed automatically.
 
 ## Launch
 The arguments apache2 requires to be started is so complex that usually we do not launch apache2 directly from the command line by typing
-<font face="Courier">apache2</font>.
-In fact, we usually use <font face="Courier">apache2ctl</font> to launch apache2 instead.
+```apache2```.
+In fact, we usually use ```apache2ctl``` to launch apache2 instead.
 Simply type <xmp>sudo apache2ctl start</xmp> in the command line.
 Here the <font face="Courier">start</font> is one of the subcommands of apache2ctl.
 Another frequently used subcommand of apache2ctl is <font face="Courier">restart</font>.
@@ -52,9 +43,3 @@ Note: Do NOT add a slash at the end of the directory paths.
 After all that, restart apache2 by <xmp>sudo apache2ctl restart</xmp>
 Put your own homepage into the new root directory, and visit <font face="Courier">http://localhost</font> via your browser.
 You will see that the page rendered by the browser is exactly your own homepage.
-
-</div>
-
-</body>
-
-</html>
