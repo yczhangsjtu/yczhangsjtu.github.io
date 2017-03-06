@@ -1,0 +1,538 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Programming">Programming</a>
+&gt;&gt;
+<a href="/Programming/Ruby">Ruby</a>
+&gt;&gt;
+<a href="/Programming/Ruby/Introduction.html">Introduction to Ruby</a>
+</div>
+<hr>
+
+<h2>Introduction to Ruby</h2>
+
+Like any other intepreted languages, to run ruby program,
+simply store it in a <font face="Courier">.rb</font> file,
+and execute
+<pre>ruby filename.rb</pre>
+
+However, unlike python, you cannot get an interactive interface by executing
+<font face="Courier">ruby</font> command without any command line argument.
+Instead, you should use <font face="Courier">irb</font>.
+
+<h3>Everything is Object</h3>
+
+Everything in ruby is object.
+All the objects have methods, including the integers.
+This feature is rarely seen in other objected-oriented languages.
+For example, you can call methods on <font face="Courier">1</font> like
+<font face="Courier">1.next</font>, which returns <font face="Courier">2</font>.
+Note that there is no <font face="Courier">()</font> after the method name,
+if no argument is needed.
+<br><br>
+In fact, if there are arguments, the parenthesis is still unnecessary.
+Replacing the parenthesis with a space between the method name and the argument list is okay.
+
+<h3>More Characters Allowed in Method Name</h3>
+
+Try <font face="Courier">puts 1.methods</font> to have a look at all the methods
+<font face="Courier">1</font> can invoke.
+You will find a lot of special characters in the methods name which would cause the names to be unlegal in other languages.
+<br><br>
+For example, <font face="Courier">1.even?</font> will return <font face="Courier">false</font>
+since <font face="Courier">1</font> is not an even integer.
+<br><br>
+Note that all the operators on integers are considered as methods.
+And both <font face="Courier">1.+(2)</font> and <font face="Courier">1+2</font>
+are valid and will return <font face="Courier">3</font>.
+<br><br>
+Another example is the <font face="Courier">[]</font> method of an array.
+Both of the following expressions are okay
+<pre>["zero","one","two"][1]</pre>
+<pre>["zero","one","two"].[](1)</pre>
+
+<h3>String</h3>
+
+String in ruby is nothing different from that in most languages like python.
+They can be enclosed in either double or single quotes.
+And, as you expect, the <font face="Courier">length</font> method returns the length of the string.
+<pre>"Sample string".length</pre>
+
+The essential difference between using single or double quotes is that
+double quotes allow for escape sequences while single quotes do not.
+
+<h4>String Interpolation</h4>
+
+It is essential to be able to replace placeholders within a string with values they represent.
+In the programming paradigm, this is called "string interpolation".
+<br><br>
+In ruby, variable in a string enclosed with <font face="Courier">#{}</font> will be replaced by its value.
+<br><br>
+For example, the following code
+<pre>
+a = 1
+b = 4
+puts "The number #{a} is less than #{b}."
+</pre>
+will print "The number 1 is less than 4".
+<br><br>
+This is another situation where the single quote is different from double quote.
+Replace the double quote by single quote, what is printed is exactly what is in the string.
+<br><br>
+Of course, not only variables, but any expressions can be put in the <font face="Courier">#{}</font>.
+
+<h4>Search in a String</h4>
+
+To see if a string contains a certain substring, use the <font face="Courier">include?</font> method of the string.
+<br><br>
+Ruby is an intuitive language.
+That is, if you try to guess what method of a string implements some functionality,
+like telling whether or not it starts with a specific substring,
+the name of method is probably just how you discribe the functionality,
+like <font face="Courier">start_with?</font>.
+<br><br>
+Now guess what method of string tells you whether a string ends with <font face="Courier">'ruby'</font>?
+
+<h4>Advanced String Operations</h4>
+
+The use of <font face="Courier">split</font> method is quite straightfoward.
+<pre>
+'a b;c d'.split
+</pre>
+will split the string by space and give <font face="Courier">['a','b;c','d']</font> as the answer.
+While
+<pre>
+'a b;c d'.split ';'
+</pre>
+returns <font face="Courier">['a b','c d']</font>.
+<br><br>
+As for string concatenation, the two ways provided by ruby are both intuitive.
+<pre>
+'a'+'b'
+'a'.concat 'b'
+</pre>
+However, the two ways are actually not equivalent.
+If you replace <font face="Courier">'a'</font> by a string variable that equals <font face="Courier">'a'</font>,
+the returned string will be the same but the string variable will be updated into the concatenated string by
+<font face="Courier">concat</font> method.
+While the operator <font face="Courier">+</font> does not change the string variable itself.
+The operator that is equivalent to <font face="Courier">concat</font> method is <font face="Courier"><<</font>.
+<br><br>
+To replace the first occurrence of a substring with another string, use the
+<font face="Courier">sub</font> method.
+<pre>
+'I will go.'.sub 'I','We'
+</pre>
+To replace all the occurences, use <font face="Courier">gsub</font> instead.
+<br><br>
+The first argument of these methods could be a regular expression.
+
+<h4>Regular Expression</h4>
+
+Regular expression in ruby is enclosed in double slash<font face="Courier">//</font>.
+Note that there is no quote.
+<br><br>
+The details of regular expression are no different from those in most programming languages.
+<br><br>
+The <font face="Courier">match</font> method will find the first occurrence of a substring specified by the first argument,
+which could be a regular expression.
+If the second argument is passed, the search will start from the position specified by the second argument.
+<br><br>
+The return value of <font face="Courier">match</font> method is the substring itself.
+
+<h3>Logical Operators</h3>
+
+The logical operators in ruby are just like those in C++.
+
+<h3>Control Flows in Ruby</h3>
+
+<h4>Conditional Branch</h4>
+The <font face="Courier">if</font> statement is used as follows
+<pre>
+if n > 0
+    puts "#{n} is positive"
+elsif
+    puts "#{n} is negative"
+else
+    puts 0
+end
+</pre>
+There is also an <font face="Courier">unless</font> keyword which works equivalent to <font face="Courier">if !</font>.
+<br><br>
+The ternary operator <font face="Courier">?:</font> in C++ is also supported by ruby.
+<br><br>
+In ruby, the objects <font face="Courier">false</font> and <font face="Courier">nil</font> equates to
+<font face="Courier">false</font>.
+Every other objects are all evaluted to <font face="Courier">true</font> when used as boolean.
+Note that <font face="Courier">0</font> is also <font face="Courier">true</font> contrary to that in C++.
+
+<h4>Loops</h4>
+
+An infinite loop is created as follows.
+<pre>
+loop do
+    puts "This will be printed for infinite many times."
+end
+</pre>
+Such loop can be exited by <font face="Courier">break</font> statement, just like in python.
+<br><br>
+A way to repeat something for a specific number of times in ruby is shown below
+<pre>
+5.times do
+	puts "This will be printed 5 times."
+end
+</pre>
+The <font face="Courier">for</font> loop is just like that in python.
+<pre>
+for i in [1,2,3,4,5]
+    puts i
+end
+</pre>
+
+This is equivalent to
+<pre>
+[1,2,3,4,5].each do |i|
+    puts i
+end
+</pre>
+
+<h3>Arrays</h3>
+
+An empty array is created either by <font face="Courier">[]</font> or
+<font face="Courier">Array.new</font>.
+<br><br>
+You can create the array by enumerating the elements, like
+<font face="Courier">[1,2,3,4,5]</font>.
+<br><br>
+Ruby variables are typeless.
+So the elements in an array can be a mix of strings and integers.
+<br><br>
+An element can be inserted into an array by either the <font face="Courier">push</font>
+method or the <font face="Courier"><<</font> operator.
+<br><br>
+The <font face="Courier">map</font> method of an array creates another array
+whose elements are obtained by mapping the elements of the original array.
+The map is specified like in the following example
+<pre>
+[1,2,3,4,5].map{|k| k*k}
+</pre>
+which returns the array <font face="Courier">[1,4,9,16,25]</font>.
+<br><br>
+Likewise, the method <font face="Courier">select</font> filters the array by a boolean expression.
+<pre>
+[1,2,3,4,5,6].select{|num| num.even?}
+</pre>
+returns <font face="Courier">[2,4,6]</font>.
+<br><br>
+The method <font face="Courier">delete_if</font> does exactly the opposite.
+Note there is another difference in the two methods.
+<font face="Courier">a.select</font> will not change the array itself,
+while <font face="Courier">a.delete</font> actually update the array.
+
+<h3>Hash</h3>
+
+Hashes in ruby act as dictionaries.
+A hash is created as follows
+<pre>
+age = {
+    "Alice" => 10,
+    "Bob" => 12,
+    "Eve" => 14
+}
+</pre>
+To retrieve the value from a hash, use the <font face="Courier">[]</font> operator.
+This operator can also be used to insert or alter values in a hash.
+If you try to retrieve the value of some non-exist key, <font face="Courier">nil</font>
+will be returned.
+<br><br>
+The hash can also be iterated by the <font face="Courier">each</font> method.
+However, it passes two values instead of one as the iterator.
+<pre>
+age.each do |name,number|
+    puts "#{name} is #{number} years old."
+end
+</pre>
+The <font face="Courier">keys</font> and <font face="Courier">values</font> methods
+return arrays of all the keys or values in the hash respectively.
+<br><br>
+An empty hash is created by <font face="Courier">{}</font> or <font face="Courier">Hash.new</font>.
+If you pass an argument to the <font face="Courier">new</font> method,
+it will be used as the default value for the hash.
+That is, when you try to retrieve the value of a key that is not specified before,
+the default value will be returned instead of <font face="Courier">nil</font>.
+<br><br>
+A hash can also be created by the following ways
+<pre>
+age = Hash["Alice",10,"Bob",12,"Eve",14]
+age = Hash[[["Alice",10],["Bob",12],["Eve",14]]]
+</pre>
+
+<h3>Methods</h3>
+
+Functions in ruby are called methods, no matter whether they belong to some object.
+A method is defined like in the following example
+<pre>
+def func(arg1,arg2)
+    # Some code
+    return something # This is optional
+end
+</pre>
+If no argument is required, the parenthesis is optional.
+If no return expression is provided,
+the last object evaluated is taken as the returned value.
+If there is nothing in the function body, a <font face="Courier">nil</font> will be returned.
+<br><br>
+The <font face="Courier">*</font> operator can transform an array into an argument list,
+as well as in the opposite direction.
+For example
+<pre>
+def sum(*nums)
+    s = 0
+    for i in nums
+        s = s + i
+    end
+    s
+end
+
+puts sum(1,2,3)
+
+def max(a,b)
+    if a > b
+        a
+    else
+        b
+    end
+end
+
+puts max(*[1,2])
+</pre>
+Methods can get named options. For example
+<pre>
+def add(a_number, another_number, options = {})
+    sum = a_number + another_number
+    sum = sum.abs if options[:absolute]
+    sum = sum.round(options[:precision]) if options[:round]
+    sum
+end
+
+puts add(1.0134, -5.568)
+puts add(1.0134, -5.568, absolute: true)
+puts add(1.0134, -5.568, absolute: true, round: true, precision: 2)
+</pre>
+
+<h3>Lambda Function</h3>
+
+By convention, the body of the lambda function in ruby is enclosed in
+<font face="Courier">{}</font> if it takes only one line, or in a pair of
+<font face="Courier">do</font> and <font face="Courier">end</font> otherwise.
+<br><br>
+Examples are given below.
+<pre>
+l = lambda {|x| x*x}
+puts l.call 10
+
+h = lambda do |n|
+    if n > 1
+        return n*(h.call n-1)
+    else
+        return 1
+    end
+end
+puts l.call 10
+</pre>
+
+<h3>Classes</h3>
+
+An important feature of classes in Ruby is that they too adhere to the "everything is an object philosophy."
+This may be of interest to those already familiar with C++ and similar languages
+where classes are special constructs that cannot be interacted with like normal objects. 
+<br><br>
+The <font face="Courier">class</font> method of an object will return the class it belongs to.
+A <font face="Courier">class</font> object also has such a method.
+A <font face="Courier">class</font> object belongs to the class <font face="Courier">Class</font>.
+<br><br>
+The <font face="Courier">new</font> method of a <font face="Courier">class</font>
+object creates an object that belongs to that class.
+<br><br>
+The following example shows how to define a class of your own
+<pre>
+class Rectangle
+    def initialize(length,breadth)
+        @length = length
+        @breadth = breadth
+    end
+
+    def perimeter
+        2 * (@length+@breadth)
+    end
+
+    def area
+        @length * @breadth
+    end
+end
+</pre>
+As you may have noted, the "states" (called attributes in other object-oriented languages)
+in a class are prefixed with <font face="Courier">@</font>.
+<br><br>
+
+Since "everything is an object" in ruby, so are the methods of an object.
+All objects in ruby has the <font face="Courier">method</font> method,
+which returns any method as an object, given the string specifying the method name.
+A <font face="Courier">method</font> object has the method <font face="Courier">call</font>.
+<pre>
+method_object = 1.method("next")
+puts method_object.call
+</pre>
+
+<h3>Libraries in Ruby</h3>
+
+The keyword that corresponds to <font face="Courier">import</font> in python is
+<font face="Courier">require</font>.
+And the library name should be put in a string.
+<br><br>
+Two different libraries written by different people might define classes of the same name.
+Then the class in the later loaded library will override that in the previous library.
+<br><br>
+To solve this problem, creators of the libraries would put all the classes in the library in a namespace.
+Namespace in ruby is defined by <font face="Courier">module</font>.
+<br><br>
+Classes in different namespaces are accessed via <font face="Courier">::</font> operator.
+<pre>
+module Math
+    class Complex
+        def get
+            "Math"
+        end
+    end
+end
+
+module Geom
+    class Complex
+        def get
+            "Geom"
+        end
+    end
+end
+
+mcomp = Math::Complex.new
+gcomp = Geom::Complex.new
+puts mcomp.get
+puts gcomp.get
+</pre>
+
+Variable prefixed with <font face="Courier">::</font> and nothing else is scoped in the topmost level.
+
+<h3>Streams and the IO Class</h3>
+
+A file descriptor in ruby is created by the <font face="Courier">sysopen</font> method of <font face="Courier">IO</font> class.
+For example
+<pre>
+fd = IO.sysopen("newfd","w")
+</pre>
+An I/O stream can be created from the file descriptor.
+<pre>
+io_stream = IO.new(fd)
+</pre>
+Originally there are several I/O streams created by the interpreter, including the <font face="Courier">STDIN</font> and <font face="Courier">STDOUT</font>.
+
+<h3>The File Class</h3>
+
+The <font face="Courier">open</font> method of the <font face="Courier">File</font> object opens a file and return a file object.
+<pre>
+file = File.open("filename","r+")
+puts file.read
+file.close
+</pre>
+
+The <font face="Courier"></font> method can also take a block and in the end of the block the file will be closed automatically.
+<pre>
+File.open("filename","r+") do |f|
+    puts f.read
+end
+</pre>
+
+The <font face="Courier">read</font> method could take arguments <font face="Courier">length</font> and <font face="Courier">buffer</font>,
+indicating how much to read and store the content read in a buffer.
+<br><br>
+You can directly call the <font face="Courier">read</font> method of <font face="Courier">File</font> to get the content of a file.
+Or the <font face="Courier">readlines</font> method which splits the file content into array of lines.
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>

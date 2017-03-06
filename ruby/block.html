@@ -1,0 +1,283 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Programming">Programming</a>
+&gt;&gt;
+<a href="/Programming/Ruby">Ruby</a>
+&gt;&gt;
+<a href="/Programming/Ruby/Block.html">Ruby Blocks</a>
+</div>
+<hr>
+
+<h2>Ruby Blocks</h2>
+
+
+<h3>Diving into blocks</h3>
+
+Blocks are often the first Ruby-ism that new Rubyists run into, and are confused by.
+What are blocks? Why do they exist? How do I use them?
+<br><br>
+I'll do my best to answer all these questions and more in this lesson.
+
+<h3>What are blocks?</h3>
+
+Blocks aren't unique to Ruby.
+The official (language agnostic) definition of blocks is "A section of code which is grouped together."
+Of course, I'm guessing this doesn't help you much.
+<br><br>
+A simpler way to describe blocks is "A block is code that you can store in a variable like any other object and run on demand."
+<br><br>
+Let me help you build a mental model for this by showing you some code,
+then refactoring it to a block in Ruby.
+We can start by writing some code that does something trivial, but meaningful. 
+<pre>
+puts 5+6
+</pre>
+Sweet. That works!
+However, this only covers the first part of the definition - it's a section of code.
+It isn't "grouped together" though, nor is it stored in a variable.
+<br><br>
+Let's work on it some more to make it more generic before we "group it." 
+<pre>
+a = 5
+b = 6
+puts a+b
+</pre>
+Great. That works - we've replaced the numbers with variables.
+The code that does the addition, however, is still not stored in a variable.
+<br><br>
+Let's make it happen! 
+<pre>
+addition = lambda {|a,b| return a+b}
+puts addition.call(5,6)
+</pre>
+And there you have it all nice and grouped - a block!
+<br><br>
+The 'lambda' keyword is what is most commonly used to create a block in Ruby.
+There are other ways to do it, but lets keep things simple for now.
+<br><br>
+At this point if you're thinking "Wait, that looks pretty much like a method,
+except there's no class or object" then you're absolutely right.
+Try thinking of it like this: A block is like a method, but one that isn't associated with any object.
+<br><br>
+Let's examine blocks more closely.
+<br><br>
+Are blocks objects? Yes, like almost everything else in Ruby, they are.
+<pre>
+empty_block = lambda { }
+puts empty_block.object_id
+puts empty_block.class
+puts empty_block.class.superclass
+</pre>
+As you can see, the block we just created has an <font face="Courier">object_id</font>,
+belongs to the class <font face="Courier">Proc</font> (which is what a block is called in Ruby),
+which is itself a subclass of <font face="Courier">Object</font>.
+<br><br>
+We can even flip the definition around and define methods in terms of blocks.
+A method is simply a block bound to an object, with access to the object's state.
+<br><br>
+Let me illustrate the idea by reverse engineering a Ruby method to produce a block.
+Here's a more traditional approach to the previous problem (and please forgive my crappy object modeling):
+<pre>
+class Calculator
+    def add(a,b)
+        return a+b
+    end
+end
+
+puts Calculator.new.add(5,6)
+</pre>
+There, that works as you'd expect. Now lets take it further.
+<pre>
+class Calculator
+    def add(a,b)
+        return a+b
+    end
+end
+
+addition_method = Calculator.new.method("add")
+addition = addition_method.to_proc
+
+puts addition.call(5,6)
+</pre>
+And there you have it - a regular, old fashioned method converted to a fancy-pants block!
+
+<h3>Yielding to Blocks</h3>
+As you use blocks, you will discover that the most common usage involves passing exactly one block to a method.
+This pattern is extremely popular in the Ruby world, and you'll find yourself using it all the time.
+<br><br>
+Ruby has a special keyword and syntax to make this pattern easier to use, and yes, faster!
+Meet the <font face="Courier">yield</font> keyword, Ruby's implementation of the most common way of using blocks.
+<br><br>
+Here's an example that uses regular block syntax.
+<pre>
+def calculation(a, b, operation)
+    operation.call(a, b)
+end
+
+puts calculation(5, 6, lambda { |a, b| a + b }) # addition
+puts calculation(5, 6, lambda { |a, b| a - b }) # subtraction
+</pre>
+As you can see, the <font face="Courier">calculation</font> method accepts two numbers and a block that can perform a mathematical operation.
+<br><br>
+Let's now do this using <font face="Courier">yield</font>:
+<pre>
+def calculation(a, b)
+    yield(a, b)
+end
+
+puts calculation(5, 6) { |a, b| a + b } # addition
+puts calculation(5, 6) { |a, b| a - b } # subtraction
+</pre>
+As you can see, the results are identical.
+Feel free to play around with the example to get a better feel for the new syntax.
+<br><br>
+Let me call out how the example using <font face="Courier">yield</font> is different from the regular approach.
+<ul>
+
+<li>The block is now no longer a parameter to the method.
+The block has been implicitly passed to the method - note how it's outside the parentheses.</li>
+<li>Yield makes executing the block feel like a method invocation within the method invocation rather than a block that's being explicitly called using <font face="Courier">Proc#call</font>.</li>
+<li>You have no handle to the block object anymore - yield "magically" invokes it without any object references being involved.</li>
+</ul>
+
+Note that blocks can be passed implicitly to methods without any parameters.
+The syntax remains the same.
+<br><br>
+Here's an example where neither the method nor the block take any parameters.
+<pre>
+def foo
+    yield
+end
+foo { puts "sometimes shortcuts do get you there faster"  }
+</pre>
+
+<h3>Magic Blocks</h3>
+I call <font face="Courier">yield</font> "magical" because every object oriented rule in Ruby is suspended for this special mode of block invocation.
+<br><br>
+Let's see what rules are bent, and what broken.
+<br><br>
+1) Yield is not a method
+<pre>
+def foo
+    puts yield
+    puts method(:foo)
+    # uncomment the following line and see what happens! 
+    # puts method(:yield)
+end
+
+foo { "I expect to be heard." }
+</pre>
+As you can see, the program blows up with an exception on the last line in the method.
+Clearly <font face="Courier">yield</font> calls the block,
+the <font face="Courier">method</font> method correctly returns the object that represents
+<font face="Courier">foo</font> as expected, but then blows up on <font face="Courier">yield</font>.
+So <font face="Courier">yield</font> isn't really a method even though it looks like one (turns out, it's a keyword).
+<br><br>
+2) Objects are abandoned
+<br><br>
+Everything in Ruby is an object.
+Now where's the object that represents the block?
+How is yield getting access to it and seemingly invoking the call method on it?
+<br><br>
+We don't know. As programmers using the language, all we can tell is that the normal rules have been suspended.
+<br><br>
+We'll see exactly why all these rules are broken later in this lesson.
+<br><br>
+With implicit blocks, it's hard to be sure if a block has actually passed.
+Doing a <font face="Courier">yield</font> when there's no block can have unfortunate consequences -
+an exception (a <font face="Courier">LocalJumpError</font>) with the message "no block given" is raised .
+<pre>
+def foo
+    yield
+end
+
+foo
+</pre>
+To defend against this outcome, Ruby offers the <font face="Courier">block_given?</font> method that tells you if a block has been passed to a method implicitly.
+Make the call to yield conditional on this method returning <font face="Courier">true</font> and you'll be fine.
+<pre>
+def foo
+    yield if block_given?
+end
+</pre>
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>

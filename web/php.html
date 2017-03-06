@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Web">Web</a>
+&gt;&gt;
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a>
+</div>
+<hr>
+
+<h2>PHP - Hypertext Preprocessor</h2>
+
+When you are surfing the internet you probably find some web pages ended with <font face="Courier">.html</font>.
+Generally speaking, when the web page is already sent to your computer and displayed by your browser,
+a.html page is not at all different with a html page.
+The difference lies in how the server generated this page.
+<br><br>
+Suppose you are running a website where there is a webpage telling the users about the date.
+It is not a wise choice to use a static html page like this: <xmp><html>
+<head><title>Date</title></head>
+<body>
+2015-05-24
+</body>
+</html>
+</xmp>
+Admittedly, this webpage does what it is supposed to do,
+though it is a bit troubling for you to alter this page every day.
+What is worse, there could be some highly demanding users toleranting with no mistake at all,
+which means you had better update the date at exactly twelve o'clock.
+This is more than troublesome.
+<br><br>
+Dynamic webpages comes as a solver to all kinds of problems like this.
+PHP is one of such kind of webpages.
+Others include ASP which is developed by Microsoft.
+If your web server is running together with a PHP server,
+all you need to do to solve this problem is replace the webpage by the following one <xmp><html>
+<head><title>Date</title></head>
+<body>
+<.html $date=date('Y-m-d');
+echo $date;
+?>
+</body>
+</html>
+</xmp>
+When the client request for this webpage, the webpage is first sent to the PHP server,
+which looks for all the <font face="Courier">&lt;.html ?&gt;</font> pairs that occurred in the page.
+For each such pair, the server runs the PHP codes inside and generates some text,
+which takes the place of the original <font face="Courier">&lt;.html ?&gt;</font>.
+What is sent to the client looks like a normal webpage,
+only that it is generated on the spot rather than stored in the server.
+<br><br>
+If you are running the web server on a linux system, you are probably using apache.
+The combination of <font face="Courier">apache.html-mysql</font> is a most popular one on the linux platform.
+Just execute the following command
+<pre>
+sudo apt-get install.html5
+</pre>
+and all is done automatically for you.
+Write the PHP code in your webpage and the effects on the browser is immediate.
+
+<h3>Commonly used PHP functions</h3>
+<h4>date</h4>
+<font face="Courier">date('Y-m-d');</font> returns a string in the form of "Year-month-date".
+Here the 'Y-m-d' is called format string.
+<h4>basename,dirname,pathinfo</h4>
+Assume you have a string
+<pre>
+$path = '/home/user/path/to/file.ext';
+</pre>
+Then the following PHP command
+<pre>
+echo basename($path),"\n";
+echo basename($path,".ext"),"\n";
+echo dirname($path),"\n";
+echo pathinfo($path,PATHINFO_EXTENSION),"\n";
+echo pathinfo($path,PATHINFO_DIRNAME),"\n";
+echo pathinfo($path,PATHINFO_BASENAME),"\n";
+echo pathinfo($path,PATHINFO_FILENAME),"\n";
+</pre>
+would produce
+<pre>
+file.ext
+file
+/home/user/path/to
+ext
+/home/user/path/to
+file.ext
+file
+</pre>
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>
