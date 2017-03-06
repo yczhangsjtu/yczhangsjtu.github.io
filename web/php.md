@@ -24,12 +24,12 @@ PHP is one of such kind of webpages. Others include ASP which is
 developed by Microsoft. If your web server is running together with a
 PHP server, all you need to do to solve this problem is replace the
 webpage by the following one
-&lt;.html \$date=date('Y-m-d'); echo \$date; ?&gt;
+`<php html $date=date('Y-m-d'); echo $date; ?>;`
 When the client request for this webpage, the webpage is first sent to
-the PHP server, which looks for all the &lt;.html ?&gt; pairs that
+the PHP server, which looks for all the `<php html ?>` pairs that
 occurred in the page. For each such pair, the server runs the PHP codes
 inside and generates some text, which takes the place of the original
-&lt;.html ?&gt;. What is sent to the client looks like a normal webpage,
+`<php html ?>`. What is sent to the client looks like a normal webpage,
 only that it is generated on the spot rather than stored in the server.
 
 If you are running the web server on a linux system, you are probably
@@ -45,7 +45,7 @@ webpage and the effects on the browser is immediate.
 
 ### date
 
-date('Y-m-d'); returns a string in the form of "Year-month-date". Here
+`date('Y-m-d');` returns a string in the form of "Year-month-date". Here
 the 'Y-m-d' is called format string.
 ### basename,dirname,pathinfo
 

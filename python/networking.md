@@ -1,9 +1,9 @@
 ---
-title: Networking
+title: Python Networking
 ---
 
 
-# Networking
+# Python Networking
 
 ## Socket
 
