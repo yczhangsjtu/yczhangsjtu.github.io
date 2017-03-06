@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<pre class="hl"><span class="hl ppc">#include &lt;stdio.h&gt;</span>
+<span class="hl ppc">#include &lt;stdlib.h&gt;</span>
+
+<span class="hl kwc">typedef</span> <span class="hl kwb">char</span> elmt<span class="hl opt">;</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">mgsrt</span><span class="hl opt">(</span> elmt <span class="hl opt">*</span>start<span class="hl opt">,</span> elmt <span class="hl opt">*</span>end <span class="hl opt">);</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">merge</span><span class="hl opt">(</span> elmt <span class="hl opt">*</span>start<span class="hl opt">,</span> elmt <span class="hl opt">*</span>mid<span class="hl opt">,</span> elmt <span class="hl opt">*</span>end <span class="hl opt">);</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+    <span class="hl kwb">char</span> a<span class="hl opt">[]=</span><span class="hl str">&quot;7654321&quot;</span><span class="hl opt">;</span>
+    <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%d %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span><span class="hl kwd">mgsrt</span><span class="hl opt">(</span>a<span class="hl opt">,</span>a<span class="hl opt">+</span><span class="hl num">6</span><span class="hl opt">),</span>a<span class="hl opt">);</span>
+    <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">mgsrt</span><span class="hl opt">(</span> elmt <span class="hl opt">*</span>start<span class="hl opt">,</span> elmt <span class="hl opt">*</span>end <span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwb">int</span> pairs<span class="hl opt">=</span><span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwa">if</span><span class="hl opt">(</span> start<span class="hl opt">&lt;</span>end <span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        elmt <span class="hl opt">*</span>mid<span class="hl opt">=</span>start<span class="hl opt">+(</span>end<span class="hl opt">-</span>start<span class="hl opt">)/</span><span class="hl num">2</span><span class="hl opt">;</span>
+        pairs   <span class="hl opt">+=</span>  <span class="hl kwd">mgsrt</span><span class="hl opt">(</span>start<span class="hl opt">,</span> mid<span class="hl opt">);</span>
+        pairs   <span class="hl opt">+=</span>  <span class="hl kwd">mgsrt</span><span class="hl opt">(</span>mid<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">,</span> end<span class="hl opt">);</span>
+        pairs   <span class="hl opt">+=</span>  <span class="hl kwd">merge</span><span class="hl opt">(</span>start<span class="hl opt">,</span> mid<span class="hl opt">,</span> end<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+    <span class="hl kwa">return</span> pairs<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">merge</span><span class="hl opt">(</span> elmt <span class="hl opt">*</span>start<span class="hl opt">,</span> elmt <span class="hl opt">*</span>mid<span class="hl opt">,</span> elmt <span class="hl opt">*</span>end <span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwb">int</span> pairs<span class="hl opt">=</span><span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> i<span class="hl opt">=</span><span class="hl num">0</span><span class="hl opt">;</span>
+    elmt <span class="hl opt">*</span>temp<span class="hl opt">=</span><span class="hl kwd">malloc</span><span class="hl opt">(</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>elmt<span class="hl opt">)*(</span>end<span class="hl opt">-</span>start<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">));</span>
+    elmt <span class="hl opt">*</span>left<span class="hl opt">, *</span>right<span class="hl opt">;</span>
+    <span class="hl kwa">for</span><span class="hl opt">(</span> left<span class="hl opt">=</span>start<span class="hl opt">,</span>right<span class="hl opt">=</span>mid<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">;</span> left<span class="hl opt">&lt;=</span>mid <span class="hl opt">||</span> right<span class="hl opt">&lt;=</span>end<span class="hl opt">; )</span>
+        <span class="hl opt">*(</span>temp<span class="hl opt">+(</span>i<span class="hl opt">++))= ((</span>left<span class="hl opt">&gt;</span>mid <span class="hl opt">|| *</span>left<span class="hl opt">&gt;*</span>right<span class="hl opt">)&amp;&amp;</span>right<span class="hl opt">&lt;=</span>end<span class="hl opt">)</span>? pairs<span class="hl opt">+=(</span>mid<span class="hl opt">-</span>left<span class="hl opt">+</span><span class="hl num">1</span><span class="hl opt">),*(</span>right<span class="hl opt">++):*(</span>left<span class="hl opt">++);</span>
+    <span class="hl kwa">for</span><span class="hl opt">(</span> i<span class="hl opt">=</span><span class="hl num">0</span><span class="hl opt">;</span> i<span class="hl opt">&lt;=</span>end<span class="hl opt">-</span>start<span class="hl opt">;</span> i<span class="hl opt">++ )</span>
+        <span class="hl opt">*(</span>start<span class="hl opt">+</span>i<span class="hl opt">)=*(</span>temp<span class="hl opt">+</span>i<span class="hl opt">);</span>
+    <span class="hl kwd">free</span><span class="hl opt">(</span>temp<span class="hl opt">);</span>
+    <span class="hl kwa">return</span> pairs<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre>
+
+
+</body>
+
+</html>

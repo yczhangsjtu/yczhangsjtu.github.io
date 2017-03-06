@@ -1,0 +1,360 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<pre class="hl"><span class="hl kwa">import</span> pyglet <span class="hl slc"># pyglet library, the graphical library to use, supporting audio</span>
+<span class="hl kwa">from</span> os<span class="hl opt">.</span>path <span class="hl kwa">import</span> join <span class="hl slc"># Dealing with paths</span>
+
+<span class="hl slc">################################################################################</span>
+<span class="hl slc">##################### DATA STRUCTURES ##########################################</span>
+<span class="hl slc">################################################################################</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Strings                                                        #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+SOUND_DIR <span class="hl opt">=</span> <span class="hl str">&quot;sounds&quot;</span> <span class="hl slc"># Directory of sound resources</span>
+ToPlay <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span> <span class="hl slc"># Music code to play</span>
+Played <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span> <span class="hl slc"># Music code already played</span>
+mode <span class="hl opt">=</span> <span class="hl str">&quot;pause&quot;</span>
+symbols <span class="hl opt">=</span> <span class="hl str">&quot; !&#64;#$%^&amp;*()-_+=</span><span class="hl esc">\&quot;</span><span class="hl str">\:;</span><span class="hl esc">\'</span><span class="hl str">,./</span><span class="hl esc">\\</span><span class="hl str">[]{}1234567890&quot;</span>
+Editor <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+Info <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+
+<span class="hl slc">#~~~~~~~~~~~~~~~ Songs ~~~~~~~~~~~~~~~~~~</span>
+Dragon <span class="hl opt">=</span> \
+<span class="hl str">&quot;F-GHI-JIH-HGF   F-GHI-JIH-HIJ   F-GHI-JIH-HGF   G-G-G-HGF-FEF   \</span>
+<span class="hl str">J-J-J-IHI-IJI   H-H-H-IHG-GHG   J-J-J-IHI-IJI   H-H-G-HGF-FEF&quot;</span>
+Tomorrow <span class="hl opt">=</span> \
+<span class="hl str">&quot;JJL-L-LL-LMLK- JKL-L-JIH-I--- JIHH-HHOO-NN-ONML-MLK-KLMLL---- O-O---MLL-ML----\</span>
+<span class="hl str">M-M-LH-IJ----- I-H--HHJ-JJII-I--II-I-NM-      \</span>
+<span class="hl str">MMMNO-MLNN-OP-N- ONMLLHIJJ-- J-N-NN-JP-P-O-NMM----\</span>
+<span class="hl str">MMMNON-MNN-OP-NNQ-----POO----- NM-M-MM--L-L-IJ--H&quot;</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Numerical States                                               #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+winw <span class="hl opt">=</span> <span class="hl num">800</span>
+winh <span class="hl opt">=</span> <span class="hl num">500</span>
+texth <span class="hl opt">=</span> <span class="hl num">40</span>
+texts <span class="hl opt">=</span> <span class="hl num">20</span>
+interval <span class="hl opt">=</span> <span class="hl num">0.12</span>
+maxPlayedSize <span class="hl opt">=</span> <span class="hl num">30</span>
+maxAppendSize <span class="hl opt">=</span> <span class="hl num">30</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Pyglet Objects                                                 #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+window <span class="hl opt">=</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span><span class="hl kwd">Window</span><span class="hl opt">()</span> <span class="hl slc"># Create window</span>
+window<span class="hl opt">.</span><span class="hl kwd">set_size</span><span class="hl opt">(</span>winw<span class="hl opt">,</span>winh<span class="hl opt">)</span> <span class="hl slc"># Set window size</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Arrays                                                         #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc"># Alphabeta: from &quot;A&quot; to &quot;Z&quot;</span>
+alphabeta <span class="hl opt">= [</span><span class="hl kwb">chr</span><span class="hl opt">(</span>i<span class="hl opt">)</span> <span class="hl kwa">for</span> i <span class="hl kwa">in</span> <span class="hl kwb">range</span><span class="hl opt">(</span><span class="hl kwb">ord</span><span class="hl opt">(</span><span class="hl str">&quot;A&quot;</span><span class="hl opt">),</span><span class="hl kwb">ord</span><span class="hl opt">(</span><span class="hl str">&quot;Z&quot;</span><span class="hl opt">)+</span><span class="hl num">1</span><span class="hl opt">)]</span>
+symbolnum <span class="hl opt">= [</span><span class="hl kwb">ord</span><span class="hl opt">(</span>c<span class="hl opt">)</span> <span class="hl kwa">for</span> c <span class="hl kwa">in</span> symbols<span class="hl opt">]</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Dictionaries                                                   #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+sounds <span class="hl opt">= {}</span> <span class="hl slc"># The map from alphabeta to the corresponding media object</span>
+
+<span class="hl slc">################################################################################</span>
+<span class="hl slc">################# FUNCTIONS ####################################################</span>
+<span class="hl slc">################################################################################</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               File Processing                                                #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc"># Open file s.mp3 and store the media object into the dictionary</span>
+<span class="hl kwa">def</span> <span class="hl kwd">getSound</span><span class="hl opt">(</span>s<span class="hl opt">):</span>
+    <span class="hl slc"># Open audio files</span>
+    m <span class="hl opt">=</span> pyglet<span class="hl opt">.</span>media<span class="hl opt">.</span><span class="hl kwd">load</span><span class="hl opt">(</span><span class="hl kwd">join</span><span class="hl opt">(</span>SOUND_DIR<span class="hl opt">,</span><span class="hl str">&quot;%s.mp3&quot;</span><span class="hl opt">%</span>s<span class="hl opt">),</span>streaming<span class="hl opt">=</span><span class="hl kwa">False</span><span class="hl opt">)</span>
+    <span class="hl slc"># Store m into dictionary sounds, under key s</span>
+    sounds<span class="hl opt">[</span>s<span class="hl opt">] =</span> m
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Command Operation                                              #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl kwa">def</span> <span class="hl kwd">startPlaying</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;playing&quot;</span>
+    pyglet<span class="hl opt">.</span>clock<span class="hl opt">.</span><span class="hl kwd">unschedule</span><span class="hl opt">(</span>autoPlay<span class="hl opt">)</span> <span class="hl slc"># In case already playing</span>
+    pyglet<span class="hl opt">.</span>clock<span class="hl opt">.</span><span class="hl kwd">schedule_interval</span><span class="hl opt">(</span>autoPlay<span class="hl opt">,</span>interval<span class="hl opt">)</span> <span class="hl slc"># Start playing</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">pause</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;pause&quot;</span>
+    pyglet<span class="hl opt">.</span>clock<span class="hl opt">.</span><span class="hl kwd">unschedule</span><span class="hl opt">(</span>autoPlay<span class="hl opt">)</span> <span class="hl slc"># Stop playing</span>
+
+<span class="hl slc"># Entering append mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">appendMode</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;append&quot;</span>
+
+<span class="hl slc"># Entering edit mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">editMode</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;edit&quot;</span>
+
+<span class="hl slc"># Entering file open mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">fileMode</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;file&quot;</span>
+
+<span class="hl slc"># Entering play append mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">playAppend</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;play append&quot;</span>
+
+<span class="hl slc"># Entering play append mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">playEdit</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;play edit&quot;</span>
+
+<span class="hl slc"># Reset</span>
+<span class="hl kwa">def</span> <span class="hl kwd">reset</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode<span class="hl opt">,</span> ToPlay<span class="hl opt">,</span> Played<span class="hl opt">,</span> Editor
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;pause&quot;</span>
+    ToPlay <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+    Played <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+    Editor <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+
+<span class="hl slc"># Enter practise mode</span>
+<span class="hl kwa">def</span> <span class="hl kwd">practise</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode
+    mode <span class="hl opt">=</span> <span class="hl str">&quot;practise&quot;</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">command</span><span class="hl opt">(</span>c<span class="hl opt">):</span>
+    <span class="hl kwa">if</span> c <span class="hl opt">==</span> <span class="hl str">&quot;c&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-C</span>
+        <span class="hl kwd">pause</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;p&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-P</span>
+        <span class="hl kwd">startPlaying</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;a&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-A</span>
+        <span class="hl kwd">appendMode</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;e&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-E</span>
+        <span class="hl kwd">editMode</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;f&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-F</span>
+        <span class="hl kwd">fileMode</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;r&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-R</span>
+        <span class="hl kwd">reset</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;l&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Ctrl-L</span>
+        <span class="hl kwd">practise</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;A&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Shift-A</span>
+        <span class="hl kwd">playAppend</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c <span class="hl opt">==</span> <span class="hl str">&quot;E&quot;</span><span class="hl opt">:</span> <span class="hl slc"># Shift-A</span>
+        <span class="hl kwd">playEdit</span><span class="hl opt">()</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Sound Manipulation                                             #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc"># Play the sound given single char c</span>
+<span class="hl kwa">def</span> <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> Played
+    Played <span class="hl opt">+=</span> c
+    <span class="hl slc"># Play the char and log it in the string Played</span>
+    <span class="hl kwa">if</span> c<span class="hl opt">.</span><span class="hl kwd">isupper</span><span class="hl opt">():</span>
+        sounds<span class="hl opt">[</span>c<span class="hl opt">].</span><span class="hl kwd">play</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> c<span class="hl opt">.</span><span class="hl kwd">islower</span><span class="hl opt">():</span>
+        sounds<span class="hl opt">[</span>c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">()].</span><span class="hl kwd">play</span><span class="hl opt">()</span>
+
+<span class="hl slc"># Play function invoked by schedule</span>
+<span class="hl kwa">def</span> <span class="hl kwd">autoPlay</span><span class="hl opt">(</span>dt<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> ToPlay
+    <span class="hl slc"># If the music to play is empty, stop</span>
+    <span class="hl kwa">if</span> ToPlay <span class="hl opt">==</span> <span class="hl str">&quot;&quot;</span><span class="hl opt">:</span> <span class="hl kwa">return</span>
+    <span class="hl slc"># Take the first character out and play it</span>
+    c <span class="hl opt">=</span> ToPlay<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]</span>
+    <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">)</span>
+    ToPlay <span class="hl opt">=</span> ToPlay<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">:]</span>
+
+<span class="hl slc"># Append music to the ToPlay string</span>
+<span class="hl kwa">def</span> <span class="hl kwd">appendPlay</span><span class="hl opt">(</span>music<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> ToPlay
+    ToPlay <span class="hl opt">+=</span> music
+
+<span class="hl slc"># Play an encoding of a piece of music</span>
+<span class="hl kwa">def</span> <span class="hl kwd">play</span><span class="hl opt">(</span>music<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> ToPlay
+    ToPlay <span class="hl opt">=</span> music
+    <span class="hl kwd">startPlaying</span><span class="hl opt">()</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Functions invoked by callback functions                        #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc"># Function invoked when an alphabeta key is pressed</span>
+<span class="hl kwa">def</span> <span class="hl kwd">alphaKeyPress</span><span class="hl opt">(</span>c<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> Editor<span class="hl opt">,</span> ToPlay
+    <span class="hl kwa">if</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;playing&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;pause&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwa">if</span> c<span class="hl opt">.</span><span class="hl kwd">isupper</span><span class="hl opt">():</span>
+            <span class="hl kwd">command</span><span class="hl opt">(</span>c<span class="hl opt">)</span>
+        <span class="hl kwa">elif</span> c<span class="hl opt">.</span><span class="hl kwd">islower</span><span class="hl opt">():</span>
+            <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">())</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;edit&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;file&quot;</span><span class="hl opt">:</span>
+        Editor <span class="hl opt">+=</span> c
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play edit&quot;</span><span class="hl opt">:</span>
+        Editor <span class="hl opt">+=</span> c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">()</span>
+        <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">())</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;practise&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwa">if</span> ToPlay <span class="hl opt">==</span> <span class="hl str">&quot;&quot;</span><span class="hl opt">:</span>
+            <span class="hl kwd">pause</span><span class="hl opt">()</span>
+        <span class="hl kwa">else</span><span class="hl opt">:</span>
+            n <span class="hl opt">=</span> ToPlay<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]</span>
+            <span class="hl kwa">if</span> c <span class="hl opt">==</span> n <span class="hl kwa">or</span> c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">() ==</span> n<span class="hl opt">:</span>
+                <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">.</span><span class="hl kwd">upper</span><span class="hl opt">())</span>
+                <span class="hl kwa">while True</span><span class="hl opt">:</span>
+                    ToPlay <span class="hl opt">=</span> ToPlay<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">:]</span>
+                    <span class="hl kwa">if</span> <span class="hl kwb">len</span><span class="hl opt">(</span>ToPlay<span class="hl opt">) ==</span> <span class="hl num">0</span> <span class="hl kwa">or</span> ToPlay<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">].</span><span class="hl kwd">isalpha</span><span class="hl opt">():</span>
+                        <span class="hl kwa">break</span>
+
+<span class="hl slc"># Function invoked when a symbol key is pressed</span>
+<span class="hl kwa">def</span> <span class="hl kwd">symbolKeyPress</span><span class="hl opt">(</span>c<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> Editor
+    <span class="hl kwa">if</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;playing&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;pause&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">)</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;edit&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;file&quot;</span><span class="hl opt">:</span>
+        Editor <span class="hl opt">+=</span> c
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play edit&quot;</span><span class="hl opt">:</span>
+        Editor <span class="hl opt">+=</span> c
+        <span class="hl kwd">playC</span><span class="hl opt">(</span>c<span class="hl opt">)</span>
+
+<span class="hl slc"># Function invoked when ESC is pressed</span>
+<span class="hl kwa">def</span> <span class="hl kwd">escPress</span><span class="hl opt">():</span>
+    <span class="hl kwa">pass</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">backspacePress</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> Editor
+    <span class="hl kwa">if</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play append&quot;</span> \
+    <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;edit&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play edit&quot;</span> \
+    <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;file&quot;</span><span class="hl opt">:</span>
+        Editor <span class="hl opt">=</span> Editor<span class="hl opt">[:-</span><span class="hl num">1</span><span class="hl opt">]</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">returnPress</span><span class="hl opt">():</span>
+    <span class="hl kwa">global</span> mode<span class="hl opt">,</span> ToPlay<span class="hl opt">,</span> Editor<span class="hl opt">,</span> filename<span class="hl opt">,</span> Info
+    <span class="hl kwa">if</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;append&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play append&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">pause</span><span class="hl opt">()</span>
+        ToPlay <span class="hl opt">+=</span> Editor
+        Editor <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;edit&quot;</span> <span class="hl kwa">or</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play edit&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">pause</span><span class="hl opt">()</span>
+        ToPlay <span class="hl opt">=</span> Editor
+        Editor <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;file&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwa">try</span><span class="hl opt">:</span>
+            with <span class="hl kwb">open</span><span class="hl opt">(</span>Editor<span class="hl opt">)</span> <span class="hl kwa">as</span> f<span class="hl opt">:</span>
+                ToPlay <span class="hl opt">+=</span> <span class="hl str">&quot;&quot;</span><span class="hl opt">.</span><span class="hl kwd">join</span><span class="hl opt">(</span>f<span class="hl opt">.</span><span class="hl kwd">readlines</span><span class="hl opt">())</span>
+        <span class="hl kwa">except</span><span class="hl opt">:</span>
+            Info <span class="hl opt">=</span> <span class="hl str">&quot;%s: File not found.&quot;</span><span class="hl opt">%</span>Editor
+        <span class="hl kwd">pause</span><span class="hl opt">()</span>
+        Editor <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc">#               Draw functions                                                 #</span>
+<span class="hl slc">#------------------------------------------------------------------------------#</span>
+<span class="hl slc"># Routine of Drawing Rectangle</span>
+<span class="hl kwa">def</span> <span class="hl kwd">drawRectangle</span><span class="hl opt">(</span>x0<span class="hl opt">,</span>y0<span class="hl opt">,</span>x1<span class="hl opt">,</span>y1<span class="hl opt">,</span>outline<span class="hl opt">,</span>fill<span class="hl opt">):</span>
+    <span class="hl kwa">if</span> outline<span class="hl opt">:</span>
+        r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">=</span>outline<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">],</span>outline<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">],</span>outline<span class="hl opt">[</span><span class="hl num">2</span><span class="hl opt">]</span>
+        pyglet<span class="hl opt">.</span>graphics<span class="hl opt">.</span><span class="hl kwd">draw</span><span class="hl opt">(</span><span class="hl num">4</span><span class="hl opt">,</span>pyglet<span class="hl opt">.</span>gl<span class="hl opt">.</span>GL_LINE_LOOP<span class="hl opt">,</span>\
+            <span class="hl opt">(</span><span class="hl str">'v2i'</span><span class="hl opt">,(</span>x0<span class="hl opt">,</span>y0<span class="hl opt">,</span>x1<span class="hl opt">,</span>y0<span class="hl opt">,</span>x1<span class="hl opt">,</span>y1<span class="hl opt">,</span>x0<span class="hl opt">,</span>y1<span class="hl opt">)),</span>\
+            <span class="hl opt">(</span><span class="hl str">'c3B'</span><span class="hl opt">,(</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">))</span>\
+        <span class="hl opt">)</span>
+    <span class="hl kwa">if</span> fill<span class="hl opt">:</span>
+        r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">=</span>fill<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">],</span>fill<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">],</span>fill<span class="hl opt">[</span><span class="hl num">2</span><span class="hl opt">]</span>
+        pyglet<span class="hl opt">.</span>graphics<span class="hl opt">.</span><span class="hl kwd">draw</span><span class="hl opt">(</span><span class="hl num">4</span><span class="hl opt">,</span>pyglet<span class="hl opt">.</span>gl<span class="hl opt">.</span>GL_QUADS<span class="hl opt">,</span>\
+            <span class="hl opt">(</span><span class="hl str">'v2i'</span><span class="hl opt">,(</span>x0<span class="hl opt">,</span>y0<span class="hl opt">,</span>x1<span class="hl opt">,</span>y0<span class="hl opt">,</span>x1<span class="hl opt">,</span>y1<span class="hl opt">,</span>x0<span class="hl opt">,</span>y1<span class="hl opt">)),</span>\
+            <span class="hl opt">(</span><span class="hl str">'c3B'</span><span class="hl opt">,(</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">))</span>\
+        <span class="hl opt">)</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">drawText</span><span class="hl opt">(</span>text<span class="hl opt">,</span>x0<span class="hl opt">,</span>y0<span class="hl opt">,</span>size<span class="hl opt">,</span>fill<span class="hl opt">):</span>
+    r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">=</span>fill<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">],</span>fill<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">],</span>fill<span class="hl opt">[</span><span class="hl num">2</span><span class="hl opt">]</span>
+    pyglet<span class="hl opt">.</span>text<span class="hl opt">.</span><span class="hl kwd">Label</span><span class="hl opt">(</span>text<span class="hl opt">,</span>anchor_x<span class="hl opt">=</span><span class="hl str">&quot;left&quot;</span><span class="hl opt">,</span>anchor_y<span class="hl opt">=</span><span class="hl str">&quot;bottom&quot;</span><span class="hl opt">,</span>\
+        x<span class="hl opt">=</span>x0<span class="hl opt">,</span>y<span class="hl opt">=</span>y0<span class="hl opt">,</span>color<span class="hl opt">=(</span>r<span class="hl opt">,</span>g<span class="hl opt">,</span>b<span class="hl opt">,</span><span class="hl num">255</span><span class="hl opt">),</span>font_name<span class="hl opt">=</span><span class="hl str">&quot;Arial&quot;</span><span class="hl opt">,</span>font_size<span class="hl opt">=</span>size<span class="hl opt">).</span><span class="hl kwd">draw</span><span class="hl opt">()</span>
+
+<span class="hl slc"># Draw the background -- white box filling the window</span>
+<span class="hl kwa">def</span> <span class="hl kwd">drawBackground</span><span class="hl opt">():</span>
+    <span class="hl kwd">drawRectangle</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>winw<span class="hl opt">,</span>winh<span class="hl opt">,</span><span class="hl kwa">None</span><span class="hl opt">,[</span><span class="hl num">255</span><span class="hl opt">,</span><span class="hl num">255</span><span class="hl opt">,</span><span class="hl num">255</span><span class="hl opt">])</span>
+
+<span class="hl slc"># Draw the text informations</span>
+<span class="hl kwa">def</span> <span class="hl kwd">drawInfo</span><span class="hl opt">():</span>
+    <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Music: %s&quot;</span><span class="hl opt">%</span>ToPlay<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Played: %s&quot;</span><span class="hl opt">%</span>Played<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxPlayedSize<span class="hl opt">:],</span>\
+        <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">2</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">if</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;append&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Append: %s&quot;</span><span class="hl opt">%</span>Editor<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxAppendSize<span class="hl opt">:],</span>\
+                 <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">3</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play append&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Append: %s&quot;</span><span class="hl opt">%</span>Editor<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxAppendSize<span class="hl opt">:],</span>\
+                 <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">3</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;edit&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Edit: %s&quot;</span><span class="hl opt">%</span>Editor<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxAppendSize<span class="hl opt">:],</span>\
+                 <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">3</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;play edit&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;Edit: %s&quot;</span><span class="hl opt">%</span>Editor<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxAppendSize<span class="hl opt">:],</span>\
+                 <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">3</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">elif</span> mode <span class="hl opt">==</span> <span class="hl str">&quot;file&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;File: %s&quot;</span><span class="hl opt">%</span>Editor<span class="hl opt">[-</span><span class="hl num">1</span><span class="hl opt">-</span>maxAppendSize<span class="hl opt">:],</span>\
+                 <span class="hl num">0</span><span class="hl opt">,</span>winh<span class="hl opt">-</span>texth<span class="hl opt">*</span><span class="hl num">3</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">if</span> Info <span class="hl opt">==</span> <span class="hl str">&quot;&quot;</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">%</span>mode<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+    <span class="hl kwa">else</span><span class="hl opt">:</span>
+        <span class="hl kwd">drawText</span><span class="hl opt">(</span><span class="hl str">&quot;%s&quot;</span><span class="hl opt">%</span>Info<span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span>texts<span class="hl opt">,[</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">0</span><span class="hl opt">])</span>
+
+<span class="hl slc">################################################################################</span>
+<span class="hl slc">################# INITIALIZATION ###############################################</span>
+<span class="hl slc">################################################################################</span>
+
+<span class="hl slc"># Load all the sound files</span>
+<span class="hl kwa">for</span> s <span class="hl kwa">in</span> alphabeta<span class="hl opt">:</span>
+    <span class="hl kwd">getSound</span><span class="hl opt">(</span>s<span class="hl opt">)</span>
+
+<span class="hl slc"># appendPlay(Tomorrow)</span>
+
+<span class="hl slc">################################################################################</span>
+<span class="hl slc">################### CALL BACK FUNCTIONS ########################################</span>
+<span class="hl slc">################################################################################</span>
+
+<span class="hl slc"># Callback function: onKeyPress</span>
+<span class="hl kwb">&#64;window</span><span class="hl opt">.</span>event
+<span class="hl kwa">def</span> <span class="hl kwd">on_key_press</span><span class="hl opt">(</span>symbol<span class="hl opt">,</span>modifiers<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> Info <span class="hl slc"># Information string, any key will erase it</span>
+    Info <span class="hl opt">=</span> <span class="hl str">&quot;&quot;</span>
+    <span class="hl slc"># If symbol is between 'a' and 'z'</span>
+    <span class="hl kwa">if</span> symbol <span class="hl opt">&gt;=</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>A <span class="hl kwa">and</span> symbol <span class="hl opt">&lt;=</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>Z<span class="hl opt">:</span>
+        <span class="hl slc"># Pressing ctrl, invoke command</span>
+        <span class="hl kwa">if</span> modifiers <span class="hl opt">&amp;</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>MOD_CTRL<span class="hl opt">:</span>
+            <span class="hl kwd">command</span><span class="hl opt">(</span><span class="hl kwb">chr</span><span class="hl opt">(</span>symbol<span class="hl opt">))</span>
+        <span class="hl kwa">elif</span> modifiers <span class="hl opt">&amp;</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>MOD_SHIFT<span class="hl opt">:</span>
+            <span class="hl kwd">alphaKeyPress</span><span class="hl opt">(</span><span class="hl kwb">chr</span><span class="hl opt">(</span>symbol<span class="hl opt">).</span><span class="hl kwd">upper</span><span class="hl opt">())</span>
+        <span class="hl kwa">else</span><span class="hl opt">:</span>
+            <span class="hl slc"># Invoke the alphakeyPress function</span>
+            <span class="hl kwd">alphaKeyPress</span><span class="hl opt">(</span><span class="hl kwb">chr</span><span class="hl opt">(</span>symbol<span class="hl opt">))</span>
+    <span class="hl kwa">elif</span> symbol <span class="hl kwa">in</span> symbolnum<span class="hl opt">:</span>
+        <span class="hl kwd">symbolKeyPress</span><span class="hl opt">(</span><span class="hl kwb">chr</span><span class="hl opt">(</span>symbol<span class="hl opt">))</span>
+    <span class="hl slc"># Esc key pressed</span>
+    <span class="hl kwa">elif</span> symbol <span class="hl opt">==</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>ESCAPE<span class="hl opt">:</span>
+        <span class="hl kwd">escPress</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> symbol <span class="hl opt">==</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>BACKSPACE<span class="hl opt">:</span>
+        <span class="hl kwd">backspacePress</span><span class="hl opt">()</span>
+    <span class="hl kwa">elif</span> symbol <span class="hl opt">==</span> pyglet<span class="hl opt">.</span>window<span class="hl opt">.</span>key<span class="hl opt">.</span>RETURN<span class="hl opt">:</span>
+        <span class="hl kwd">returnPress</span><span class="hl opt">()</span>
+
+<span class="hl slc"># Callback function: onDraw</span>
+<span class="hl kwb">&#64;window</span><span class="hl opt">.</span>event
+<span class="hl kwa">def</span> <span class="hl kwd">on_draw</span><span class="hl opt">():</span>
+    <span class="hl slc"># Clear the window</span>
+    window<span class="hl opt">.</span><span class="hl kwd">clear</span><span class="hl opt">()</span>
+    <span class="hl kwd">drawBackground</span><span class="hl opt">()</span>
+    <span class="hl kwd">drawInfo</span><span class="hl opt">()</span> <span class="hl slc"># Draw the text informations</span>
+        
+<span class="hl slc">################################################################################</span>
+
+<span class="hl slc"># Start the application</span>
+pyglet<span class="hl opt">.</span>app<span class="hl opt">.</span><span class="hl kwd">run</span><span class="hl opt">()</span>
+
+</pre>
+</body>
+
+</html>

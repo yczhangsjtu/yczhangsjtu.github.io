@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<pre class="hl"><span class="hl ppc">#include &lt;GL/freeglut.h&gt;</span>
+<span class="hl ppc">#include &lt;cstdlib&gt;</span>
+
+GLfloat sclLeft <span class="hl opt">= -</span><span class="hl num">2.0</span><span class="hl opt">;</span>
+GLfloat sclRight <span class="hl opt">=</span> <span class="hl num">2.0</span><span class="hl opt">;</span>
+GLfloat sclBottom <span class="hl opt">= -</span><span class="hl num">2.0</span><span class="hl opt">;</span>
+GLfloat sclTop <span class="hl opt">=</span> <span class="hl num">2.0</span><span class="hl opt">;</span>
+
+
+<span class="hl kwb">void</span> <span class="hl kwd">display</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">glClear</span><span class="hl opt">(</span>GL_COLOR_BUFFER_BIT<span class="hl opt">|</span>GL_DEPTH_BUFFER_BIT<span class="hl opt">);</span>
+
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">);</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">();</span>
+
+    <span class="hl kwd">glutSwapBuffers</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">reshape</span><span class="hl opt">(</span><span class="hl kwb">int</span> w<span class="hl opt">,</span> <span class="hl kwb">int</span> h<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_PROJECTION<span class="hl opt">);</span>
+    <span class="hl kwd">glLoadIdentity</span><span class="hl opt">();</span>
+    <span class="hl kwd">gluOrtho2D</span><span class="hl opt">(</span>sclLeft<span class="hl opt">,</span> sclRight<span class="hl opt">,</span> sclBottom<span class="hl opt">,</span> sclTop<span class="hl opt">);</span>
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_MODELVIEW<span class="hl opt">);</span>
+    <span class="hl kwd">glViewport</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">,</span> w<span class="hl opt">,</span> h<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">keyboard</span><span class="hl opt">(</span><span class="hl kwb">unsigned char</span> keyCode<span class="hl opt">,</span> <span class="hl kwb">int</span> x<span class="hl opt">,</span> <span class="hl kwb">int</span> y<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">keyboardUp</span><span class="hl opt">(</span><span class="hl kwb">unsigned char</span> keyCode<span class="hl opt">,</span> <span class="hl kwb">int</span> x<span class="hl opt">,</span> <span class="hl kwb">int</span> y<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">special</span><span class="hl opt">(</span><span class="hl kwb">int</span> keyCode<span class="hl opt">,</span> <span class="hl kwb">int</span> x<span class="hl opt">,</span> <span class="hl kwb">int</span> y<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">specialUp</span><span class="hl opt">(</span><span class="hl kwb">int</span> keyCode<span class="hl opt">,</span> <span class="hl kwb">int</span> x<span class="hl opt">,</span> <span class="hl kwb">int</span> y<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">mouse</span><span class="hl opt">(</span><span class="hl kwb">int</span> btn<span class="hl opt">,</span> <span class="hl kwb">int</span> state<span class="hl opt">,</span> <span class="hl kwb">int</span> x<span class="hl opt">,</span> <span class="hl kwb">int</span> y<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">menu</span><span class="hl opt">(</span><span class="hl kwb">int</span> id<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+    <span class="hl kwa">switch</span><span class="hl opt">(</span>id<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl kwa">case</span> <span class="hl num">0</span><span class="hl opt">:</span>
+        std<span class="hl opt">::</span><span class="hl kwd">exit</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">myinit</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">glClearColor</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">);</span>
+
+<span class="hl opt">}</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">idle</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+    <span class="hl kwd">glutInit</span><span class="hl opt">(&amp;</span>argc<span class="hl opt">,</span> argv<span class="hl opt">);</span>
+    <span class="hl kwd">glutInitDisplayMode</span><span class="hl opt">(</span>GLUT_DOUBLE <span class="hl opt">|</span> GLUT_RGB <span class="hl opt">|</span> GLUT_DEPTH<span class="hl opt">);</span>
+    <span class="hl kwd">glutInitWindowSize</span><span class="hl opt">(</span><span class="hl num">1366</span><span class="hl opt">,</span> <span class="hl num">750</span><span class="hl opt">);</span>
+    <span class="hl kwd">glutInitWindowPosition</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glutCreateWindow</span><span class="hl opt">(</span><span class="hl str">&quot;Window&quot;</span><span class="hl opt">);</span>
+    <span class="hl kwd">myinit</span><span class="hl opt">();</span>
+    <span class="hl kwd">glutDisplayFunc</span><span class="hl opt">(</span>display<span class="hl opt">);</span>
+    <span class="hl kwd">glutReshapeFunc</span><span class="hl opt">(</span>reshape<span class="hl opt">);</span>
+    <span class="hl kwd">glutKeyboardFunc</span><span class="hl opt">(</span>keyboard<span class="hl opt">);</span>
+    <span class="hl kwd">glutKeyboardUpFunc</span><span class="hl opt">(</span>keyboardUp<span class="hl opt">);</span>
+    <span class="hl kwd">glutSpecialFunc</span><span class="hl opt">(</span>special<span class="hl opt">);</span>
+    <span class="hl kwd">glutSpecialUpFunc</span><span class="hl opt">(</span>specialUp<span class="hl opt">);</span>
+    <span class="hl kwd">glutMouseFunc</span><span class="hl opt">(</span>mouse<span class="hl opt">);</span>
+    <span class="hl kwd">glutCreateMenu</span><span class="hl opt">(</span>menu<span class="hl opt">);</span>
+    <span class="hl kwd">glutAddMenuEntry</span><span class="hl opt">(</span><span class="hl str">&quot;Quit&quot;</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">);</span>
+    <span class="hl kwd">glutAttachMenu</span><span class="hl opt">(</span>GLUT_RIGHT_BUTTON<span class="hl opt">);</span>
+    <span class="hl kwd">glutIdleFunc</span><span class="hl opt">(</span>idle<span class="hl opt">);</span>
+    <span class="hl kwd">glutMainLoop</span><span class="hl opt">();</span>
+<span class="hl opt">}</span>
+</pre>
+</body>
+
+</html>

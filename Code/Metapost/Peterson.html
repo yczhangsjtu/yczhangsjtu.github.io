@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<pre class="hl">outputformat <span class="hl opt">:=</span> <span class="hl str">&quot;eps&quot;</span><span class="hl opt">;</span>
+prologues <span class="hl opt">:=</span> <span class="hl num">3</span><span class="hl opt">;</span>
+outputtemplate <span class="hl opt">:=</span> <span class="hl str">&quot;%j-%c.eps&quot;</span><span class="hl opt">;</span>
+<span class="hl opt">%</span>defaultscale <span class="hl opt">:=</span> <span class="hl num">1.5</span><span class="hl opt">;</span>
+u<span class="hl opt">:=</span> <span class="hl num">3</span>cm<span class="hl opt">;</span>
+
+
+<span class="hl kwd">beginfig</span><span class="hl opt">(</span><span class="hl num">1</span><span class="hl opt">);</span>
+
+pair p<span class="hl opt">[],</span>q<span class="hl opt">[];</span>
+<span class="hl kwa">for</span> i<span class="hl opt">=</span><span class="hl num">0</span> upto <span class="hl num">4</span><span class="hl opt">:</span>
+	x <span class="hl opt">:=</span> u<span class="hl opt">*</span><span class="hl kwd">sind</span><span class="hl opt">(</span><span class="hl num">72</span><span class="hl opt">*</span>i<span class="hl opt">);</span>
+	y <span class="hl opt">:=</span> u<span class="hl opt">*</span><span class="hl kwd">cosd</span><span class="hl opt">(</span><span class="hl num">72</span><span class="hl opt">*</span>i<span class="hl opt">);</span>
+	p<span class="hl opt">[</span>i<span class="hl opt">]=(</span><span class="hl num">2</span><span class="hl opt">*</span>x<span class="hl opt">,</span><span class="hl num">2</span><span class="hl opt">*</span>y<span class="hl opt">);</span>
+	q<span class="hl opt">[</span>i<span class="hl opt">]=(</span>x<span class="hl opt">,</span>y<span class="hl opt">);</span>
+endfor
+
+pickup pencircle scaled <span class="hl num">5</span>pt
+draw p0<span class="hl opt">--</span>p1<span class="hl opt">--</span>p2<span class="hl opt">--</span>p3<span class="hl opt">--</span>p4<span class="hl opt">--</span>cycle withcolor blue<span class="hl opt">;</span>
+draw q0<span class="hl opt">--</span>q2<span class="hl opt">--</span>q4<span class="hl opt">--</span>q1<span class="hl opt">--</span>q3<span class="hl opt">--</span>cycle withcolor blue<span class="hl opt">;</span>
+<span class="hl kwa">for</span> i<span class="hl opt">=</span><span class="hl num">0</span> upto <span class="hl num">4</span><span class="hl opt">:</span>
+	pickup pencircle scaled <span class="hl num">5</span>pt
+	draw p<span class="hl opt">[</span>i<span class="hl opt">]--</span>q<span class="hl opt">[</span>i<span class="hl opt">]</span> withcolor blue<span class="hl opt">;</span>
+	label<span class="hl opt">.</span><span class="hl kwd">top</span><span class="hl opt">((</span><span class="hl str">&quot;b&quot;</span><span class="hl opt">&amp;</span><span class="hl kwd">decimal</span><span class="hl opt">(</span>i<span class="hl opt">))</span> infont defaultfont scaled <span class="hl num">1.5</span><span class="hl opt">,</span> <span class="hl num">0.5</span><span class="hl opt">[</span>p<span class="hl opt">[</span>i<span class="hl opt">],</span>q<span class="hl opt">[</span>i<span class="hl opt">]])</span>
+		withcolor green<span class="hl opt">;</span>
+	pickup pencircle scaled <span class="hl num">20</span>pt
+	drawdot p<span class="hl opt">[</span>i<span class="hl opt">]</span> withcolor red<span class="hl opt">;</span>
+	drawdot q<span class="hl opt">[</span>i<span class="hl opt">]</span> withcolor red<span class="hl opt">;</span>
+	label<span class="hl opt">.</span><span class="hl kwd">top</span><span class="hl opt">((</span><span class="hl str">&quot;p&quot;</span><span class="hl opt">&amp;</span><span class="hl kwd">decimal</span><span class="hl opt">(</span>i<span class="hl opt">))</span> infont defaultfont scaled <span class="hl num">1.5</span><span class="hl opt">,</span> p<span class="hl opt">[</span>i<span class="hl opt">]+(</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">10</span><span class="hl opt">));</span>
+	label<span class="hl opt">.</span><span class="hl kwd">top</span><span class="hl opt">((</span><span class="hl str">&quot;q&quot;</span><span class="hl opt">&amp;</span><span class="hl kwd">decimal</span><span class="hl opt">(</span>i<span class="hl opt">))</span> infont defaultfont scaled <span class="hl num">1.5</span><span class="hl opt">,</span> q<span class="hl opt">[</span>i<span class="hl opt">]+(</span><span class="hl num">0</span><span class="hl opt">,</span><span class="hl num">10</span><span class="hl opt">));</span>
+endfor
+
+
+endfig<span class="hl opt">;</span>
+
+end<span class="hl opt">.</span>
+</pre>
+</body>
+
+</html>
