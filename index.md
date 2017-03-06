@@ -45,5 +45,3 @@ title: Computer Technology and Skills
 * [web/html.html](HTML Cheatsheet)
 * [web/php.html](Introduction to PHP)
 
-
-</html>
