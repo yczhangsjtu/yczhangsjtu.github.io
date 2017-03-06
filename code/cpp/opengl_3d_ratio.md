@@ -2,7 +2,7 @@
 title: OpenGL 3D Template (Keep Ratio)
 ---
 
-```C++
+```c++
 #include <GL/freeglut.h>
 #include <cstdlib>
 

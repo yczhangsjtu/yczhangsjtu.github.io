@@ -2,7 +2,7 @@
 title: Convex Hull
 ---
 
-```C++
+```c++
 #include <GL/freeglut.h>
 #include <cstdlib>
 #include <vector>
