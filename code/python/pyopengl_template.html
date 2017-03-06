@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/css/website.css" type="text/css" rel="stylesheet"/>
+<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<pre class="hl"><span class="hl kwa">import</span> sys
+<span class="hl kwa">from</span> OpenGL<span class="hl opt">.</span>GL <span class="hl kwa">import</span> <span class="hl opt">*</span>
+<span class="hl kwa">from</span> OpenGL<span class="hl opt">.</span>GLU <span class="hl kwa">import</span> <span class="hl opt">*</span>
+<span class="hl kwa">from</span> OpenGL<span class="hl opt">.</span>GLUT <span class="hl kwa">import</span> <span class="hl opt">*</span>
+
+sclLeft <span class="hl opt">= -</span><span class="hl num">2.0</span>
+sclRight <span class="hl opt">=</span> <span class="hl num">2.0</span>
+sclBottom <span class="hl opt">= -</span><span class="hl num">2.0</span>
+sclTop <span class="hl opt">=</span> <span class="hl num">2.0</span>
+sclNear <span class="hl opt">= -</span><span class="hl num">10.0</span>
+sclFar <span class="hl opt">=</span> <span class="hl num">10.0</span>
+
+eyex <span class="hl opt">=</span> <span class="hl num">3.0</span>
+eyey <span class="hl opt">=</span> <span class="hl num">3.0</span>
+eyez <span class="hl opt">=</span> <span class="hl num">3.0</span>
+<span class="hl slc"># The display() method does all the work it has to call the appropriate</span>
+<span class="hl slc"># OpenGL functions to actually display something.</span>
+<span class="hl kwa">def</span> <span class="hl kwd">display</span><span class="hl opt">():</span>
+    w<span class="hl opt">,</span> h <span class="hl opt">=</span> winw<span class="hl opt">,</span> winh
+    <span class="hl slc"># Clear the color and depth buffers</span>
+    <span class="hl kwd">glClear</span><span class="hl opt">(</span>GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT<span class="hl opt">)</span>
+<span class="hl slc">################################################################################</span>
+
+    <span class="hl slc"># Initialize 2d environment</span>
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_PROJECTION<span class="hl opt">)</span>
+    <span class="hl kwd">glLoadIdentity</span><span class="hl opt">()</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>w <span class="hl opt">&lt;=</span> h<span class="hl opt">):</span>
+        <span class="hl kwd">gluOrtho2D</span><span class="hl opt">(</span>sclLeft<span class="hl opt">,</span> sclRight<span class="hl opt">,</span> sclBottom <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">),</span>\
+            sclTop <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">))</span>
+    <span class="hl kwa">else</span><span class="hl opt">:</span>
+        <span class="hl kwd">gluOrtho2D</span><span class="hl opt">(</span>sclLeft <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">),</span>\
+            sclRight <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">),</span> sclBottom<span class="hl opt">,</span> sclTop<span class="hl opt">)</span>
+
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_MODELVIEW<span class="hl opt">)</span>
+    <span class="hl kwd">glLoadIdentity</span><span class="hl opt">()</span>
+    <span class="hl kwd">glViewport</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">,</span> w<span class="hl opt">,</span> h<span class="hl opt">)</span>
+
+    <span class="hl slc"># Draw 2d picture</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span>sclLeft<span class="hl opt">,</span>sclBottom<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span>sclRight<span class="hl opt">,</span>sclBottom<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span>sclRight<span class="hl opt">,</span>sclTop<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex2f</span><span class="hl opt">(</span>sclLeft<span class="hl opt">,</span>sclTop<span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+<span class="hl slc">################################################################################</span>
+
+    <span class="hl slc"># Initialize 3d environment</span>
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_PROJECTION<span class="hl opt">)</span>
+    <span class="hl kwd">glLoadIdentity</span><span class="hl opt">()</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>w <span class="hl opt">&lt;=</span> h<span class="hl opt">):</span>
+        <span class="hl kwd">glOrtho</span><span class="hl opt">(</span>sclLeft<span class="hl opt">,</span> sclRight<span class="hl opt">,</span> sclBottom <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">),</span> sclTop <span class="hl opt">*</span>\
+        <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">),</span> sclNear<span class="hl opt">,</span> sclFar<span class="hl opt">)</span>
+    <span class="hl kwa">else</span><span class="hl opt">:</span>
+        <span class="hl kwd">glOrtho</span><span class="hl opt">(</span>sclLeft <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">),</span> sclRight <span class="hl opt">*</span> <span class="hl kwb">float</span><span class="hl opt">(</span>w<span class="hl opt">) /</span> <span class="hl kwb">float</span><span class="hl opt">(</span>h<span class="hl opt">),</span>\
+        sclBottom<span class="hl opt">,</span> sclTop<span class="hl opt">,</span> sclNear<span class="hl opt">,</span> sclFar<span class="hl opt">)</span>
+
+    <span class="hl kwd">glMatrixMode</span><span class="hl opt">(</span>GL_MODELVIEW<span class="hl opt">)</span>
+    <span class="hl kwd">glLoadIdentity</span><span class="hl opt">()</span>
+    <span class="hl kwd">glViewport</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">,</span> w<span class="hl opt">,</span> h<span class="hl opt">)</span>
+    <span class="hl kwd">gluLookAt</span><span class="hl opt">(</span>eyex<span class="hl opt">,</span> eyey<span class="hl opt">,</span> eyez<span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    
+    <span class="hl slc"># Draw 3d picture</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+    <span class="hl kwd">glColor3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">1.0</span><span class="hl opt">,</span><span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glBegin</span><span class="hl opt">(</span>GL_QUADS<span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glVertex3f</span><span class="hl opt">(</span><span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">1.0</span><span class="hl opt">,</span> <span class="hl num">0.0</span><span class="hl opt">)</span>
+    <span class="hl kwd">glEnd</span><span class="hl opt">()</span>
+<span class="hl slc">################################################################################</span>
+
+    
+    <span class="hl slc"># Copy the off-screen buffer to the screen.</span>
+    <span class="hl kwd">glutSwapBuffers</span><span class="hl opt">()</span>
+
+
+<span class="hl kwa">def</span> <span class="hl kwd">reshape</span><span class="hl opt">(</span>w<span class="hl opt">,</span>h<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> winw<span class="hl opt">,</span> winh
+    winw<span class="hl opt">,</span> winh <span class="hl opt">=</span> w<span class="hl opt">,</span> h
+    <span class="hl kwa">pass</span>
+
+
+<span class="hl kwd">glutInit</span><span class="hl opt">(</span>sys<span class="hl opt">.</span>argv<span class="hl opt">)</span>
+
+<span class="hl slc"># Create a double-buffer RGBA window.</span>
+<span class="hl slc"># (Single-buffering is possible.</span>
+<span class="hl slc"># So is creating an index-mode window.)</span>
+<span class="hl kwd">glutInitDisplayMode</span><span class="hl opt">(</span>GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH<span class="hl opt">)</span>
+
+<span class="hl slc"># Create a window, setting its title</span>
+<span class="hl kwd">glutCreateWindow</span><span class="hl opt">(</span><span class="hl str">'interactive'</span><span class="hl opt">)</span>
+
+<span class="hl kwa">def</span> <span class="hl kwd">keyboard</span><span class="hl opt">(</span>keyCode<span class="hl opt">,</span>x<span class="hl opt">,</span>y<span class="hl opt">):</span>
+    <span class="hl kwa">global</span> eyex<span class="hl opt">,</span> eyey
+    <span class="hl kwa">if</span> keyCode <span class="hl opt">==</span> <span class="hl str">&quot;a&quot;</span><span class="hl opt">:</span>
+        eyex <span class="hl opt">+=</span> <span class="hl num">0.1</span>
+    <span class="hl kwa">elif</span> keyCode <span class="hl opt">==</span> <span class="hl str">&quot;d&quot;</span><span class="hl opt">:</span>
+        eyex <span class="hl opt">-=</span> <span class="hl num">0.1</span>
+    <span class="hl kwa">elif</span> keyCode <span class="hl opt">==</span> <span class="hl str">&quot;w&quot;</span><span class="hl opt">:</span>
+        eyey <span class="hl opt">+=</span> <span class="hl num">0.1</span>
+    <span class="hl kwa">elif</span> keyCode <span class="hl opt">==</span> <span class="hl str">&quot;s&quot;</span><span class="hl opt">:</span>
+        eyey <span class="hl opt">-=</span> <span class="hl num">0.1</span>
+    <span class="hl kwd">glutPostRedisplay</span><span class="hl opt">()</span>
+<span class="hl slc"># Set the display callback.</span>
+<span class="hl slc"># You can set other callbacks for keyboard and mouse events.</span>
+<span class="hl kwd">glutDisplayFunc</span><span class="hl opt">(</span>display<span class="hl opt">)</span>
+<span class="hl kwd">glutReshapeFunc</span><span class="hl opt">(</span>reshape<span class="hl opt">)</span>
+<span class="hl kwd">glutKeyboardFunc</span><span class="hl opt">(</span>keyboard<span class="hl opt">)</span>
+
+<span class="hl slc"># Run the GLUT main loop until the user closes the</span>
+<span class="hl slc"># window.</span>
+<span class="hl kwd">glutMainLoop</span><span class="hl opt">()</span>
+</pre>
+</body>
+
+</html>

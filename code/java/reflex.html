@@ -1,0 +1,350 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/css/website.css" type="text/css" rel="stylesheet"/>
+<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+<pre class="hl"><span class="hl kwa">import</span> javax<span class="hl opt">.</span>swing<span class="hl opt">.*;</span>
+<span class="hl kwa">import</span> java<span class="hl opt">.</span>awt<span class="hl opt">.</span>event<span class="hl opt">.*;</span>
+<span class="hl kwa">import</span> java<span class="hl opt">.</span>awt<span class="hl opt">.*;</span>
+<span class="hl kwa">import</span> java<span class="hl opt">.</span>awt<span class="hl opt">.</span>geom<span class="hl opt">.*;</span>
+<span class="hl kwa">import</span> java<span class="hl opt">.</span>awt<span class="hl opt">.</span>image<span class="hl opt">.*;</span>
+<span class="hl kwa">import</span> java<span class="hl opt">.</span>util<span class="hl opt">.</span>Random<span class="hl opt">;</span>
+
+<span class="hl kwa">public class</span> Reflex <span class="hl kwa">extends</span> Frame
+    <span class="hl kwa">implements</span> ActionListener<span class="hl opt">,</span> MouseListener<span class="hl opt">,</span>
+               AdjustmentListener<span class="hl opt">,</span> ReportListener
+<span class="hl opt">{</span>
+    JButton start <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JButton</span><span class="hl opt">(</span><span class="hl str">&quot;START&quot;</span><span class="hl opt">);</span>
+    JButton stop <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JButton</span><span class="hl opt">(</span><span class="hl str">&quot;STOP&quot;</span><span class="hl opt">);</span>
+    JLabel score <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JLabel</span><span class="hl opt">(</span><span class="hl str">&quot;Score: &quot;</span><span class="hl opt">);</span>
+    JLabel mistk <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JLabel</span><span class="hl opt">(</span><span class="hl str">&quot;Mistake: &quot;</span><span class="hl opt">);</span>
+    JLabel intvl <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JLabel</span><span class="hl opt">(</span><span class="hl str">&quot;Interval: &quot;</span><span class="hl opt">);</span>
+    JLabel rtime <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">JLabel</span><span class="hl opt">(</span><span class="hl str">&quot;Remain Time: &quot;</span><span class="hl opt">);</span>
+    Scrollbar ibar <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Scrollbar</span><span class="hl opt">(</span>Scrollbar<span class="hl opt">.</span>HORIZONTAL<span class="hl opt">,</span> <span class="hl num">1000</span><span class="hl opt">,</span> <span class="hl num">1</span><span class="hl opt">,</span> <span class="hl num">100</span><span class="hl opt">,</span> <span class="hl num">1001</span><span class="hl opt">);</span>
+    Scrollbar tbar <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Scrollbar</span><span class="hl opt">(</span>Scrollbar<span class="hl opt">.</span>HORIZONTAL<span class="hl opt">,</span> <span class="hl num">60</span><span class="hl opt">,</span> <span class="hl num">1</span><span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">301</span><span class="hl opt">);</span>
+    Timer timer <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Timer</span><span class="hl opt">(</span><span class="hl num">1000</span><span class="hl opt">,</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+    GridPanel grid <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">GridPanel</span><span class="hl opt">();</span>
+    <span class="hl kwb">boolean</span> clicked <span class="hl opt">=</span> false<span class="hl opt">;</span>
+    <span class="hl kwb">int</span> scr <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> mtk <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    
+    <span class="hl kwd">Reflex</span><span class="hl opt">()</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">super</span><span class="hl opt">(</span><span class="hl str">&quot;Reflex&quot;</span><span class="hl opt">);</span>
+        <span class="hl kwd">setSize</span><span class="hl opt">(</span><span class="hl num">550</span><span class="hl opt">,</span><span class="hl num">430</span><span class="hl opt">);</span>
+        <span class="hl kwd">setResizable</span><span class="hl opt">(</span>false<span class="hl opt">);</span>
+        
+        <span class="hl kwd">setLayout</span><span class="hl opt">(</span><span class="hl kwa">new</span> <span class="hl kwd">BorderLayout</span><span class="hl opt">());</span>
+        <span class="hl kwd">addMouseListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        
+        Panel panel <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Panel</span><span class="hl opt">();</span>
+        grid<span class="hl opt">.</span><span class="hl kwd">addReportListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        grid<span class="hl opt">.</span><span class="hl kwd">setLayout</span><span class="hl opt">(</span><span class="hl kwa">new</span> <span class="hl kwd">GridLayout</span><span class="hl opt">(</span><span class="hl num">1</span><span class="hl opt">,</span><span class="hl num">1</span><span class="hl opt">));</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">setLayout</span><span class="hl opt">(</span><span class="hl kwa">new</span> <span class="hl kwd">GridLayout</span><span class="hl opt">(</span><span class="hl num">16</span><span class="hl opt">,</span><span class="hl num">1</span><span class="hl opt">));</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">setPreferredSize</span><span class="hl opt">(</span><span class="hl kwa">new</span> <span class="hl kwd">Dimension</span><span class="hl opt">(</span><span class="hl num">130</span><span class="hl opt">,</span><span class="hl num">400</span><span class="hl opt">));</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>start<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>stop<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>score<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>mistk<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>ibar<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>intvl<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>tbar<span class="hl opt">);</span>
+        panel<span class="hl opt">.</span><span class="hl kwd">add</span><span class="hl opt">(</span>rtime<span class="hl opt">);</span>
+        
+        timer<span class="hl opt">.</span><span class="hl kwd">setRepeats</span><span class="hl opt">(</span>true<span class="hl opt">);</span>
+        timer<span class="hl opt">.</span><span class="hl kwd">setActionCommand</span><span class="hl opt">(</span><span class="hl str">&quot;Change&quot;</span><span class="hl opt">);</span>
+        
+        start<span class="hl opt">.</span><span class="hl kwd">addActionListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        stop<span class="hl opt">.</span><span class="hl kwd">addActionListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        ibar<span class="hl opt">.</span><span class="hl kwd">addAdjustmentListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        tbar<span class="hl opt">.</span><span class="hl kwd">addAdjustmentListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        
+        <span class="hl kwd">add</span><span class="hl opt">(</span>grid<span class="hl opt">,</span> BorderLayout<span class="hl opt">.</span>WEST<span class="hl opt">);</span>
+        <span class="hl kwd">add</span><span class="hl opt">(</span>panel<span class="hl opt">,</span> BorderLayout<span class="hl opt">.</span>EAST<span class="hl opt">);</span>
+        
+        score<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Score: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>scr<span class="hl opt">));</span>
+        mistk<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Mistake: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>mtk<span class="hl opt">));</span>
+        intvl<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Interval: &quot;</span> <span class="hl opt">+</span>
+            Double<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>ibar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()/</span><span class="hl num">1000.0</span><span class="hl opt">) +</span> <span class="hl str">&quot; s&quot;</span><span class="hl opt">);</span>
+        rtime<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Remain Time: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>tbar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()));</span>
+            
+        <span class="hl kwd">setVisible</span><span class="hl opt">(</span>true<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">paint</span><span class="hl opt">(</span>Graphics g<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">super</span><span class="hl opt">.</span><span class="hl kwd">paint</span><span class="hl opt">(</span>g<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">actionPerformed</span><span class="hl opt">(</span>ActionEvent ae<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        String cmd <span class="hl opt">=</span> ae<span class="hl opt">.</span><span class="hl kwd">getActionCommand</span><span class="hl opt">();</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>cmd <span class="hl opt">!=</span> null<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>cmd <span class="hl opt">==</span> <span class="hl str">&quot;START&quot;</span><span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                timer<span class="hl opt">.</span><span class="hl kwd">setDelay</span><span class="hl opt">(</span>ibar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">());</span>
+                timer<span class="hl opt">.</span><span class="hl kwd">setInitialDelay</span><span class="hl opt">(</span>ibar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">());</span>
+                timer<span class="hl opt">.</span><span class="hl kwd">start</span><span class="hl opt">();</span>
+                grid<span class="hl opt">.</span><span class="hl kwd">start</span><span class="hl opt">();</span>
+            <span class="hl opt">}</span>
+            <span class="hl kwa">else if</span><span class="hl opt">(</span>cmd <span class="hl opt">==</span> <span class="hl str">&quot;STOP&quot;</span><span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                scr <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+                mtk <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+                score<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Score: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>scr<span class="hl opt">));</span>
+                mistk<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Mistake: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>mtk<span class="hl opt">));</span>
+                timer<span class="hl opt">.</span><span class="hl kwd">stop</span><span class="hl opt">();</span>
+                grid<span class="hl opt">.</span><span class="hl kwd">stop</span><span class="hl opt">();</span>
+            <span class="hl opt">}</span>
+            <span class="hl kwa">else if</span><span class="hl opt">(</span>cmd <span class="hl opt">==</span> <span class="hl str">&quot;Change&quot;</span><span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                <span class="hl kwa">if</span><span class="hl opt">(</span>tbar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">() &gt;</span> <span class="hl num">0</span><span class="hl opt">)</span>
+                <span class="hl opt">{</span>
+                    grid<span class="hl opt">.</span><span class="hl kwd">reset</span><span class="hl opt">();</span>
+                    tbar<span class="hl opt">.</span><span class="hl kwd">setValue</span><span class="hl opt">(</span>tbar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()-</span><span class="hl num">1</span><span class="hl opt">);</span>
+                    rtime<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Remain Time: &quot;</span> <span class="hl opt">+</span>
+                        Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>tbar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()));</span>
+                    clicked <span class="hl opt">=</span> false<span class="hl opt">;</span>
+                <span class="hl opt">}</span>
+                <span class="hl kwa">else</span>
+                <span class="hl opt">{</span>
+                    JOptionPane<span class="hl opt">.</span>showMessageDialog
+                        <span class="hl opt">(</span>null<span class="hl opt">,</span> <span class="hl str">&quot;You clicked &quot;</span> <span class="hl opt">+</span> scr <span class="hl opt">+</span> <span class="hl str">&quot; times, and made &quot;</span> <span class="hl opt">+</span>
+                        mtk <span class="hl opt">+</span> <span class="hl str">&quot; mistakes.&quot;</span><span class="hl opt">);</span>
+                    scr <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+                    mtk <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+                    score<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Score: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>scr<span class="hl opt">));</span>
+                    mistk<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Mistake: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>mtk<span class="hl opt">));</span>
+                    timer<span class="hl opt">.</span><span class="hl kwd">stop</span><span class="hl opt">();</span>
+                    grid<span class="hl opt">.</span><span class="hl kwd">stop</span><span class="hl opt">();</span>
+                <span class="hl opt">}</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseClicked</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mousePressed</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseReleased</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseEntered</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseExited</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">panelClicked</span><span class="hl opt">(</span>ReportEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>e<span class="hl opt">.</span><span class="hl kwd">getHit</span><span class="hl opt">())</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">if</span><span class="hl opt">(!</span>clicked<span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                clicked <span class="hl opt">=</span> true<span class="hl opt">;</span>
+                scr <span class="hl opt">++;</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+        <span class="hl kwa">else</span>
+            mtk <span class="hl opt">++;</span>
+        score<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Score: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>scr<span class="hl opt">));</span>
+        mistk<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Mistake: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>mtk<span class="hl opt">));</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">adjustmentValueChanged</span><span class="hl opt">(</span>AdjustmentEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>e<span class="hl opt">.</span><span class="hl kwd">getAdjustable</span><span class="hl opt">()==</span>ibar<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            intvl<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Interval: &quot;</span> <span class="hl opt">+</span>
+                Double<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>ibar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()/</span><span class="hl num">1000.0</span><span class="hl opt">) +</span> <span class="hl str">&quot; s&quot;</span><span class="hl opt">);</span>
+        <span class="hl opt">}</span>
+        <span class="hl kwa">else if</span><span class="hl opt">(</span>e<span class="hl opt">.</span><span class="hl kwd">getAdjustable</span><span class="hl opt">()==</span>tbar<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            rtime<span class="hl opt">.</span><span class="hl kwd">setText</span><span class="hl opt">(</span><span class="hl str">&quot;Remain Time: &quot;</span> <span class="hl opt">+</span> Integer<span class="hl opt">.</span><span class="hl kwd">toString</span><span class="hl opt">(</span>tbar<span class="hl opt">.</span><span class="hl kwd">getValue</span><span class="hl opt">()));</span>
+        <span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public static</span> <span class="hl kwb">void</span> <span class="hl kwd">main</span><span class="hl opt">(</span>String args<span class="hl opt">[])</span>
+    <span class="hl opt">{</span>
+        Reflex win <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Reflex</span><span class="hl opt">();</span>
+        win<span class="hl opt">.</span><span class="hl kwd">addWindowListener</span><span class="hl opt">(</span> <span class="hl kwa">new</span> <span class="hl kwd">WindowAdapter</span><span class="hl opt">()</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">windowClosing</span><span class="hl opt">(</span> WindowEvent e <span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                System<span class="hl opt">.</span><span class="hl kwd">exit</span><span class="hl opt">(</span><span class="hl num">0</span><span class="hl opt">);</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+        <span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwa">class</span> GridPanel <span class="hl kwa">extends</span> JPanel <span class="hl kwa">implements</span> MouseListener<span class="hl opt">,</span> ActionListener
+<span class="hl opt">{</span>
+    <span class="hl kwb">int</span> x0 <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> y0 <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> nw <span class="hl opt">=</span> <span class="hl num">8</span><span class="hl opt">,</span> nh <span class="hl opt">=</span> <span class="hl num">8</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> size <span class="hl opt">=</span> <span class="hl num">50</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> W <span class="hl opt">=</span> size <span class="hl opt">*</span> nw<span class="hl opt">,</span> H <span class="hl opt">=</span> size <span class="hl opt">*</span> nh<span class="hl opt">;</span>
+    <span class="hl kwb">int</span> cI <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> cJ <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwb">int</span> mI <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> mJ <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl kwb">boolean</span> showIt <span class="hl opt">=</span> false<span class="hl opt">;</span>
+    <span class="hl kwb">boolean</span> mistake <span class="hl opt">=</span> false<span class="hl opt">;</span>
+    <span class="hl kwb">boolean</span> correct <span class="hl opt">=</span> false<span class="hl opt">;</span>
+    Timer timer <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Timer</span><span class="hl opt">(</span><span class="hl num">100</span><span class="hl opt">,</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+    Random gen <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">Random</span><span class="hl opt">(</span>System<span class="hl opt">.</span><span class="hl kwd">currentTimeMillis</span><span class="hl opt">());</span>
+    
+    ReportListener listener<span class="hl opt">;</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwd">GridPanel</span><span class="hl opt">()</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwd">setPreferredSize</span><span class="hl opt">(</span><span class="hl kwa">new</span> <span class="hl kwd">Dimension</span><span class="hl opt">(</span>W<span class="hl opt">,</span>H<span class="hl opt">));</span>
+        <span class="hl kwd">addMouseListener</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">);</span>
+        timer<span class="hl opt">.</span><span class="hl kwd">setActionCommand</span><span class="hl opt">(</span><span class="hl str">&quot;Erase&quot;</span><span class="hl opt">);</span>
+        timer<span class="hl opt">.</span><span class="hl kwd">setRepeats</span><span class="hl opt">(</span>false<span class="hl opt">);</span>
+        timer<span class="hl opt">.</span><span class="hl kwd">setInitialDelay</span><span class="hl opt">(</span><span class="hl num">100</span><span class="hl opt">);</span>
+        <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">paintComponent</span><span class="hl opt">(</span>Graphics g<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">super</span><span class="hl opt">.</span><span class="hl kwd">paintComponent</span><span class="hl opt">(</span>g<span class="hl opt">);</span>
+        
+        Graphics2D g2d <span class="hl opt">= (</span>Graphics2D<span class="hl opt">)</span> g<span class="hl opt">;</span>
+        
+        g2d<span class="hl opt">.</span><span class="hl kwd">setPaint</span><span class="hl opt">(</span>Color<span class="hl opt">.</span>yellow<span class="hl opt">);</span>
+        g2d<span class="hl opt">.</span><span class="hl kwd">setStroke</span><span class="hl opt">(</span> <span class="hl kwa">new</span> <span class="hl kwd">BasicStroke</span><span class="hl opt">(</span> <span class="hl num">3.0</span>f <span class="hl opt">) );</span>
+        <span class="hl kwa">for</span><span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;=</span> nw<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+            g2d<span class="hl opt">.</span><span class="hl kwd">draw</span><span class="hl opt">(</span> <span class="hl kwa">new</span> Line2D<span class="hl opt">.</span><span class="hl kwd">Double</span><span class="hl opt">(</span>x0<span class="hl opt">+</span>i<span class="hl opt">*</span>size<span class="hl opt">,</span>y0<span class="hl opt">,</span>x0<span class="hl opt">+</span>i<span class="hl opt">*</span>size<span class="hl opt">,</span>y0<span class="hl opt">+</span>H<span class="hl opt">) );</span>
+        <span class="hl kwa">for</span><span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;=</span> nh<span class="hl opt">;</span> i<span class="hl opt">++)</span>
+            g2d<span class="hl opt">.</span><span class="hl kwd">draw</span><span class="hl opt">(</span> <span class="hl kwa">new</span> Line2D<span class="hl opt">.</span><span class="hl kwd">Double</span><span class="hl opt">(</span>x0<span class="hl opt">,</span>y0<span class="hl opt">+</span>i<span class="hl opt">*</span>size<span class="hl opt">,</span>x0<span class="hl opt">+</span>W<span class="hl opt">,</span>y0<span class="hl opt">+</span>i<span class="hl opt">*</span>size<span class="hl opt">) );</span>
+        
+        <span class="hl kwa">if</span><span class="hl opt">(</span>showIt<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>mistake<span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                g2d<span class="hl opt">.</span><span class="hl kwd">setPaint</span><span class="hl opt">(</span>Color<span class="hl opt">.</span>red<span class="hl opt">);</span>
+                g2d<span class="hl opt">.</span><span class="hl kwd">fillRect</span><span class="hl opt">(</span>mI<span class="hl opt">*</span>size<span class="hl opt">,</span> mJ<span class="hl opt">*</span>size<span class="hl opt">,</span> size<span class="hl opt">,</span> size<span class="hl opt">);</span>
+            <span class="hl opt">}</span>
+            <span class="hl kwa">else</span>
+            <span class="hl opt">{</span>
+                <span class="hl kwa">if</span><span class="hl opt">(</span>correct<span class="hl opt">)</span>
+                    g2d<span class="hl opt">.</span><span class="hl kwd">setPaint</span><span class="hl opt">(</span>Color<span class="hl opt">.</span>yellow<span class="hl opt">);</span>
+                <span class="hl kwa">else</span>
+                    g2d<span class="hl opt">.</span><span class="hl kwd">setPaint</span><span class="hl opt">(</span>Color<span class="hl opt">.</span>green<span class="hl opt">);</span>
+                g2d<span class="hl opt">.</span><span class="hl kwd">fillRect</span><span class="hl opt">(</span>cI<span class="hl opt">*</span>size<span class="hl opt">,</span> cJ<span class="hl opt">*</span>size<span class="hl opt">,</span> size<span class="hl opt">,</span> size<span class="hl opt">);</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">addReportListener</span><span class="hl opt">(</span>ReportListener l<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        listener <span class="hl opt">=</span> l<span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseClicked</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwb">int</span> x <span class="hl opt">=</span> e<span class="hl opt">.</span><span class="hl kwd">getX</span><span class="hl opt">();</span>
+        <span class="hl kwb">int</span> y <span class="hl opt">=</span> e<span class="hl opt">.</span><span class="hl kwd">getY</span><span class="hl opt">();</span>
+        <span class="hl kwb">int</span> i <span class="hl opt">= (</span>x<span class="hl opt">-</span>x0<span class="hl opt">)/</span>size<span class="hl opt">;</span>
+        <span class="hl kwb">int</span> j <span class="hl opt">= (</span>y<span class="hl opt">-</span>y0<span class="hl opt">)/</span>size<span class="hl opt">;</span>
+        
+        <span class="hl kwa">if</span><span class="hl opt">(</span>showIt<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            correct <span class="hl opt">=</span> i<span class="hl opt">==</span>cI <span class="hl opt">&amp;&amp;</span> j<span class="hl opt">==</span>cJ<span class="hl opt">;</span>
+            mistake <span class="hl opt">= !</span>correct<span class="hl opt">;</span>
+            ReportEvent re <span class="hl opt">=</span> <span class="hl kwa">new</span> <span class="hl kwd">ReportEvent</span><span class="hl opt">(</span><span class="hl kwa">this</span><span class="hl opt">,</span> correct<span class="hl opt">);</span>
+            listener<span class="hl opt">.</span><span class="hl kwd">panelClicked</span><span class="hl opt">(</span>re<span class="hl opt">);</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>mistake<span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                mI <span class="hl opt">=</span> i<span class="hl opt">;</span>
+                mJ <span class="hl opt">=</span> j<span class="hl opt">;</span>
+            <span class="hl opt">}</span>
+            timer<span class="hl opt">.</span><span class="hl kwd">start</span><span class="hl opt">();</span>
+            <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+        <span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">start</span><span class="hl opt">()</span>
+    <span class="hl opt">{</span>
+        showIt <span class="hl opt">=</span> true<span class="hl opt">;</span>
+        <span class="hl kwd">reset</span><span class="hl opt">();</span>
+        <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">stop</span><span class="hl opt">()</span>
+    <span class="hl opt">{</span>
+        showIt <span class="hl opt">=</span> false<span class="hl opt">;</span>
+        <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">reset</span><span class="hl opt">()</span>
+    <span class="hl opt">{</span>
+        cI <span class="hl opt">=</span> gen<span class="hl opt">.</span><span class="hl kwd">nextInt</span><span class="hl opt">(</span>nw<span class="hl opt">);</span>
+        cJ <span class="hl opt">=</span> gen<span class="hl opt">.</span><span class="hl kwd">nextInt</span><span class="hl opt">(</span>nh<span class="hl opt">);</span>
+        <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">actionPerformed</span><span class="hl opt">(</span>ActionEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        String cmd <span class="hl opt">=</span> e<span class="hl opt">.</span><span class="hl kwd">getActionCommand</span><span class="hl opt">();</span>
+        <span class="hl kwa">if</span><span class="hl opt">(</span>cmd <span class="hl opt">!=</span> null<span class="hl opt">)</span>
+        <span class="hl opt">{</span>
+            <span class="hl kwa">if</span><span class="hl opt">(</span>cmd <span class="hl opt">==</span> <span class="hl str">&quot;Erase&quot;</span><span class="hl opt">)</span>
+            <span class="hl opt">{</span>
+                mistake <span class="hl opt">=</span> false<span class="hl opt">;</span>
+                correct <span class="hl opt">=</span> false<span class="hl opt">;</span>
+                <span class="hl kwd">repaint</span><span class="hl opt">();</span>
+            <span class="hl opt">}</span>
+        <span class="hl opt">}</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mousePressed</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseReleased</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseEntered</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">mouseExited</span><span class="hl opt">(</span>MouseEvent e<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+    <span class="hl opt">}</span>
+    
+    
+<span class="hl opt">}</span>
+
+<span class="hl kwa">class</span> ReportEvent <span class="hl kwa">extends</span> java<span class="hl opt">.</span>util<span class="hl opt">.</span>EventObject
+<span class="hl opt">{</span>
+    <span class="hl kwb">boolean</span> hit <span class="hl opt">=</span> true<span class="hl opt">;</span>
+    <span class="hl kwa">public</span> <span class="hl kwd">ReportEvent</span><span class="hl opt">(</span>Object source<span class="hl opt">,</span> <span class="hl kwb">boolean</span> h<span class="hl opt">)</span>
+    <span class="hl opt">{</span>
+        <span class="hl kwa">super</span><span class="hl opt">(</span>source<span class="hl opt">);</span>
+        hit <span class="hl opt">=</span> h<span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+    <span class="hl kwb">boolean</span> <span class="hl kwd">getHit</span><span class="hl opt">(){</span><span class="hl kwa">return</span> hit<span class="hl opt">;}</span>
+<span class="hl opt">}</span>
+
+<span class="hl kwa">interface</span> ReportListener <span class="hl kwa">extends</span> java<span class="hl opt">.</span>util<span class="hl opt">.</span>EventListener
+<span class="hl opt">{</span>
+    <span class="hl kwa">public</span> <span class="hl kwb">void</span> <span class="hl kwd">panelClicked</span><span class="hl opt">(</span>ReportEvent e<span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</pre>
+</body>
+
+</html>
