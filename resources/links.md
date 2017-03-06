@@ -2,7 +2,6 @@
 title: Useful Links
 ---
 
-| --------------- | ----------------------------------------- |
 | **Type** | **URL** |
 | --------------- | ----------------------------------------- |
 | Book Download | <http://bookzz.org/> |
@@ -12,4 +11,3 @@ title: Useful Links
 | Exploitation | <http://www.exploit-db.com/> |
 | Tool | <http://hilite.me/> |
 | Web Proxy | <http://tom2see.us> |
-| --------------- | ----------------------------------------- |
