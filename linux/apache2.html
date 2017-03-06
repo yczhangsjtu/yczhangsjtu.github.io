@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>Computer Technology and Skills</title>
+
+<link href="/website.css" type="text/css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div class="document">
+<table width="100%">
+<tr>
+<td colspan="2">
+<div class="page_header">
+<h1>Computer Technology and Skills</h1>
+<table class="header">
+<tr align="center">
+<td><a href="/index.html"><h4>Home</h4></a></td>
+<td><a href="/Algorithm"><h4>Algorithm</h4></a></td>
+<td><a href="/Reverse"><h4>Reverse Engineering</h4></a></td>
+<td><a href="/Penetration"><h4>Penetration</h4></a></td>
+<td><a href="/Book"><h4>Books</h4></a></td>
+<td><a href="/URLS"><h4>Links</h4></a></td>
+<td><a href="/Linux"><h4>Linux</h4></a></td>
+<td><a href="/Web"><h4>Web</h4></a></td>
+<td><a href="/Programming"><h4>Programming</h4></a></td>
+<td><a href="/Code"><h4>Code</h4></a></td>
+<td><a href="/Games"><h4>Games</h4></a></td>
+<td class="search">
+<form action="/search.html" method="post">
+<input type="text" placeholder="Enter keyword" name="keyword" maxlength="32"/>
+<input type="submit" value="Search"/>
+</form>
+</td>
+</tr>
+</table>
+<hr/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="entire_page" valign="top">
+<div class="entire_page">
+<div class="path">
+<a href="/">Home</a>
+&gt;&gt;
+<a href="/Linux">Linux</a>
+&gt;&gt;
+<a href="/Linux/apache2.html">Web Server: Apache2</a>
+</div>
+<hr>
+
+<h2>Apache2</h2>
+
+Apache2 is a most popular web server on the Linux platform.
+Once launched, it runs as a daemon underground.
+
+<h3> Installation</h3>
+Apache2 can be directly installed from command line by <xmp> sudo apt-get install apache2 </xmp>
+Wait a while and apache2 is installed automatically.
+
+<h3>Launch</h3>
+The arguments apache2 requires to be started is so complex that usually we do not launch apache2 directly from the command line by typing
+<font face="Courier">apache2</font>.
+In fact, we usually use <font face="Courier">apache2ctl</font> to launch apache2 instead.
+Simply type <xmp>sudo apache2ctl start</xmp> in the command line.
+Here the <font face="Courier">start</font> is one of the subcommands of apache2ctl.
+Another frequently used subcommand of apache2ctl is <font face="Courier">restart</font>.
+<br>
+Input <font face="Courier">http://localhost</font> in the address bar of web browser.
+You will see the web page offered by apache2.
+
+<h3>Configuration</h3>
+By default the web page rendered by apache2 lies in the directory <font face="Courier">/var/www</font>.
+That is, the default root of the web server is <font face="Courier">/var/www</font>,
+which means when you type <font face="Courier">http://localhost/</font> in your own computer,
+or <font face="Courier">http://192.168.0.1</font> in another computer (here we assume that your IP address is 192.168.0.1),
+the page you obtained is actually <font face="Courier">/var/www/index.html</font>.
+<br><br>
+If you want to use another directory as the root directory for your website, you have to
+<ul>
+<li><b>Change the default.conf file(s).</b></li>
+Those files lie in <font face="Courier">/etc/apache2/sites-available</font>.
+Just change all the appearanced of <font face="Courier">/var/www</font> into your prefered root directory.
+<li><b>Change the apache2.conf file.</b></li>
+At the bottom of this configuration file are directories that are allowed to be accessed via the HTTPD server.
+You can add your root directory into them or simply replace the <font face="Courier">/var/www</font> by your directory.
+</ul>
+Note: Do NOT add a slash at the end of the directory paths.
+<br><br>
+After all that, restart apache2 by <xmp>sudo apache2ctl restart</xmp>
+Put your own homepage into the new root directory, and visit <font face="Courier">http://localhost</font> via your browser.
+You will see that the page rendered by the browser is exactly your own homepage.
+
+
+</div>
+</td>
+
+<td class="right_side" valign="top">
+<div class="right_side">
+<h3>Penetration Test</h3>
+<a href="/Penetration/Anonymous.html">The Art of Anonymity</a><br>
+<a href="/Penetration/Wireshark.html">Wireshark Tutorial</a><br>
+<a href="/Penetration/nikto.html">nikto - Find Vulnerabilities in Website</a><br>
+<a href="/Penetration/hping3.html">hping3 - Powerful Scanning Tool</a><br>
+<h3>Reverse Engineering</h3>
+<a href="/Reverse/AssaultCubeHacking.html">Game Hacking Tutorial via Assault-Cube</a><br>
+<a href="/Reverse/Reverse_engineer_with_sample.html">Analyzing Malware By Example</a><br>
+<h3>Linux</h3>
+<a href="/Linux/vim.html">Vim Commands</a><br>
+<a href="/Linux/apache2.html">Web Server: Apache2</a><br>
+<h3>Web</h3>
+<a href="/Web/Html.html">HTML - Hyper Text Markup Language</a><br>
+<a href="/Web/CSS.html">CSS - External Style Sheet</a><br>
+<a href="/Web/PHP.html">PHP - Hypertext Preprocessor</a><br>
+<h3>Python</h3>
+<a href="/Programming/Python/Tkinter.html">Tkinter - Built-in Graphic Library</a><br>
+<a href="/Code/Python/Piano.html">Pyglet - Piano</a><br>
+<a href="/Code/Python/PyOpenGLTemplate.html">PyOpenGL Template</a><br>
+<a href=""></a><br>
+</div>
+</td>
+</tr>
+
+</div>
+</body>
+
+</html>
