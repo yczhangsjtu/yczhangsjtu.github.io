@@ -52,5 +52,3 @@ $ cat input | xxd -p -r > output
 :set paste
 :set nopaste
 ```
-
-Contact GitHub API Training Shop Blog About
