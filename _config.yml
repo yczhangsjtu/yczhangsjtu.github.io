@@ -8,6 +8,10 @@ collections:
 posts:
 output:   true
 
+# Social
+title: Blog of ShiningStars
+description: Collection of everyday notes in learning computer programming skills and computer science.
+
 # Handling Reading
 safe:         false
 include:      [".htaccess"]
