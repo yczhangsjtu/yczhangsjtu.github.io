@@ -11,6 +11,7 @@ output:   true
 # Social
 title: Blog of ShiningStars
 description: Collection of everyday notes in learning computer programming skills and computer science.
+github: yczhangsjtu
 
 # Handling Reading
 safe:         false
