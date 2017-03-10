@@ -4,6 +4,8 @@ title: Coonfigure Linux Boot Procedure
 
 # Configure Linux Boot Procedure
 
+This blog is the note taken learning the book *Linux Professional Institute Certification STUTY GUIDE* by Roderick W. Smith.
+
 ## Exploring the Boot Process
 
 * The computer booting process
