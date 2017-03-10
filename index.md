@@ -10,7 +10,6 @@ Following are some one-page programs of my work.
 For more of my projects visit my [github](https://github.com/yczhangsjtu).
 
 ### C/C++
-* [Merge Sort](code/c/merge_sort.html)
 * [Convex Hull](code/cpp/convex_hull.html)
 * [OpenGL 2D Template (Keep Ratio)](code/cpp/opengl_2d_ratio.html)
 * [OpenGL 3D Template (Keep Ratio)](code/cpp/opengl_3d_ratio.html)
@@ -43,6 +42,7 @@ Some very simple Javascript games implemented in one html.
 * [Apache2](linux/apache2.html)
 * [Linux Tips](linux/tips.html)
 * [Vim Tips](linux/vim.html)
+* [Linux Boot Configuration](linux/linux_boot_config.html)
 
 ## Python
 
