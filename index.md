@@ -20,7 +20,7 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [Reflex Game](code/java/reflex.html)
 
 ### Python
-* [Piano](code/python/piano.html)
+* [Simple Piano Program](code/python/piano.html)
 * [PyOpenGL Template](code/python/pyopengl_template.html)
 * [Tkinter Template](code/python/tkinter_template.html)
 
@@ -34,7 +34,7 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 Some very simple Javascript games implemented in one html.
 
 * [Tank](game/tank.html)
-* [Miner](game/mine_weeper.html)
+* [Mine Weeper](game/mine_weeper.html)
 * [Memory Matrix](game/memory_matrix.html)
 
 ## Linux
@@ -43,6 +43,7 @@ Some very simple Javascript games implemented in one html.
 * [Linux Tips](linux/tips.html)
 * [Vim Tips](linux/vim.html)
 * [Linux Boot Configuration](linux/linux_boot_config.html)
+* [Linux Basic Filesystem Management](linux/file_system.html)
 
 ## Python
 
@@ -58,7 +59,7 @@ Some very simple Javascript games implemented in one html.
 
 ## Links
 
-* [Useful Links](resources/links.html)
+* [Some Useful Links](resources/links.html)
 
 ## Web
 
