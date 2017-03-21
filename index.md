@@ -59,7 +59,7 @@ Some very simple Javascript games implemented in one html.
 
 ## Java
 
-* [Resuing Classes in Java](java/java_resuing_classes.html)
+* [Resuing Classes in Java](java/java_reusing_classes.html)
 
 ## Links
 
