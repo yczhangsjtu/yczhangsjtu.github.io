@@ -57,6 +57,10 @@ Some very simple Javascript games implemented in one html.
 * [Introduction to Ruby](ruby/introduction.html)
 * [Introduction to Ruby Blocks](ruby/block.html)
 
+## Java
+
+* [Resuing Classes in Java](java/java_resuing_classes.html)
+
 ## Links
 
 * [Some Useful Links](resources/links.html)
