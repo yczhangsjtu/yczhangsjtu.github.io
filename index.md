@@ -76,3 +76,6 @@ Some very simple Javascript games implemented in one html.
 * [HTML Cheatsheet](web/html.html)
 * [Introduction to PHP](web/php.html)
 
+## Paper Reading
+
+* [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
