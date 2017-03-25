@@ -42,6 +42,7 @@ Some very simple Javascript games implemented in one html.
 * [Apache2](linux/apache2.html)
 * [Linux Tips](linux/tips.html)
 * [Vim Tips](linux/vim.html)
+* [Ubuntu Source Mirror in SJTU](linux/ubuntu_source_mirror.html)
 * [Linux Boot Configuration](linux/linux_boot_config.html)
 * [Linux Basic Filesystem Management](linux/file_system.html)
 
