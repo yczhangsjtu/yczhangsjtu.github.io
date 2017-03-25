@@ -47,7 +47,7 @@ Some very simple Javascript games implemented in one html.
 
 ## C
 
-* [Explore OpenSSL EVP PKEY](c/openssl_evp.html)
+* [Explore OpenSSL EVP PKEY](c/openssl_evp_pkey.html)
 
 ## Python
 
