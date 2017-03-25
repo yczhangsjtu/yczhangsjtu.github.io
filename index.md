@@ -45,6 +45,10 @@ Some very simple Javascript games implemented in one html.
 * [Linux Boot Configuration](linux/linux_boot_config.html)
 * [Linux Basic Filesystem Management](linux/file_system.html)
 
+## C
+
+* [Explore OpenSSL EVP PKEY](c/openssl_evp.html)
+
 ## Python
 
 * [Python: User C Module](python/user_c_module.html)
