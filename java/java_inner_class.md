@@ -120,7 +120,7 @@ public interface EnclosingInterface {
 
 ## Nested class can be used to create classes having access to the fields of the enclosing class. This is particularly useful when implementing event system.
 
-```
+```java
 abstract class Event {
 	protected final String message;
 	public Event(String message) {
