@@ -6,7 +6,7 @@ title: Java Inner Classes
 
 ## Inner classes have direct access to private members of enclosing class
 
-```Java
+```java
 public class InnerClassExample {
 	private String test = "test";
 	class InnerClass {
@@ -19,7 +19,7 @@ public class InnerClassExample {
 
 ## An object of inner class can be declared by compund of enclosing class name and inner class name, but has to be instantiated by an instance of the enclosing class.
 
-```Java
+```java
 InnerClassExample innerClassExample = new InnerClassExample();
 InnerClassExample.InnerClass innerClass = innerClassExample.new InnerClass();
 ```
@@ -28,7 +28,7 @@ InnerClassExample.InnerClass innerClass = innerClassExample.new InnerClass();
 
 ## Inner class field can shadow field in enclosing class of same name, refer to the shadowed field in enclosing class by `.this`
 
-```Java
+```java
 public class InnerClassExample {
 	private String test = "test";
 	class InnerClass {
@@ -45,7 +45,7 @@ public class InnerClassExample {
 
 ## Inner class can be declared in method, then it can be accessed only in that method
 
-```Java
+```java
 public class InnerClassExample {
 	public String get() {
 		class MethodInnerClass {
@@ -62,7 +62,7 @@ public class InnerClassExample {
 
 ## Inner class can be declared anonymously
 
-```Java
+```java
 public class InnerClassExample {
 	private String test = "test";
 	class InnerClass {
@@ -83,7 +83,7 @@ public class InnerClassExample {
 
 ## Inner class cannot have static fields or methods, but static inner class (called nested class) can.
 
-```Java
+```java
 public class InnerClassExample {
 	static class StaticInnerClass {
 		static String test = "test5";
@@ -99,13 +99,13 @@ public class InnerClassExample {
 
 ## Nested class does not have to be declared by an instance of the enclosing class.
 
-```Java
+```java
 InnerClassExample.StaticInnerClass staticInnerClass = new InnerClassExample.StaticInnerClass();
 ```
 
 ## Classes nested in interface is automatically static and public, the interface is just used as a namespace for the nested class.
 
-```Java
+```java
 public interface EnclosingInterface {
 	String get();
 	class ClassInInterface implements EnclosingInterface {
@@ -180,7 +180,7 @@ public class InnerClassCar {
 
 ## To extend an inner class, the implicit referece to the enclosing class has to be explicitly instantiated.
 
-```Java
+```java
 class InheritInner extends InnerClassExample.InnerClass {
 	public InheritInner(InnerClassExample innerClassExample) {
 		innerClassExample.super();
