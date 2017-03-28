@@ -66,6 +66,7 @@ Some very simple Javascript games implemented in one html.
 * [Resuing Classes in Java](java/java_reusing_classes.html)
 * [Java Inner Classes](java/java_inner_class.html)
 * [Exception Handling in Java](java/java_exception.html)
+* [Java Strings](java/java_strings.html)
 
 ## Links
 
