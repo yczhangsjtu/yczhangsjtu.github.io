@@ -67,6 +67,7 @@ Some very simple Javascript games implemented in one html.
 * [Java Inner Classes](java/java_inner_class.html)
 * [Exception Handling in Java](java/java_exception.html)
 * [Java Strings](java/java_strings.html)
+* [Java Runtime Type Information](java/java_runtime_type_information.html)
 
 ## Links
 
