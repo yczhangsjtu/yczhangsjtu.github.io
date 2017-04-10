@@ -68,6 +68,7 @@ Some very simple Javascript games implemented in one html.
 * [Exception Handling in Java](java/java_exception.html)
 * [Java Strings](java/java_strings.html)
 * [Java Runtime Type Information](java/java_runtime_type_information.html)
+* [Java Generics](java/java_generics.html)
 
 ## Links
 
