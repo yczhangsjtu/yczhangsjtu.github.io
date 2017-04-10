@@ -83,3 +83,4 @@ Some very simple Javascript games implemented in one html.
 ## Paper Reading
 
 * [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
+* [Simple Verifiable Execution](essay/simple_verifyable_execution.html)
