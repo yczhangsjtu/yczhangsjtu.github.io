@@ -12,7 +12,7 @@ title: Tips for Linux
 $ pkill -f indicator-datetime-service
 ```
 
-* Change the revolution of Ubuntu
+* Change the resolution of Ubuntu
 
 	1. Open `/etc/default/grub` with an editor.
 	2. Locate the line that says `GRUB_GFXMODE=` and change the resolution, and another line saying `GRUB_GFXPAYLOAD=` with the same resolution.
