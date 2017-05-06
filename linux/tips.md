@@ -12,6 +12,15 @@ title: Tips for Linux
 $ pkill -f indicator-datetime-service
 ```
 
+* Change the revolution of Ubuntu
+
+	1. Open `/etc/default/grub` with an editor.
+	2. Locate the line that says `GRUB_GFXMODE=` and change the resolution, and another line saying `GRUB_GFXPAYLOAD=` with the same resolution.
+	3. Then edit as root `/etc/grub.d/00_header`.
+	4. Locate the line that says `if [ "x${GRUB_GFXMODE}" = "x" ]; then GRUB_GFXMODE=` and changes the resolution. Similarly change the one with `GRUB_GFXPAYLOAD`.
+	5. Locate the line that says `gfxmode=${GRUB_GFXMODE}` and add a line `gfxpayload=${GRUB_GFXPAYLOAD}`.
+	6. Refresh the grub as root with `update-grub2`, then reboot.
+
 ## Linux
 
 *   Auto mount some partition of the disk
