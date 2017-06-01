@@ -57,6 +57,10 @@ Some very simple Javascript games implemented in one html.
 
 * [Explore OpenSSL EVP PKEY](c/openssl_evp_pkey.html)
 
+## Perl
+
+* [Web Client Programming in Perl](perl/WebClient.html)
+
 ## Python
 
 * [Python: User C Module](python/user_c_module.html)
