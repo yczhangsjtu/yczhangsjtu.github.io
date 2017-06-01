@@ -59,7 +59,7 @@ Some very simple Javascript games implemented in one html.
 
 ## Perl
 
-* [Web Client Programming in Perl](perl/WebClient.html)
+* [Web Client Programming in Perl](perl/web_client.html)
 
 ## Python
 
