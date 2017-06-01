@@ -29,6 +29,10 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [Metapost Demo](code/metapost/demo.html)
 * [Peterson Graph](code/metapost/peterson.html)
 
+## Code Reading
+
+* [Cado NFS](code_reading/cado_nfs.html)
+
 ## Game
 
 Some very simple Javascript games implemented in one html.
