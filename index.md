@@ -25,9 +25,7 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [Tkinter Template](code/python/tkinter_template.html)
 
 ### Metasploit
-* [Color Ball](code/metapost/color_ball.html)
-* [Metapost Demo](code/metapost/demo.html)
-* [Peterson Graph](code/metapost/peterson.html)
+* [Metapost Demo](code/metapost/metapost.html)
 
 ### Tikz
 
