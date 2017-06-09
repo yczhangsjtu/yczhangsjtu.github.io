@@ -17,7 +17,8 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [OpenGL 3D Template (Stretch with Window)](code/cpp/opengl_3d_stretch.html)
 
 ### Java
-* [Reflex Game](code/java/reflex.html)
+* [Reflex Test Game](code/java/reflex_test.html)
+* [Memory Test Game](code/java/memory_test.html)
 
 ### Python
 * [Simple Piano Program](code/python/piano.html)
