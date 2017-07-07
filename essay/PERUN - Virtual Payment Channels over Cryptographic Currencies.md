@@ -72,3 +72,6 @@ The protocols internally add two attributes $\gamma.vernum$ and $\gamma.sign$ wh
 
 _This looks like a formalization of the Lightning network, with the difference that the parties do not sign anything like penalty in updating the channel. Instead, when closing the channel, the contract waits for the other party to respond with his version of the updatest state, then take the state with higher version number. This looks like a much more straightforward way. The reason that Lightning network does not take this approach may be that Bitcoin script is too simple to implement such functionality. In another word, the smark contract in Bitcoin cannot be abstracted in the way this paper presents._
 
+### Multistate channel
+
+Multistate channel allows users to execute a **nanocontract** inside the channel and totally off the chain.

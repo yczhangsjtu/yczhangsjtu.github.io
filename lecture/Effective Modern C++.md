@@ -251,3 +251,7 @@ C++14中的方式是init capture，形式是`[ var = something ]`，意思是“
 C++11中的方式则是`std::bind`。它的第一个参数是一个closure，剩下的参数是传给closure的参数，得到的结果是一个bind object，很像一个closure，只不过某些参数被确定下来了。比如有一个lambda函数`f(x,y)`这是个二元函数，那么表达式`std::bind(f,x0)`就得到一个一元函数，把`x`固定在`x0`这个位置。
 
 通过`bind`，可以先把需要capture的变量类型放在lambda表达式的参数列表里，再把这个变量`bind`进去。这时候就可以对这个变量用`move`了。
+
+## Lambda and bind
+
+`std::bind`提供了和lambda类似的功能，但无论是可读性还是效率上都远远不如，所以一般推荐用lambda。除了在C++11中需要把变量move进函数体时。

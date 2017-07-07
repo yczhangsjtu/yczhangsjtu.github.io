@@ -28,7 +28,7 @@
 
 这个协议的每一次执行包含两个步骤，第一步是产生输入消息，算法为$Gen()$，这一步里有可能剔除一些可能为恶意的节点，最终得到待确认的消息集合$M$和最终的确认节点集合$P$。然后调用$Confirm(i,P,M)$子协议。如果第二个协议中又发现有恶意节点，那么$M$被丢弃，剔除恶意节点，重新从$Gen()$开始。
 
-![p2p-mixing-execution](/Users/yuncong/Documents/md/essay/p2p-mixing-execution.png)
+![p2p-mixing-execution](p2p-mixing-execution.png)
 
 上述的$Gen()$算法和$Confirm()$子协议都是用户自定的。
 
