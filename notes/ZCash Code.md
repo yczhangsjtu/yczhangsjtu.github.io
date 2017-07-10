@@ -92,7 +92,7 @@ Tromp算法直接就实现在了`if`块里面，而默认的算法则被封装�
 
 ## libzcash
 
-Libzcash is basically an implementation of the DAP scheme (modified version in the Zcash protocol specification), which does not concern the PoW or consensus protocols.
+Libzcash is basically an implementation of the DAP scheme (modified version in the Zcash protocol specification), which does not concern the PoW or consensus protocols. The source code lies in the `zcash` subdirectory in `src`.
 
 Note the choice of elliptic curve of zcash.
 
@@ -109,7 +109,7 @@ typedef alt_bn128_pp::Fqe_type curve_Fq2;
 
 ### JoinSplit
 
-`JointSplit` is a class in `libzcash`, defined as follows:
+`JointSplit` (in `JoinSplit.cpp`) is a class in `libzcash`, defined as follows:
 
 ```c++
 template<size_t NumInputs, size_t NumOutputs>
@@ -125,3 +125,10 @@ class JoinSplit {
 
 Then `ZCJoinSplit` is defined as a typedef, with `NumInputs` and `NumOutputs` specified (both to constant two).
 
+`JoinSplit` is a virtual class. The implementor is `JoinSplitCircuit`.
+
+The real work is done in `joinsplit_gadget` in directory `circuit`. This gadget is built on other gadgets in `circuit` directory, and all the way to the gadgets constructed in `libsnark`.
+
+The proof generation and verification is done in `Proof.cpp`, via two classes `ZCProof` and `ProofVerifier`.
+
+The `ProofVerifier` class provides two static member functions to obtain an instance of this class. They are `Strict()` and `Disabled()` respectively. The difference is actually setting `perform_verification` to `true` or `false`. When `Disabled()`, the `check()` method always return true without actually checking the proof.

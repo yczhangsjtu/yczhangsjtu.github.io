@@ -74,4 +74,22 @@ _This looks like a formalization of the Lightning network, with the difference t
 
 ### Multistate channel
 
-Multistate channel allows users to execute a **nanocontract** inside the channel and totally off the chain.
+Multistate channel allows users to execute a **nanocontract** inside the channel and totally off the chain. A nanocontract **blocks** some money of Alice and Bob in the channel (i.e. in $\gamma.cash$), and is denoted by $(\nu.id,\nu.blocked,\nu.storage)$ similar to normal contract. Each evaluation of a nanocontract function outputs $y_a$ and $y_b$ to the accounts of Alice and Bob in $\gamma.cash$ respectively, and discounts the corresponding values in $\nu.blocked$. The differences are:
+
+1. $y_a$ and $y_b$ must be nonnegative. So Alice and Bob initially put the maximum value that can be lost in this contract in the nanocontract.
+2. $\nu.blocked(\gamma.Alice)$ and $\nu.blocked(\gamma,Bob)$ can be negative, as long as the summation is non-negative. When $\nu.blocked(\gamma.Alice)$ is negative, that means when the nanocontract is closed, Alice will lose money. Only when $\nu.blocked$ sums to zero can the nanocontract terminate. And only when there is no active nanocontract can the channel be terminated.
+
+There may be several nanocontracts running in parallel in a channel. This set is called **nspace**, which is added to the basic payment channel. Then the value of a payment channel contract is equal to $$\gamma.cash(\gamma.Alice)+\gamma.cash(\gamma.Bob)+\sum_{\nu\in\gamma.nspace}\nu.blocked$$. The $\gamma.nspace$ is initially empty when the channel is established, then get filled-in with nanocontracts by the procedure registering nanocontracts.
+
+The protocol implementing the multistate channel is denoted by `MSChannels`. 
+
+The parties will maintain an independent version number for each nanocontract in **nspace**.
+
+The procedure **registration** is used to inform the ledger about the current state of the channel. This happens only if:
+
+1. Alice and Bob disagrees about the current state; or
+2. Alice and Bob want to close the channel.
+
+
+The function **execute** updates the state of a nanocontract. The nanocontract can be executed several times. For the first time it has to register the state.
+

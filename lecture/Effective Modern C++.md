@@ -255,3 +255,19 @@ C++11中的方式则是`std::bind`。它的第一个参数是一个closure，剩
 ## Lambda and bind
 
 `std::bind`提供了和lambda类似的功能，但无论是可读性还是效率上都远远不如，所以一般推荐用lambda。除了在C++11中需要把变量move进函数体时。
+
+## Task-based programming
+
+使用`std::async`来构造一个task。
+
+```c++
+auto fut = std::async(doAsyncWork)
+```
+
+当软件线程比硬件线程多的时候，会出现很多性能上的问题，比如线程的切换对CPU cache造成的影响，或者最大线程数满的时候抛出异常。`std::async`会自动处理这些问题，而`std::thread`并没有这些功能。
+
+`std::async`的`get()`函数可以获取线程的返回值。
+
+有一个问题是`std::async`并不一定保证在一个新的线程上运行你的函数（因为它可能自动处理了load balancing等之类的事情），但你的任务必须要在一个新的线程上运行，比如GUI要保证它的反应速度。为了解决这个问题，调用`std::async`的时候可以指定launch policy。主要有两种，`std::launch::async`和`std::launch::defered`。第一个就是指定必须用新线程来运行，第二个是指定只有到`get()`或`wait()`函数被调用的时候才真正执行这个函数。
+
+而`std::async`的默认方式是这两个的混合，即`std::launch::async  | std::launch::defered`，即两种方式都有可能发生。
