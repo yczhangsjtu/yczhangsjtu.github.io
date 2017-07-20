@@ -88,7 +88,7 @@ const CChainParams& chainparams = Params();
 
 所谓不同的挖矿算法，其实是给定了`curr_state`的时候，求解general birthday problem的算法。所以，直到现在输入已经完全确定了的时候才程序才开始区分用哪个算法。区分的方式是用`if`语句比较字符串。因为程序主要耗时在求解birthday problem上，这些字符串比较之类的事情时间就忽略不计了。
 
-Tromp算法直接就实现在了`if`块里面，而默认的算法则被封装成了函数`EhOptimisedSolve()`。如果当前的`nonce`给出的solution能够得到符合条件的区块，就直接`break`出这个`while`循环。否则增加`nonce`继续算。
+Tromp算法实现在`pow`文件夹里面，调用过程写在`if`块里面，而默认的算法则被封装成了函数`EhOptimisedSolve()`。如果当前的`nonce`给出的solution能够得到符合条件的区块，就直接`break`出这个`while`循环。否则增加`nonce`继续算。
 
 ## libzcash
 

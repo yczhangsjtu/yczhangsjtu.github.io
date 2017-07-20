@@ -93,3 +93,8 @@ The procedure **registration** is used to inform the ledger about the current st
 
 The function **execute** updates the state of a nanocontract. The nanocontract can be executed several times. For the first time it has to register the state.
 
+When updating the channel, the initiator $P$ calls `UpdateStart` procedure in which he sends a message `update` with a signature of the new state. The other party $P'$ calls `UpdateReply` which replies either `update-ok` message or `not-ok`. If $P$ does not receive any message from $P'$, he considers $P'$ corrupt and starts `RegisterStart` subprocedure.
+
+To close a channel, the parties inform the contract $C$ about the current state of the contract: the initiating party $P$ runs the state registration protocol for every nanocontract in the channel, then calls the function $close$ in contract $C$. Then $C$ sends a closing message to $P'$. If $P'$ sees that some of the nanocontracts have not been registered, he runs the state registration procedure for these nanocontracts.
+
+To handle the situation when the parties are at dispute, it is suggested that the nanocontracts can always be closed by one party without interacting with the other. The choice is up to the parties.
