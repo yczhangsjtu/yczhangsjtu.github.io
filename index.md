@@ -52,6 +52,7 @@ Some very simple Javascript games implemented in one html.
 * [Ubuntu Source Mirror in SJTU](linux/ubuntu_source_mirror.html)
 * [Linux Boot Configuration](linux/linux_boot_config.html)
 * [Linux Basic Filesystem Management](linux/file_system.html)
+* [Apt 和 Dpkg 快速参考](linux/apt-dpkg-reference.html)
 
 ## Bash
 
