@@ -1,4 +1,8 @@
-# Java
+---
+title: Thinking in Java Study Note
+---
+
+# Thinking in Java Study Note
 
 ## Inner classes
 
