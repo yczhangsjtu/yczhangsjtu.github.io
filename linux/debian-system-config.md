@@ -1,6 +1,6 @@
-```
+---
 title: Debian System Configuration Tools
-```
+---
 
 # Debian系统配制工具
 
