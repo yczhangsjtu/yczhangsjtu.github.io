@@ -4,6 +4,23 @@ title: Blog of ShiningStars
 
 # Blog of ShiningStars
 
+## Bash
+
+* [Bash Script Demo](bash/demo.html)
+
+## Blockchain
+
+* [Block Explorer环境搭建](blockchain/block_explorer.html)
+* [Jubjub](blockchain/jubjub.html)
+* [Zerocash简要介绍](blockchain/zerocash.html)
+
+## C
+
+* [Explore OpenSSL EVP PKEY](c/openssl_evp_pkey.html)
+
+## C++
+* [Boost处理时间](cpp/boost_time.html)
+
 ## Code
 
 Following are some one-page programs of my work.
@@ -37,6 +54,13 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 
 * [Cado NFS](code_reading/cado_nfs.html)
 
+## Cryptography
+
+* [Hash-based One-time Signature](crypto/hash_based_one_time_signature.html)
+* [NTRU加密系统](crypto/ntru_crypto.html)
+* [Number Theoretic Transform](crypto/ntt.html)
+* [SRI-CSL-Bliss代码使用样例](crypto/sri_csl_bliss_example.html)
+
 ## Game
 
 Some very simple Javascript games implemented in one html.
@@ -45,9 +69,45 @@ Some very simple Javascript games implemented in one html.
 * [Mine Weeper](game/mine_weeper.html)
 * [Memory Matrix](game/memory_matrix.html)
 
+## Graphics
+
+* [Bezier曲线](graphic/bezier.html)
+* [Canvas](graphic/canvas.html)
+
+## Hacking
+
+* [Linux Reverse TCP](hacking/linux_reverse_tcp.html)
+* [Windows Reverse TCP](hacking/windows_reverse_tcp.html)
+
+## Java
+
+* [Resuing Classes in Java](java/java_reusing_classes.html)
+* [Java Inner Classes](java/java_inner_class.html)
+* [Exception Handling in Java](java/java_exception.html)
+* [Java Strings](java/java_strings.html)
+* [Java Runtime Type Information](java/java_runtime_type_information.html)
+* [Java Generics](java/java_generics.html)
+* [Thinking in Java Study Note](java/thinking-in-java-note.html)
+
+## Javascript
+
+* [DOM](javascript/dom.html)
+* [Event](javascript/event.html)
+* [Nodejs Web Framework: Express](javascript/express.html)
+* [Javascript HTTP](javascript/javascript_http.html)
+* [Node.js](javascript/nodejs.html)
+* [NPM](javascript/npm.html)
+* [Promise](javascript/promise.html)
+
+## Links
+
+* [Some Useful Links](resources/links.html)
+
 ## Linux
 
 * [Apache2](linux/apache2.html)
+* [Bash脚本基础](linux/bash_basic.html)
+* [Linux权限管理](linux/linux_permission.html)
 * [Linux Tips](linux/tips.html)
 * [Ubuntu Source Mirror in SJTU](linux/ubuntu_source_mirror.html)
 * [Linux Boot Configuration](linux/linux_boot_config.html)
@@ -55,13 +115,10 @@ Some very simple Javascript games implemented in one html.
 * [Apt 和 Dpkg 快速参考](linux/apt-dpkg-reference.html)
 * [Debian 系统配置工具](linux/debian-system-config.html)
 
-## Bash
+## Paper Reading
 
-* [Bash Script Demo](bash/demo.html)
-
-## C
-
-* [Explore OpenSSL EVP PKEY](c/openssl_evp_pkey.html)
+* [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
+* [Simple Verifiable Execution](essay/simple_verifyable_execution.txt)
 
 ## Perl
 
@@ -79,31 +136,8 @@ Some very simple Javascript games implemented in one html.
 * [Introduction to Ruby](ruby/introduction.html)
 * [Introduction to Ruby Blocks](ruby/block.html)
 
-## Java
-
-* [Resuing Classes in Java](java/java_reusing_classes.html)
-* [Java Inner Classes](java/java_inner_class.html)
-* [Exception Handling in Java](java/java_exception.html)
-* [Java Strings](java/java_strings.html)
-* [Java Runtime Type Information](java/java_runtime_type_information.html)
-* [Java Generics](java/java_generics.html)
-* [Thinking in Java Study Note](java/thinking-in-java-note.html)
-
-## Links
-
-* [Some Useful Links](resources/links.html)
-
 ## Web
 
 * [Introduction to CSS](web/css.html)
 * [HTML Cheatsheet](web/html.html)
 * [Introduction to PHP](web/php.html)
-
-## Paper Reading
-
-* [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
-* [Simple Verifiable Execution](essay/simple_verifyable_execution.txt)
-
-## Cryptography
-
-* [Hash-based One-time Signature](crypto/hash_based_one_time_signature.html)
