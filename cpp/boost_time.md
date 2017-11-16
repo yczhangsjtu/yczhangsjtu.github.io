@@ -7,7 +7,7 @@ title: Boost处理时间
 ## 计时
 
 使用timer类来计时。
-```C++
+```c++
 #include <boost/timer.hpp>
 using namespace std;
 
@@ -33,7 +33,7 @@ date_time的日期支持从1400-01-01到9999-12-31，位于命名空间gregorian
 
 处理日期的核心类为date，内部使用一个32位整数来存储日期，是一个轻量级的对象，可以被快速复制。
 
-```C++
+```c++
 date d1;
 date d2(2000,1,1);
 date d3(2000,Jan,1);
@@ -56,7 +56,7 @@ cout << to_iso_extended_string(today) << endl;
 
 可以用day_clock类提供的静态函数获得当前日期。
 
-```C++
+```c++
 cout << day_clock::local_day() << endl;
 cout << day_clock::universal_day() << endl;
 ```

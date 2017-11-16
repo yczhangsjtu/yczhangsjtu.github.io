@@ -6,7 +6,7 @@ title: SRI-CSL-Bliss代码使用样例
 
 ## 使用样例
 
-```C
+```c
 /* demo.c */
 #include <stdio.h>
 #include <inttypes.h>

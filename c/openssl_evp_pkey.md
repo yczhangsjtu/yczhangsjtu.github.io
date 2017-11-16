@@ -15,7 +15,7 @@ Note that at this time, the most important methods such as `sign`, `verify`, `en
 Before continue to find more places where the implementation differs for different types of public keys, let's first explore the details of `EVP_PKEY_ASN1_METHOD` structure and the `EVP_PKEY_asn1_find()` method. The former is an alias of `evp_pkey_asn1_method_st` which is defined in `asn1_locl.h`. Recall that this means you cannot access the fields of this structure. They are reserved for OpenSSL developers. This structure contains little more than tons of function pointers, mainly used to encode and decode the public keys, private keys and the parameters. Note that encoding and decoding is basically what `ASN1` does. These function pointers will get invoked when you are trying to encode or decode the `EVP_PKEY` structure.
 
 Now it's time to explore the `sign` procedure. First give a simplified example of how to use `EVP_PKEY` to sign.
-```C
+```c
 EVP_PKEY_CTX *pctx;
 EVP_PKEY *pkey;
 EC_KEY *ec_key = NULL;

@@ -2,7 +2,7 @@
 title: OpenGL 2D Template (Stretch with Window)
 ---
 
-```C++
+```c++
 #include <GL/freeglut.h>
 #include <cstdlib>
 
