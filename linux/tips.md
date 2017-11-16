@@ -14,12 +14,12 @@ $ pkill -f indicator-datetime-service
 
 * Change the resolution of Ubuntu
 
-	1. Open `/etc/default/grub` with an editor.
-	2. Locate the line that says `GRUB_GFXMODE=` and change the resolution, and another line saying `GRUB_GFXPAYLOAD=` with the same resolution.
-	3. Then edit as root `/etc/grub.d/00_header`.
-	4. Locate the line that says `if [ "x${GRUB_GFXMODE}" = "x" ]; then GRUB_GFXMODE=` and changes the resolution. Similarly change the one with `GRUB_GFXPAYLOAD`.
-	5. Locate the line that says `gfxmode=${GRUB_GFXMODE}` and add a line `gfxpayload=${GRUB_GFXPAYLOAD}`.
-	6. Refresh the grub as root with `update-grub2`, then reboot.
+  1. Open `/etc/default/grub` with an editor.
+  2. Locate the line that says `GRUB_GFXMODE=` and change the resolution, and another line saying `GRUB_GFXPAYLOAD=` with the same resolution.
+  3. Then edit as root `/etc/grub.d/00_header`.
+  4. Locate the line that says `if [ "x${GRUB_GFXMODE}" = "x" ]; then GRUB_GFXMODE=` and changes the resolution. Similarly change the one with `GRUB_GFXPAYLOAD`.
+  5. Locate the line that says `gfxmode=${GRUB_GFXMODE}` and add a line `gfxpayload=${GRUB_GFXPAYLOAD}`.
+  6. Refresh the grub as root with `update-grub2`, then reboot.
 
 ## Linux
 
@@ -53,11 +53,3 @@ $ cat input | xxd -p > output
 $ cat input | xxd -p -r > output
 ```
 
-## Vim
-
-*   Paste something in vim without messing out.
-
-```
-:set paste
-:set nopaste
-```

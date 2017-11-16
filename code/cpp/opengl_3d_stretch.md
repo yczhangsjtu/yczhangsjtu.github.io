@@ -2,7 +2,7 @@
 title: OpenGL 3D Template (Stretch with Window)
 ---
 
-```c++
+```C++
 #include <GL/freeglut.h>
 #include <cstdlib>
 
@@ -174,3 +174,4 @@ int main(int argc, char *argv[])
     glutMainLoop();
 }
 ```
+

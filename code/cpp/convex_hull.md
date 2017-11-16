@@ -2,7 +2,7 @@
 title: Convex Hull
 ---
 
-```c++
+```C++
 #include <GL/freeglut.h>
 #include <cstdlib>
 #include <vector>
@@ -232,3 +232,4 @@ int main(int argc, char *argv[])
     glutMainLoop();
 }
 ```
+

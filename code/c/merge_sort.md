@@ -2,7 +2,7 @@
 title: Merge sort
 ---
 
-```c
+```C
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -48,3 +48,4 @@ int merge( elmt *start, elmt *mid, elmt *end )
     return pairs;
 }
 ```
+

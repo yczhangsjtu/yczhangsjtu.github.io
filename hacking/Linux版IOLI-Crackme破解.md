@@ -14,13 +14,13 @@ $ tar xf /path/to/IOLI-crackme.tar.gz
 
 * 程序为32位，在64位Linux环境下可能无法运行。如果提示无法找到可执行文件，请安装对i386的支持。
 
-```
+```Shell
 $ sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
 ```
 
 * 进入`bin-linux`文件夹，运行`crackme0x00`，随便输入一个密码回车。
 
-```
+```Shell
 $ cd IOLI-crackme/bin-linux
 $ ./crackme0x00
 IOLI Crackme Level 0x00
@@ -92,7 +92,8 @@ End of assembler dump.
 我们的最终目的是让程序输出类似“Password ok”这样的结果，避免输出“Invalid Password!“。因此我们首先观察最后两个`printf`函数，确定哪个输出了成功提示，哪个输出了失败提示。决定该函数输出内容的是传给它的参数。在i386中，传给调用函数的参数通常放在当前函数的栈顶，即`$esp`寄存器所指向的内存附近。这里两个`printf`函数的参数都只有一个，因此调用过程比较简单。
 
 ```
-   0x08048472 <+94>:    movl   $0x8048596,(%esp)   0x08048479 <+101>:   call   0x8048340 <printf@plt>
+   0x08048472 <+94>:    movl   $0x8048596,(%esp)
+   0x08048479 <+101>:   call   0x8048340 <printf@plt>
 ```
 
 第一个`movl`指令将一个立即数（这里是一个指针）放入`$esp`寄存器指向的地址中，也就是栈顶，然后调用`printf`函数。因为`printf`函数的第一个参数永远是字符串，即指向字符串第一个字符的指针，用`x`命令查看一下这个指针所指位置的内容。
@@ -314,7 +315,7 @@ Breakpoint 1 at 0x804844e
 ```
 然后运行程序到断点处
 
-```(gdb) r
+```(gdb) r
 Starting program: /path/to/IOLI-crackme/bin-linux/crackme0x02 
 IOLI Crackme Level 0x02
 Password: 123
@@ -324,7 +325,7 @@ Breakpoint 1, 0x0804844e in main ()
 
 再观察`$ebp-0xc`处的值
 
-```(gdb) x $ebp-0xc
+```(gdb) x $ebp-0xc
 0xffffd16c: 0x00052b24
 (gdb)
 ```
@@ -347,7 +348,7 @@ Delete all breakpoints? (y or n) y
 
 重新运行，输入`338724`作为密码
 
-```(gdb) r
+```(gdb) r
 Starting program: /path/to/IOLI-crackme/bin-linux/crackme0x02 
 IOLI Crackme Level 0x02
 Password: 338724

@@ -2,7 +2,7 @@
 title: OpenGL 3D Template (Keep Ratio)
 ---
 
-```c++
+```C++
 #include <GL/freeglut.h>
 #include <cstdlib>
 
@@ -180,3 +180,4 @@ int main(int argc, char *argv[])
     glutMainLoop();
 }
 ```
+

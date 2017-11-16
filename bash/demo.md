@@ -33,7 +33,7 @@ rm $path1
 If you installed `texlive-xelatex`, this following script helps you quickly transform a text file into PDF.
 Replace the font name with the one you like.
 
-```
+```shell
 #!/bin/bash
 
 header='\documentclass[11pt]{book}
@@ -65,3 +65,4 @@ else
 	exit 1
 fi
 ```
+
