@@ -89,7 +89,7 @@ endfig;
 
 end.
 ```
-![](color_ball-1.pdf)
+![](color_ball-1.png)
 
 ```
 outputformat := "eps";
@@ -128,7 +128,7 @@ endfig;
 
 end.
 ```
-![](cube-1.pdf)
+![](cube-1.png)
 
 ```
 outputtemplate := "%j-%c.eps";
@@ -148,8 +148,8 @@ beginfig (2)
 endfig;
 bye
 ```
-![](demo-1.pdf)
-![](demo-2.pdf)
+![](demo-1.png)
+![](demo-2.png)
 
 ```
 outputformat := "eps";
@@ -205,7 +205,7 @@ endfig;
 
 end.
 ```
-![](func-1.pdf)
+![](func-1.png)
 
 ```
 outputformat := "eps";
@@ -331,7 +331,7 @@ endfig;
 
 end.
 ```
-![](Graph8-2-1.pdf)
+![](Graph8-2-1.png)
 
 ```
 outputformat := "eps";
@@ -455,8 +455,8 @@ endfig;
 
 end.
 ```
-![](k222-1.pdf)
-![](k222-2.pdf)
+![](k222-1.png)
+![](k222-2.png)
 
 ```
 outputformat := "eps";
@@ -505,7 +505,7 @@ endfig;
 
 end.
 ```
-![](k6plane-1.pdf)
+![](k6plane-1.png)
 
 ```
 % input "latex.mp";
@@ -547,7 +547,7 @@ endfig;
 
 end.
 ```
-![](Peterson-1.pdf)
+![](Peterson-1.png)
 
 ```
 outputformat := "eps";
@@ -598,7 +598,7 @@ endfig;
 
 end.
 ```
-![](petersonplane-1.pdf)
+![](petersonplane-1.png)
 
 ```
 outputformat := "eps";
@@ -629,5 +629,5 @@ endfig;
 
 end.
 ```
-![](w4-1.pdf)
+![](w4-1.png)
 
