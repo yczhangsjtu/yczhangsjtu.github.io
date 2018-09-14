@@ -73,6 +73,7 @@ Some very simple Javascript games implemented in one html.
 
 * [Bezier曲线](graphic/bezier.html)
 * [Canvas](graphic/canvas.html)
+* [计算机图形学基础](graphic/computer-graphic.html)
 
 ## Hacking
 
