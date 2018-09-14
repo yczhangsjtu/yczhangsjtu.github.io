@@ -32,7 +32,7 @@ whitelist: []
 gems:      []
 
 # Conversion
-markdown:    kramdown
+markdown:    maruku
 highlighter: rouge
 lsi:         false
 excerpt_separator: "\n\n"
