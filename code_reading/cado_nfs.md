@@ -1,5 +1,5 @@
 ---
-title: Code Reading: Structure of CADO-NFS
+title: Code Reading - Structure of CADO-NFS
 ---
 
 # Code Reading: Structure of CADO-NFS

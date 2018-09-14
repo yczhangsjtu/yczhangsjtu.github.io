@@ -1,7 +1,6 @@
 ---
-layout: template
 title: NTRU加密系统
-use_math: true
+layout: math
 ---
 
 # NTRU加密系统
