@@ -93,6 +93,7 @@ Some very simple Javascript games implemented in one html.
 * [Java Runtime Type Information](java/java_runtime_type_information.html)
 * [Java Generics](java/java_generics.html)
 * [Thinking in Java Study Note](java/thinking-in-java-note.html)
+* [简单的Java视频播放器](java/java-video-player.html)
 
 ## Javascript
 
