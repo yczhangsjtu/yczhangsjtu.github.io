@@ -75,4 +75,4 @@ input:          GFM
 hard_wrap:      false
 footnote_nr:    1
 
-theme: jekyll-theme-slate
+theme: jekyll-theme-architect
