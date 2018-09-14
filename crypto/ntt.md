@@ -1,5 +1,6 @@
 ---
 title: Number Theoretic Transform
+layout: math
 ---
 
 # Number Theoretic Transform
