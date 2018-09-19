@@ -20,6 +20,7 @@ title: Blog of ShiningStars
 
 ## C++
 * [Boost处理时间](cpp/boost_time.html)
+* [C++虚函数的实现](cpp/cpp-virtual-implement.html)
 
 ## Code
 
@@ -60,6 +61,7 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [NTRU加密系统](crypto/ntru_crypto.html)
 * [Number Theoretic Transform](crypto/ntt.html)
 * [SRI-CSL-Bliss代码使用样例](crypto/sri_csl_bliss_example.html)
+* [BLISS算法](crypto/bliss.html)
 
 ## Front-end
 
