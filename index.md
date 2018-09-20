@@ -124,6 +124,10 @@ Some very simple Javascript games implemented in one html.
 * [Apt 和 Dpkg 快速参考](linux/apt-dpkg-reference.html)
 * [Debian 系统配置工具](linux/debian-system-config.html)
 
+## Network
+
+* [计算机网络基本概念](network/introduction.html)
+
 ## Paper Reading
 
 * [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
