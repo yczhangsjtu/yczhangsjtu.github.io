@@ -21,6 +21,7 @@ title: Blog of ShiningStars
 ## C++
 * [Boost处理时间](cpp/boost_time.html)
 * [C++虚函数的实现](cpp/cpp-virtual-implement.html)
+* [C++11 tuple类型](cpp/cpp-tuple.html)
 
 ## Code
 
