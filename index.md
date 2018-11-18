@@ -94,6 +94,7 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 * [Jubjub](blockchain/jubjub.html)
 * [Zerocash简要介绍](blockchain/zerocash.html)
 * [Hawk: The Blockchain Model of Cryptography and Privacy-Presevering Smart Contracts](essay/hawk.html)
+* [Pow模型](blockchain/pow_model.html)
 
 ## Theoretic
 
