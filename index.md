@@ -100,6 +100,7 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 * [Numerical Distribution Generation](math/numeric_distribution_generation.html)
 * [Simple Verifiable Execution](essay/simple_verifyable_execution.txt)
+* [DGS算法文献调查](math/dgs_survey.html)
 
 ## System
 
