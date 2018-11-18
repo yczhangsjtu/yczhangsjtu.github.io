@@ -63,6 +63,7 @@ For more of my projects visit my [github](https://github.com/yczhangsjtu).
 * [Number Theoretic Transform](crypto/ntt.html)
 * [SRI-CSL-Bliss代码使用样例](crypto/sri_csl_bliss_example.html)
 * [BLISS算法](crypto/bliss.html)
+* [Hybrid Argument](crypto/hybrid_argument.html)
 
 ## Front-end
 
