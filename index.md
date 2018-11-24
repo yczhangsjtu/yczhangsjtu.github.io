@@ -82,6 +82,7 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 * [Hybrid Argument](crypto/hybrid_argument.html)
 * [Cado NFS](code_reading/cado_nfs.html)
 * [Schnorr Signature](crypto/schnorr_signature.html)
+* [姚氏百万富翁问题](crypto/millionair.html)
 
 ### Hacking
 
