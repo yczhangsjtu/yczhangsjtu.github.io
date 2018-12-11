@@ -123,4 +123,11 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 ## Other
 
+### Resources
+
 * [Some Useful Links](resources/links.html)
+
+### Learning Methods
+
+* [学习的科学](learning/learning_science.html)
+
