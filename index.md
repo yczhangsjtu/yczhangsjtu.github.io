@@ -118,6 +118,7 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 * [Bash脚本基础](linux/bash_basic.html)
 * [Linux权限管理](linux/linux_permission.html)
 * [Linux环境变量](linux/linux_env_var.html)
+* [Linux进程命令](linux/linux_process_cmd.html)
 * [Linux Tips](linux/tips.html)
 * [Ubuntu Source Mirror in SJTU](linux/ubuntu_source_mirror.html)
 * [Linux Boot Configuration](linux/linux_boot_config.html)
