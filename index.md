@@ -12,6 +12,7 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 * [Boost处理时间](cpp/boost_time.html)
 * [C++虚函数的实现](cpp/cpp-virtual-implement.html)
 * [C++11 tuple类型](cpp/cpp-tuple.html)
+* [C++面向对象程序设计基本概念](cpp/cpp_oop.html)
 * [Resuing Classes in Java](java/java_reusing_classes.html)
 * [Java Inner Classes](java/java_inner_class.html)
 * [Exception Handling in Java](java/java_exception.html)
