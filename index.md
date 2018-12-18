@@ -72,6 +72,10 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 * [NPM](javascript/npm.html)
 * [Promise](javascript/promise.html)
 
+## Machine Learning
+
+* [机器学习笔记（一）](math/machine_learning_1.html)
+
 ## Security
 
 ### Cryptography
