@@ -1,8 +1,8 @@
 ---
-title: Windows Reverse TCP
+title: Kali Linux: Reverse TCP (Windows)
 ---
 
-# Windows Reverse TCP
+# Kali Linux: Reverse TCP (Windows)
 
 目标系统：Windows 7 专业版，Service Pack 1，64位。
 

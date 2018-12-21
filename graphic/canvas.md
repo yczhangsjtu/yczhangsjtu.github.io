@@ -1,8 +1,8 @@
 ---
-title: Canvas
+title: JavaScript中的Canvas
 ---
 
-# Canvas
+# JavaScript中的Canvas
 
 这里主要以Javascript的Canvas为例进行讲解。
 

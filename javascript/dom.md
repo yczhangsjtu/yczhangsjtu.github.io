@@ -1,8 +1,8 @@
 ---
-title: DOM
+title: Basic Manipulation of DOM
 ---
 
-# DOM
+# Basic Manipulation of DOM
 
 DOM wasn't designed just for just javascript. It tries to define a language-neutral interface that can be used in other systems as well.
 

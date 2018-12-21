@@ -1,8 +1,8 @@
 ---
-title: Linux Reverse TCP
+title: Kali Linux: Reverse TCP (Linux)
 ---
 
-# Linux Reverse TCP
+# Kali Linux: Reverse TCP (Linux)
 
 An example to hack a 64-bit debian system using `msfvenom` on Kali Linux.
 
