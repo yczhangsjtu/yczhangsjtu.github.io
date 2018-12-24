@@ -1,5 +1,5 @@
 ---
-title: Kali Linux: Reverse TCP (Linux)
+title: Kali Linux - Reverse TCP (Linux)
 ---
 
 # Kali Linux: Reverse TCP (Linux)

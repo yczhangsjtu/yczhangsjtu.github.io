@@ -13,3 +13,5 @@ title: Front-end
 [Nodejs Web Framework: Express](/javascript/express.html)
 
 [Promise](/javascript/promise.html)
+
+[微信小程序入门](/front-end/wechat-program-intro.html)
