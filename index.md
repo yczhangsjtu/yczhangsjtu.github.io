@@ -6,6 +6,8 @@ title: Shining Stars
 
 Welcome to my [Github](https://github.com/yczhangsjtu).
 
+[Algorithms](table_of_contents/algorithms.html)
+
 [Programming](table_of_contents/programming.html)
 
 [Games](table_of_contents/games.html)
