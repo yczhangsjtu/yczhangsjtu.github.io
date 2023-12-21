@@ -12,15 +12,24 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 
 ## Publications
 
-- Polynomial IOPs for linear algebra relations
-    - Alan Szepieniec, **Yuncong Zhang**
-    - PKC 2022.
-- VOProof: Efficient zkSNARKs from Vector Oracle Compilers
-    - **Yuncong Zhang**, Alan Szepieniec, Ren Zhang, Shi-Feng Sun, Geng Wang, Dawu Gu
-    - ACM CCS, 2022.
 - Polynomial IOPs for Memory Consistency Checks in Zero-Knowledge Virtual Machines
     - **Yuncong Zhang**, Shi-Feng Sun, Ren Zhang, Dawu Gu
     - Asiacrypt, 2023.
+- VOProof: Efficient zkSNARKs from Vector Oracle Compilers
+    - **Yuncong Zhang**, Alan Szepieniec, Ren Zhang, Shi-Feng Sun, Geng Wang, Dawu Gu
+    - ACM CCS, 2022.
+- Polynomial IOPs for linear algebra relations
+    - Alan Szepieniec, **Yuncong Zhang**
+    - PKC 2022.
+- PBT: A New Privacy-Preserving Payment Protocol for Blockchain Transactions
+    - Yanxue Jia, Shi-Feng Sun, **Yuncong Zhang**, Qingzhao Zhang, Ning Ding, Zhiqiang Liu, Joseph K Liu, Dawu Gu
+    - TDSC, 2020
+- Goshawk: a novel efficient, robust and flexible blockchain protocol
+    - Cencen Wan, Shuyang Tang, **Yuncong Zhang**, Chen Pan, Zhiqiang Liu, Yu Long, Zhen Liu, Yu Yu
+    - Inscrypt, 2018
+- Z-channel: Scalable and efficient scheme in zerocash
+    - Yuncong Zhang, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
+    - ACISP, 2018
 
 ## My Blogs
 
