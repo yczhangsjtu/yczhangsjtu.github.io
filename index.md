@@ -4,6 +4,8 @@ title: Yuncong Zhang's Homepage
 
 # Yuncong Zhang's Homepage
 
+I am Currently a Ph.D. student at SJTU in China. My reseach focuses on zkSNARKs, ZKVMs, all sorts of succinct arguments, and cryptographic tools in Blockchains, and so on.
+
 ## Experience
 
 I studied math in Zhiyuan College in Shanghai Jiao Tong University (SJTU), and got my Bachelor's degree in Applied Mathematics from SJTU in 2016.

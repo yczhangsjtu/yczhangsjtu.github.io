@@ -103,9 +103,11 @@ To translate the IVC relation $\mathcal{R}$ into a NPC language that supports fo
 Now we introduce the idea of CycleFold, which is the most up-to-date solution to this issue. Intuitively, the idea of CycleFold is simple: if a computation is over $\mathbb{F}_p$, then verifying the folding of this computation would be over $\mathbb{F}_q$, and vice versa; therefore, folding provides an effective way to _flip_ the arithmetic field of the computation. In another word, **whenever we have non-native field operations, don't verify these operations, but instead replace it with its folding verification**.
 
 We extract the $\mathbb{F}_q$ operations, or equivalently, $G_1$ operations in $\mathsf{FoldVerify}$ out as a standalone function. In detail, let $\mathsf{FoldVerify}$ additionally take some inputs that serve as advices, i.e., directly tell $\mathsf{FoldVerify}$ the output of the $G_1$ operations. Formally, let $\mathsf{FoldVerify'}$ and $\mathsf{EC}$ be two functions such that
+
 $$
 \mathsf{FoldVerify}(x)=1\Leftrightarrow\exists\mathsf{input},\mathsf{output}, \text{s.t. }\mathsf{FoldVerify}'(x,\mathsf{input},\mathsf{output})=1,\mathsf{EC}(\mathsf{input})=\mathsf{output}
 $$
+
 We then modify the previous NP relation to add $\mathsf{output}$ into the witness, and replace $\mathsf{FoldVerify}$ accordingly. Everything is equivalent to before, except that the group operations are singled out in $\mathsf{EC}$.
 
 Next, instead of directly checking $\mathsf{EC}(\mathsf{input})=\mathsf{output}$ in the verification circuit, we replace it by its folding verification. In detail, we initialize another accumulator $U_{\mathsf{EC}}^{(0)}$ at the beginning of the IVC. The NP relation for $U_{\mathsf{EC}}$ is simpler than the one for IVC. It's just pure execution of $\mathsf{EC}$.
