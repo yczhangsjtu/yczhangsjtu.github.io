@@ -26,11 +26,11 @@ It seems that the only way to convince Alice is that Bob sends the polynomials $
 
 So Bob takes out two magical boxes, and put $a(X)$ and $b(X)$ in each of them respectively.
 
-![PLONK-AB](assets/PLONK-AB-3991947.png)
+![PLONK-AB](/assets/PLONK-AB-3991947.png)
 
 Bob gives these two magical boxes to Alice. Alice picks a random number $z$, and asks the box that contains $a(X)$, what is the value of $a(z)$? Then asks the box that contains $b(X)$, what is the value of $b(z)$? After getting the answers, Alice computes $a(z)\cdot b(z)$ and compares the result with $f(z)$, which Alice is able to evaluate by herself. Since for two different polynomials, it is very unlikely that they evaluate to the same value at a random number, Alice is convinced that $a(X)\cdot b(X)$ is indeed $f(X)$.
 
-![PLONK-Check](assets/PLONK-Check.png)
+![PLONK-Check](/assets/PLONK-Check.png)
 
 You may already have figured out that the two magical boxes in the above scenario are just the polynomial oracles.
 
@@ -55,7 +55,7 @@ Formally, a polynomial commitment scheme consists of the following algorithms an
 
 The left side of the following graph illustrates what is acutally going on when Bob sends a polynomial oracle to Alice.
 
-![PLONK-PC](assets/PLONK-PC-3992132.png)
+![PLONK-PC](/assets/PLONK-PC-3992132.png)
 
 Although it is the polynomial commitment sheme that is working under the hood, the abstraction of polynomial oracle is a convenient abstraction. This ideal world abstraction is called the **Polynomial Oracle Model**. In this model, we can directly say things like:
 
@@ -84,7 +84,7 @@ A natural idea is directly using the polynomial coefficients to represent the ve
 
 PLONK takes another encoding method, which we will focus in this article. Suppose we want to encode the vector $\vec{v}=(v_0,\cdots,v_{N-1})$ of length $N$ into a polynomial. First, select a domain $H=(z_0,\cdots,z_{N-1})$ of size $N$ and interpolate $v$ on this domain to get a polynomial $f(X)$ such that $f(z_i)=v_i$ for every $z_i\in H$. This polynomial interpolation method is also called the **Lagrange base** encoding, because the resulting polynomial is the inner product of $\vec{v}$ and the Lagrange base polynomials $(L_0(X),L_1(X),\cdots,L_{N-1}(X))$ where each $L_i(X)$ satisfies $L_i(z_i)=1$ for any $i$ and $L_i(z_j)=0$ for any $j\neq i$.
 
-![PLONK-Vector-Encoding](assets/PLONK-Vector-Encoding-3996953.png)
+![PLONK-Vector-Encoding](/assets/PLONK-Vector-Encoding-3996953.png)
 
 In conclusion, polynomial oracles allow Bob to "send" to Alice a vector encoded by a polynomial. Note that the "send" is quoted because Alice will not actually receive the complete information, but only query for small pieces of data related to them. As demonstrated in the next sections, these "small pieces of data" can be very useful. They allow Alice to check a wide range of properties of the encoded vector.
 
@@ -113,7 +113,7 @@ Again, Alice needs the help of Bob who knows the complete values of $\vec{u}$ an
 1. $r_0=1$
 2. For $i$ from $1$ to $N$, $r_i=r_{i-1}\cdot u_{i-1}/v_{i-1}$, where $r_N$ is an alias of $r_0$ for convenience.
 
-![PLONK-Accumulator](assets/PLONK-Accumulator-4261696.png)
+![PLONK-Accumulator](/assets/PLONK-Accumulator-4261696.png)
 
 Note that such $\vec{r}$ exists if and only if the equality $\prod_{i=0}^{N-1}u_i\stackrel{?}{=}\prod_{i=0}^{N-1}v_i$ is correct.
 
@@ -141,7 +141,7 @@ Now the problem reduces to the vector equality problem described previously. Ali
 
 > Note that if the polynomial is over the field of real numbers or rational numbers, $H$ would never have this property. However, in zkSNARKs we usually deal with finite fields, in which we can find such cyclic subgroups.
 
-![PLONK-Vector-Product](assets/PLONK-Vector-Product.png)
+![PLONK-Vector-Product](/assets/PLONK-Vector-Product.png)
 
 ### Polynomial Permutations
 
@@ -149,7 +149,7 @@ Now, Alice has two polynomial oracles, $a(X)$ and $b(X)$, encoding $\vec{a}$ and
 
 Thie following figure shows a simple example where both polynomials encode a permutation of $(1,1,2,3,5,6)$.
 
-![PLONK-Poly-Permutation](assets/PLONK-Poly-Permutation-4041460.png)
+![PLONK-Poly-Permutation](/assets/PLONK-Poly-Permutation-4041460.png)
 
 By the protocol in the last section, Alice is able to verify $\prod_{i=0}^{N-1} a_i=\prod_{i=0}^{N-1} b_i$. How can she exploit this capability?
 
@@ -165,7 +165,7 @@ $$
 $$
 Therefore, Alice may sample a random $\gamma$ and sends it to Bob. After that, Alice treats the polynomial oracles $a(X)$ and $b(X)$ as if they were $a(X)+\gamma$ and $b(X)+\gamma$ respectively, by adding $\gamma$ to the whatever the polynomial oracles reply. They then apply the checking product protocol to $a(X)+\gamma$ and $b(X)+\gamma$ instead.
 
-![PLONK-Permutation-Pair](assets/PLONK-Permutation-Pair.png)
+![PLONK-Permutation-Pair](/assets/PLONK-Permutation-Pair.png)
 
 Now Alice is able to check two vectors $\vec{a}$ and $\vec{b}$ are permutations of each other, whatever the permutation is. However, what if Alice wants to make sure that $\vec{b}=\sigma(\vec{a})$ for a particular permutation $\sigma$? We call such $\vec{a},\vec{b}$ a $\sigma$-pair, which is a stronger concept that "permutation pair". How does Alice check that?
 
@@ -175,7 +175,7 @@ What does that even mean? This $\sigma$ is a permutation, not a vector.
 
 However, we can encode the information of $\sigma$ into a vector. We just need to apply $\sigma$ to a standard vector, say $\vec{t}=(0,1,2,\cdots,N-1)$, and encodes both $\vec{t}$ and $\vec{s}=\sigma(\vec{t})$ into polynomial oracles $t(X),s(X)$. Now this pairs of polynomial oracles encodes the complete information of $\sigma$.
 
-![PLONK-Encode-Permutation](assets/PLONK-Encode-Permutation.png)
+![PLONK-Encode-Permutation](/assets/PLONK-Encode-Permutation.png)
 
 How does Alice obtain the polynomial oracle for $t(X),s(X)$ in the first place? It shouldn't be from Bob, because it's very easy for Bob to cheat by giving Alice a completely different permutation $\sigma'$. Therefore, Alice must obtain $t(X),s(X)$ from somewhere that she trusts. We will later see that in PLONK, this $\sigma$ is determined by the circuit, so $t(X)$ and $s(X)$ can be preprocessed by an (untrusted) third party and put in a public website so that everyone with enough computation power can check them. We call them preprocessed public polynomials.
 
@@ -193,7 +193,7 @@ $$
 $$
 To summarize, Alice samples a random $\beta$, and sends $\beta$ to Bob. Then they apply the previous protocol to check that $(\vec{a}+\beta\vec{t},\vec{b}+\beta\vec{s})$ is a permutation pair.
 
-![PLONK-Sigma-Pair](assets/PLONK-Sigma-Pair-4299268.png)
+![PLONK-Sigma-Pair](/assets/PLONK-Sigma-Pair-4299268.png)
 
 ### Identical Elements
 
@@ -207,15 +207,15 @@ How is this related to permutations?
 
 If we draw an arrow from each $i$ to $\sigma(i)$, a permutation can be visualized as follows.
 
-![cb9f641a3790874ea612500a8f48ca86.png](assets/fbca5f5468094f71a2b6197c72341dac.png)
+![cb9f641a3790874ea612500a8f48ca86.png](/assets/fbca5f5468094f71a2b6197c72341dac.png)
 
 Starting from any number, say $i$, and follow the arrows, we will eventually go back to $i$, and obtain a cycle. All the cycles form a partition over $\{0,1,2,\cdots,N-1\}$. We call this the "Cycle Partition" of $\sigma$. On the other hand, for any partition $\pi$, it is easy to find at least one permutation $\sigma$ whose cycle partition is exactly $\pi$.
 
-![5e55073ba4aa4f5d20f7cde9a77cfb62.png](assets/d514b4bc1f9746558d3c4265e2a6f047.png)
+![5e55073ba4aa4f5d20f7cde9a77cfb62.png](/assets/d514b4bc1f9746558d3c4265e2a6f047.png)
 
 Note that if $\vec{v}$ is a "nice vector" under the cycle partition of $\sigma$ if and only if $\sigma(\vec{v})=\vec{v}$, as demonstrated in the following figure. Note that the color of the elements in the same partition is identical, and when we apply the above permutation to this vector, the colors stay the same.
 
-![PLONK-Static](assets/PLONK-Static.png)
+![PLONK-Static](/assets/PLONK-Static.png)
 
 Alice is able to check $\sigma(\vec{v})=\vec{v}$ using the protocol described in the last section, as long as Alice has access to polynomial oracles $t(X)$ and $s(X)$ that encodes the permutation $\sigma$. The only difference is that now $\vec{a}$ and $\vec{b}$ are the same vector $\vec{v}$, which does not make much difference.
 
@@ -225,7 +225,7 @@ Having introduced the tools, now we briefly recall the problem that PLONK and ot
 
 PLONK deals with computations represented by arithmetic circuits. An arithmetic circuit consists of *addition gates*, *multiplication gates*, and *constant gates*. An example is as follows
 
-![08ac8d7b30a8c9bb930bcc1da6034d9d.png](assets/b62de97be73c491eb6f33dea421330ec.png)
+![08ac8d7b30a8c9bb930bcc1da6034d9d.png](/assets/b62de97be73c491eb6f33dea421330ec.png)
 
 For the input wires $x_1,\cdots,x_n$ and output wires $y_1,\cdots,y_m$, we say $x_i$ or $y_j$ is public input/output if its value can be publicly known.
 
@@ -235,7 +235,7 @@ Given the values of the public inputs and outputs, the goal of PLONK, as well as
 
 To formulate the above statement as a math problem, let's assign three variables to each gate. Let each gate have an index. Then we assign $a_i$ to the left input of gate $i$, $b_i$ to the right input, and $c_i$ to the output of this gate, as illustrated in the following picture.
 
-![a05d9511e3bcdc0107240b572b1295bd.png](assets/acc4bbe7095a456e81e5ce1a68001478.png)
+![a05d9511e3bcdc0107240b572b1295bd.png](/assets/acc4bbe7095a456e81e5ce1a68001478.png)
 
 Intuitively, an assignment to these variables represents a consistent computation if and only if the following conditions are satisfied:
 
@@ -282,7 +282,7 @@ Recall that Alice only needs to check that the left-hand-side polynomial is divi
 
 For the second condition, let's add some special gates to the circuit, illustrated as follows.
 
-![65ed4af8ba9baa6709d210ddd6beaac8.png](assets/140e7190bb464e768a10653b09d0820c.png)
+![65ed4af8ba9baa6709d210ddd6beaac8.png](/assets/140e7190bb464e768a10653b09d0820c.png)
 
 For the gate corresponding to public input $x_k$, the description is $(0,0,1,0,-x_k)$. For the gate corresponding to public output $y_k$, the description is $(1,0,0,0,-y_k)$.
 
@@ -294,7 +294,7 @@ To resolve this issue, we divide $C(X)$ into two parts: the first part is still 
 
 Finally, let's deal with the last condition, variables connected by wires should be identical. This constraint depends only on the circuit structure.
 
-![PLONK-Wires](assets/PLONK-Wires.png)
+![PLONK-Wires](/assets/PLONK-Wires.png)
 
 To deal with the copy condition, recall that we described a protocol about how to check specific elements in a vector $\vec{v}$ are identical. The situation here is more complex: we need to check identical elements across three vectors $\vec{a}$, $\vec{b}$ and $\vec{c}$ instead of one. However, the idea is the same.
 
