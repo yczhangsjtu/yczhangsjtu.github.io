@@ -1,5 +1,6 @@
 ---
 title: Introduction to Groth16
+layout: math
 ---
 
 # Groth16

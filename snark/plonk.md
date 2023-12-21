@@ -1,5 +1,6 @@
 ---
 title: Introduction to PLONK
+layout: math
 ---
 
 # Introduction to PLONK

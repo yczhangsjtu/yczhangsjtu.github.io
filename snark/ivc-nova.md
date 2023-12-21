@@ -1,5 +1,6 @@
 ---
 title: IVC and the Nova Folding Scheme
+layout: math
 ---
 
 # IVC and the Nova Folding Scheme
