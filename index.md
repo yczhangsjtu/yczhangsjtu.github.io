@@ -17,12 +17,15 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 - Polynomial IOPs for Memory Consistency Checks in Zero-Knowledge Virtual Machines
     - **Yuncong Zhang**, Shi-Feng Sun, Ren Zhang, Dawu Gu
     - Asiacrypt, 2023.
+    - [IACR Archive](https://eprint.iacr.org/2023/1555)
 - VOProof: Efficient zkSNARKs from Vector Oracle Compilers
     - **Yuncong Zhang**, Alan Szepieniec, Ren Zhang, Shi-Feng Sun, Geng Wang, Dawu Gu
     - ACM CCS, 2022.
+    - [IACR Archive](https://eprint.iacr.org/2021/710)
 - Polynomial IOPs for linear algebra relations
     - Alan Szepieniec, **Yuncong Zhang**
     - PKC 2022.
+    - [IACR Archive](https://eprint.iacr.org/2020/1022)
 - PBT: A New Privacy-Preserving Payment Protocol for Blockchain Transactions
     - Yanxue Jia, Shi-Feng Sun, **Yuncong Zhang**, Qingzhao Zhang, Ning Ding, Zhiqiang Liu, Joseph K Liu, Dawu Gu
     - TDSC, 2020
@@ -32,6 +35,7 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 - Z-channel: Scalable and efficient scheme in zerocash
     - **Yuncong Zhang**, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
     - ACISP, 2018
+    - [IACR Archive](https://eprint.iacr.org/2017/684)
 
 ## My Blogs
 
