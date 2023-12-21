@@ -14,7 +14,7 @@ In short, a zkSNARK solves the following problem of "computation verification".
 
 Every computation can be represented by an arithmetic circuit. An arithmetic circuit consists of addition, multiplication gates, and possibly constant gates, like the following example
 
-![Groth16-Circuit.png](assets/Groth16-Circuit.png)
+![Groth16-Circuit.png](/assets/Groth16-Circuit.png)
 
 The above example of arithmetic circuit consists of 15 gates. This circuit represents a computation that takes as input five numbers $x_1$ to $x_5$, and outputs four numbers.
 
@@ -22,15 +22,15 @@ An arithmetic computes on numbers instead of 0s and 1s in a boolean circuit.
 
 Given a set of inputs, one must compute the output of every gate, to finally obtain the output of the entire circuit. In this example, given inputs $(1,2,3,4,5)$, the output $(-27, 14, 80, 171)$ is obtained after computing all the gates in the entire circuit, as is shown in the following picture.
 
-![Groth16-Assignment.png](assets/Groth16-Assignment.png)
+![Groth16-Assignment.png](/assets/Groth16-Assignment.png)
 
 On the other hand, if a verifier is given both the input and output of a computation, how can the verifier make sure that the output is indeed the result of a correct computation? In this example, the task of the verifier is "verify that on input $(1,2,3,4,5)$, the output of this circuit is indeed $(-27,14,80,171)$". A simple and naive way is to recompute the output, i.e. compute the outputs of all the internal gates. This way of verification is **inefficient**.
 
-![Groth16-Verification.png](assets/Groth16-Verification.png)
+![Groth16-Verification.png](/assets/Groth16-Verification.png)
 
 The efficiency is not the only problem. Sometimes the input may contain some **secret data**, which the verifier is not expected to learn. In this example, the $(3,4,5)$ part of the input is secret. The verifier only learns the $(1,2)$, and the task becomes "verify that it is possible for the circuit to output $(-27,14,80,171)$ when the first two inputs are $(1,2)$". In this case, even the naive recomputing doesn't work. So, how can the verifier validate the computation result?
 
-![Groth16-ZK.png](assets/Groth16-ZK.png)
+![Groth16-ZK.png](/assets/Groth16-ZK.png)
 
 ## From Circuit to R1CS
 
@@ -46,7 +46,7 @@ From this new point of view, the computation verification problem is transformed
 
 Next, let's give this "fill in the blank" problem a more mathematical formulation. We view each blank as a variable and give it a name, as illustrated as follows
 
-![Groth16-Variables.png](assets/Groth16-Variables.png)
+![Groth16-Variables.png](/assets/Groth16-Variables.png)
 
 We name the variables whose values are already known by $x_i$'s and the blanks that we need to fill in by $w_i$'s. Now the above "fill in the blank" problem is equivalent to the following system of equations
 
@@ -90,7 +90,7 @@ With all the above efforts, we transform the original circuit into this math equ
 
 To summarize, in this section we transformed the computation verification problem into a R1CS problem. In the computation verification problem, the verifier is given the circuit outputs, and part of the inputs, and tries to verify the output is valid. In the R1CS problem, the verifier is given a prefix of the vector $\vec{z}$, and decides if there exists an assignment to the rest of the vector so that $\vec{z}$ forms a solution to the equation $A\vec{z}\circ B\vec{z}=C\vec{z}$.
 
-![ZKP-R1CS-NP.png](assets/ZKP-R1CS-NP.png)
+![ZKP-R1CS-NP.png](/assets/ZKP-R1CS-NP.png)
 
 ## From R1CS to QAP
 
@@ -100,7 +100,7 @@ Here we introduce how to transform a R1CS problem into an equivalent QAP problem
 
 First, notice that the matrix-vector multiplication can be viewed as a linear combination of the column vectors of the matrix by the vector. From this point of view, the R1CS problem can be viewed as deciding the existence of a set of linear combination coefficients, such that the linear combination of column vectors of $A$, times the linear combination of column vectors of $B$, equals that of $C$.
 
-![Groth16-R1CS.png](assets/Groth16-R1CS.png)
+![Groth16-R1CS.png](/assets/Groth16-R1CS.png)
 
 Next, we replace these column vectors by polynomials, such that the resulting polynomial equation is equivalent to the original equation. The polynomials are obtained by interpolating the column vectors.
 
@@ -112,11 +112,11 @@ Given a domain $\{r_1,\cdots,r_d\}$, the vector $\vec{v}$ can be interpolated in
 
 It's easy to see that polynomial interpolation is linear, i.e. if $v(X)$ and $w(X)$ are interpolations of $\vec{v}$ and $\vec{w}$ respectively, then $x\cdot v(X)+y\cdot w(X)$ is the interpolation of $x\cdot\vec{v}+y\cdot\vec{w}$.
 
-![678d298fde0abcc46897d0d81fa0efc0.png](assets/678d298fde0abcc46897d0d81fa0efc0.png)
+![678d298fde0abcc46897d0d81fa0efc0.png](/assets/678d298fde0abcc46897d0d81fa0efc0.png)
 
 Now we learned about the polynomial interpolation, we replace all the column vectors in R1CS matrices by the polynomial interpolations.
 
-![Groth16-QAP.png](assets/Groth16-QAP.png)
+![Groth16-QAP.png](/assets/Groth16-QAP.png)
 
 By the linearity of polynomial interpolation, we see that the interpolation of $A\vec{z}$ is exactly the combination of the interpolation of the column vectors by $\vec{z}$. So are the interpolations of $B\vec{z}$ and $C\vec{z}$. For simplicity, denote the interpolations of these three polynomials by $a(X),b(X)$ and $c(X)$.
 
