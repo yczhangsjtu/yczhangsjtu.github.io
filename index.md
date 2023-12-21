@@ -37,23 +37,60 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 
 Welcome to my [Github](https://github.com/yczhangsjtu).
 
-[SNARK](table_of_contents/snark.html)
+### FRI
 
-[Algorithms](table_of_contents/algorithms.html)
+[FFT with Mersenne Field](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Sk4vIKQ9h)
 
-[Programming](table_of_contents/programming.html)
+[Notes on Reed-Solomon codes over the circle group](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/H1pnFBeu3)
 
-[Games](table_of_contents/games.html)
+[Number Theoretic Transform](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/SJz7pJTon)
 
-[Graphics](table_of_contents/graphics.html)
+[Benchmark FRI](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BJfuU56A3)
 
-[Front-end](table_of_contents/front-end.html)
+### ZKVM
 
-[Machine Learning](table_of_contents/machine-learning.html)
+[Estimated Column Numbers of ZKVMs](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BykJ2N0Yn)
 
-[Cryptography and Security](table_of_contents/cryptography-and-security.html)
+### Brakedown and Orion
 
-[Linux](table_of_contents/linux.html)
+[Estimate Brakedown Query Complexity](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/SyQUF4ci3)
 
-[Learning Methods](table_of_contents/learning-methods.html)
+[Study Notes on Orion](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1ZjX-533)
 
+[Benchmark MSM and Compare with Brakedown and FRI](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BkyXUjTpn)
+
+[A Simple Analysis of the MSM Efficiency](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1CrI9rA3)
+
+[Prover Cost Analysis of Brakedown and Orion](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/ByNX6sTpn)
+
+[Benchmarking FFT and Brakedown with Goldilocks, Baby Bear, Mersenne](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Bk4YWAFo3)
+
+[Benchmark Brakedown](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BJXiG0L1p)
+
+### IVC, Folding Schemes and Nova
+
+[IVC and the Nova Folding Scheme](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HJxJEVGhh)
+
+### GKR
+
+[Study Notes on GKR](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/ryzBl2npn)
+
+[Study Notes on Paper: Recursion over Public-Coin Interactive Proof Systems; Faster Hash Verification](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HJO2ABvR3)
+
+[Improve GKR by Power Circuits](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BkYUCeZQ6)
+
+### Polynomial Commitments
+
+[Introduction to Zeromorph](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/B1oRND8-T)
+
+[Survey on Multivariate PCS](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/H18vKiPfT)
+
+[Introduction to BaseFold](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/B1H_6Iqma)
+
+[MPCS with Uniform Verifier and Batched Opening](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/rJ_lCK4rp)
+
+### Lookup Arguments
+
+[Study Notes on Lasso](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HkEvhcuC3)
+
+[Benchmark Lasso and mvlookup](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HyPbE_Y16)
