@@ -30,7 +30,7 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
     - Cencen Wan, Shuyang Tang, **Yuncong Zhang**, Chen Pan, Zhiqiang Liu, Yu Long, Zhen Liu, Yu Yu
     - Inscrypt, 2018
 - Z-channel: Scalable and efficient scheme in zerocash
-    - Yuncong Zhang, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
+    - **Yuncong Zhang**, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
     - ACISP, 2018
 
 ## My Blogs
