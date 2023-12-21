@@ -37,6 +37,10 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 
 Welcome to my [Github](https://github.com/yczhangsjtu).
 
+### SNARK
+
+[Introduction to Groth16](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/H1_VTCWvT)
+
 ### FRI
 
 [FFT with Mersenne Field](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Sk4vIKQ9h)
