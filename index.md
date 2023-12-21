@@ -35,6 +35,8 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 
 Welcome to my [Github](https://github.com/yczhangsjtu).
 
+[SNARK](table_of_contents/snark.html)
+
 [Algorithms](table_of_contents/algorithms.html)
 
 [Programming](table_of_contents/programming.html)
