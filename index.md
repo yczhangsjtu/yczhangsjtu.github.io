@@ -1,8 +1,8 @@
 ---
-title: Shining Stars
+title: Yuncong Zhang's Homepage
 ---
 
-# Shining Stars
+# Yuncong Zhang's Homepage
 
 Welcome to my [Github](https://github.com/yczhangsjtu).
 

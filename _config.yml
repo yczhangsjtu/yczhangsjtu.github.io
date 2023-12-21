@@ -9,8 +9,8 @@ posts:
 output:   true
 
 # Social
-title: Shining Stars
-description: Collection of study notes of Yuncong.
+title: Yuncong's Homepage
+description: I am Currently a Ph.D. student at SJTU. My reseach focuses on zkSNARKs, ZKVMs, all sorts of succinct arguments, and cryptographic tools in Blockchains, and so on.
 github: yczhangsjtu
 
 # Handling Reading
