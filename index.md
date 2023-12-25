@@ -81,6 +81,8 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 [IVC and the Nova Folding Scheme](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HJxJEVGhh)
 
+[Introduction to the Folding Scheme Series from Nova to ProtoGalaxy](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/SJhY-6Uw6)
+
 ### GKR
 
 [Study Notes on GKR](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/ryzBl2npn)
