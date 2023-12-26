@@ -36,6 +36,9 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
     - **Yuncong Zhang**, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
     - ACISP, 2018
     - [IACR Archive](https://eprint.iacr.org/2017/684)
+- Efficient KZG-based Univariate Sum-check and Lookup Argument
+    - **Yuncong Zhang**, Shi-Feng Sun, Dawu Gu
+    - PKC, 2024
 
 ## My Blogs
 
