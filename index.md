@@ -14,6 +14,10 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
 
 ## Publications
 
+- Efficient KZG-based Univariate Sum-check and Lookup Argument
+    - **Yuncong Zhang**, Shi-Feng Sun, Dawu Gu
+    - PKC, 2024
+    - [IACR Archive](https://eprint.iacr.org/2024/618)
 - Polynomial IOPs for Memory Consistency Checks in Zero-Knowledge Virtual Machines
     - **Yuncong Zhang**, Shi-Feng Sun, Ren Zhang, Dawu Gu
     - Asiacrypt, 2023.
@@ -36,9 +40,6 @@ I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, a
     - **Yuncong Zhang**, Yu Long, Zhen Liu, Zhiqiang Liu, Dawu Gu
     - ACISP, 2018
     - [IACR Archive](https://eprint.iacr.org/2017/684)
-- Efficient KZG-based Univariate Sum-check and Lookup Argument
-    - **Yuncong Zhang**, Shi-Feng Sun, Dawu Gu
-    - PKC, 2024
 
 ## My Blogs
 
@@ -51,6 +52,10 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 [Introduction to PLONK](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BJ-BhDMDp)
 
 ### FRI
+
+[Study Notes on FRI and its Security Proof (I)](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/H1MGiUM8R)
+
+[Introduction to Circle STARK (I)](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Hyer8JxSR)
 
 [FFT with Mersenne Field](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Sk4vIKQ9h)
 
@@ -71,8 +76,6 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 [Study Notes on Orion](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1ZjX-533)
 
 [Benchmark MSM and Compare with Brakedown and FRI](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BkyXUjTpn)
-
-[A Simple Analysis of the MSM Efficiency](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1CrI9rA3)
 
 [Prover Cost Analysis of Brakedown and Orion](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/ByNX6sTpn)
 
@@ -95,6 +98,8 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 [Improve GKR by Power Circuits](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BkYUCeZQ6)
 
 ### Polynomial Commitments
+
+[A Simple Analysis of the MSM Efficiency](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1CrI9rA3)
 
 [Introduction to Zeromorph](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/B1oRND8-T)
 
