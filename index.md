@@ -10,7 +10,7 @@ I am Currently a Ph.D. student at SJTU in China. My reseach focuses on zkSNARKs,
 
 I studied math in Zhiyuan College in Shanghai Jiao Tong University (SJTU), and got my Bachelor's degree in Applied Mathematics from SJTU in 2016.
 I got my Master's degree in Computer Science from SJTU in 2019.
-I have been a Ph.D. student in Department of Cybersecurity in SJTU since 2020, and I'm expected to graduate in 2024.
+I got my Ph.D. in Cybersecurity from SJTU in 2024.
 
 ## Publications
 
