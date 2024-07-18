@@ -89,13 +89,19 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 [Introduction to the Folding Scheme Series from Nova to ProtoGalaxy](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/SJhY-6Uw6)
 
-### GKR
+### Sum-check, GKR and Multivariate SNARKs
 
 [Study Notes on GKR](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/ryzBl2npn)
 
 [Study Notes on Paper: Recursion over Public-Coin Interactive Proof Systems; Faster Hash Verification](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HJO2ABvR3)
 
 [Improve GKR by Power Circuits](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/BkYUCeZQ6)
+
+[Introduction to Stream-based SNARKs (I)](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/Hk8b2E0w0)
+
+[Introduction to Stream-based SNARKs (II)](https://hackmd.io/@yczhang/ByGZ3jQu0)
+
+[The Constraint-Packing Technique](https://hackmd.io/@yczhang/Hy5y3N8OC)
 
 ### Polynomial Commitments
 
