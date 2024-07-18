@@ -115,6 +115,8 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 [MPCS with Uniform Verifier and Batched Opening](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/rJ_lCK4rp)
 
+[Introduction to Binius](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/H1dj8M5vC)
+
 ### Lookup Arguments
 
 [Study Notes on Lasso](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/HkEvhcuC3)
