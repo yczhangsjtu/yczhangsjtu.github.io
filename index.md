@@ -4,7 +4,7 @@ title: Yuncong Zhang's Homepage
 
 # Yuncong Zhang's Homepage
 
-I am Currently a Ph.D. student at SJTU in China. My reseach focuses on zkSNARKs, ZKVMs, all sorts of succinct arguments, and cryptographic tools in Blockchains, and so on.
+I am a ZK researcher and engineer in Scroll Foundation. My reseach focuses on zkSNARKs, ZKVMs, all sorts of succinct arguments, and cryptographic tools in Blockchains, and so on.
 
 ## Experience
 
@@ -14,6 +14,10 @@ I got my Ph.D. in Cybersecurity from SJTU in 2024.
 
 ## Publications
 
+- Ceno: Non-uniform, Segment and Parallel Zero-knowledge Virtual Machine
+    - Tianyi Liu, Zhenfei Zhang, **Yuncong Zhang**, Wenqing Hu, Ye Zhang
+    - Journal of Cryptology, 2024
+    - [IACR Archive](https://eprint.iacr.org/2024/387)
 - Efficient KZG-based Univariate Sum-check and Lookup Argument
     - **Yuncong Zhang**, Shi-Feng Sun, Dawu Gu
     - PKC, 2024
