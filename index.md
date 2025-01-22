@@ -111,6 +111,8 @@ Welcome to my [Github](https://github.com/yczhangsjtu).
 
 [Introduction to WHIR](./pdfs/whir.pdf)
 
+[**Batch WHIR for Polynomials with Different Sizes**](./pdfs/batched-whir.pdf)
+
 [A Simple Analysis of the MSM Efficiency](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/r1CrI9rA3)
 
 [Introduction to Zeromorph](https://hackmd.io/@al5VH2hqS4ia1WS7YKXuAA/B1oRND8-T)
