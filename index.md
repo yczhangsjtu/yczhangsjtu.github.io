@@ -2,8 +2,6 @@
 title: Yuncong Zhang's Homepage
 ---
 
-# Yuncong Zhang's Homepage
-
 I am an associate researcher from Shandong University, China. My reseach focuses on zkSNARKs, ZKVMs, all sorts of succinct arguments, and cryptographic tools in Blockchains, and so on.
 
 ## Experience
