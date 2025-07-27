@@ -14,6 +14,10 @@ I got my Ph.D. in Cybersecurity from SJTU in 2024.
 
 ## Publications
 
+- HyperFond: A Transparent and Post-Quantum Distributed SNARK with Polylogarithmic Communication
+    - Yuanzhuo Yu, Mengling Liu, **Yuncong Zhang**, Shi-Feng Sun, Tianyi Ma, Man Ho Au, Dawu Gu
+    - [IACR Archive](https://eprint.iacr.org/2025/1349)
+    
 - Ceno: Non-uniform, Segment and Parallel Zero-knowledge Virtual Machine
     - Tianyi Liu, Zhenfei Zhang, **Yuncong Zhang**, Wenqing Hu, Ye Zhang
     - Journal of Cryptology, 2024
